@@ -1,3 +1,4 @@
+#pragma once
 /*
 OneLoneCoder.com - Command Line Game Engine
 "Who needs a frame buffer?" - @Javidx9
@@ -10,13 +11,13 @@ One Lone Coder License
 - This is free software
 - This software comes with absolutely no warranty
 - The copyright holder is not liable or responsible for anything
-this software does or does not
+  this software does or does not
 - You use this software at your own risk
 - You can distribute this software
 - You can modify this software
 - Redistribution of this software or a derivative of this software
-must attribute the Copyright holder named above, in a manner
-visible to the end user
+  must attribute the Copyright holder named above, in a manner
+  visible to the end user
 
 License
 ~~~~~~~
@@ -26,12 +27,12 @@ This is free software, and you are welcome to redistribute it
 under certain conditions; See license for details.
 
 Original works located at:
-https://www.github.com/onelonecoder
-https://www.onelonecoder.com
-https://www.youtube.com/javidx9
+	https://www.github.com/onelonecoder
+	https://www.onelonecoder.com
+	https://www.youtube.com/javidx9
 
 GNU GPLv3
-https://github.com/OneLoneCoder/videos/blob/master/LICENSE
+	https://github.com/OneLoneCoder/videos/blob/master/LICENSE
 
 From Javidx9 :)
 ~~~~~~~~~~~~~~~
@@ -80,20 +81,20 @@ function with the good stuff, it gives you the elapsed time since the last call 
 can modify your stuff dynamically. Both functions should return true, unless you need
 the application to close.
 
-int main()
-{
-// Use olcConsoleGameEngine derived app
-OneLoneCoder_Example game;
+	int main()
+	{
+		// Use olcConsoleGameEngine derived app
+		OneLoneCoder_Example game;
 
-// Create a console with resolution 160x100 characters
-// Each character occupies 8x8 pixels
-game.ConstructConsole(160, 100, 8, 8);
+		// Create a console with resolution 160x100 characters
+		// Each character occupies 8x8 pixels
+		game.ConstructConsole(160, 100, 8, 8);
 
-// Start the engine!
-game.Start();
+		// Start the engine!
+		game.Start();
 
-return 0;
-}
+		return 0;
+	}
 
 Input is also handled for you - interrogate the m_keys[] array with the virtual
 keycode you want to know about. bPressed is set for the frame the key is pressed down
@@ -224,7 +225,7 @@ private:
 public:
 	void SetGlyph(int x, int y, short c)
 	{
-		if (x <0 || x >= nWidth || y < 0 || y >= nHeight)
+		if (x < 0 || x >= nWidth || y < 0 || y >= nHeight)
 			return;
 		else
 			m_Glyphs[y * nWidth + x] = c;
@@ -232,7 +233,7 @@ public:
 
 	void SetColour(int x, int y, short c)
 	{
-		if (x <0 || x >= nWidth || y < 0 || y >= nHeight)
+		if (x < 0 || x >= nWidth || y < 0 || y >= nHeight)
 			return;
 		else
 			m_Colours[y * nWidth + x] = c;
@@ -240,7 +241,7 @@ public:
 
 	short GetGlyph(int x, int y)
 	{
-		if (x <0 || x >= nWidth || y < 0 || y >= nHeight)
+		if (x < 0 || x >= nWidth || y < 0 || y >= nHeight)
 			return L' ';
 		else
 			return m_Glyphs[y * nWidth + x];
@@ -248,7 +249,7 @@ public:
 
 	short GetColour(int x, int y)
 	{
-		if (x <0 || x >= nWidth || y < 0 || y >= nHeight)
+		if (x < 0 || x >= nWidth || y < 0 || y >= nHeight)
 			return FG_BLACK;
 		else
 			return m_Colours[y * nWidth + x];
@@ -258,7 +259,7 @@ public:
 	{
 		int sx = (int)(x * (float)nWidth);
 		int sy = (int)(y * (float)nHeight - 1.0f);
-		if (sx <0 || sx >= nWidth || sy < 0 || sy >= nHeight)
+		if (sx < 0 || sx >= nWidth || sy < 0 || sy >= nHeight)
 			return L' ';
 		else
 			return m_Glyphs[sy * nWidth + sx];
@@ -268,7 +269,7 @@ public:
 	{
 		int sx = (int)(x * (float)nWidth);
 		int sy = (int)(y * (float)nHeight - 1.0f);
-		if (sx <0 || sx >= nWidth || sy < 0 || sy >= nHeight)
+		if (sx < 0 || sx >= nWidth || sy < 0 || sy >= nHeight)
 			return FG_BLACK;
 		else
 			return m_Colours[sy * nWidth + sx];
@@ -387,15 +388,15 @@ public:
 		cfi.FontWeight = FW_NORMAL;
 
 		/*	DWORD version = GetVersion();
-		DWORD major = (DWORD)(LOBYTE(LOWORD(version)));
-		DWORD minor = (DWORD)(HIBYTE(LOWORD(version)));*/
+			DWORD major = (DWORD)(LOBYTE(LOWORD(version)));
+			DWORD minor = (DWORD)(HIBYTE(LOWORD(version)));*/
 
-		//if ((major > 6) || ((major == 6) && (minor >= 2) && (minor < 4)))		
-		//	wcscpy_s(cfi.FaceName, L"Raster"); // Windows 8 :(
-		//else
-		//	wcscpy_s(cfi.FaceName, L"Lucida Console"); // Everything else :P
+			//if ((major > 6) || ((major == 6) && (minor >= 2) && (minor < 4)))		
+			//	wcscpy_s(cfi.FaceName, L"Raster"); // Windows 8 :(
+			//else
+			//	wcscpy_s(cfi.FaceName, L"Lucida Console"); // Everything else :P
 
-		//wcscpy_s(cfi.FaceName, L"Liberation Mono");
+			//wcscpy_s(cfi.FaceName, L"Liberation Mono");
 		wcscpy_s(cfi.FaceName, L"Consolas");
 		if (!SetCurrentConsoleFontEx(m_hConsole, false, &cfi))
 			return Error(L"SetCurrentConsoleFontEx");
@@ -493,14 +494,14 @@ public:
 
 			Draw(x, y, c, col);
 
-			for (i = 0; x<xe; i++)
+			for (i = 0; x < xe; i++)
 			{
 				x = x + 1;
-				if (px<0)
+				if (px < 0)
 					px = px + 2 * dy1;
 				else
 				{
-					if ((dx<0 && dy<0) || (dx>0 && dy>0)) y = y + 1; else y = y - 1;
+					if ((dx < 0 && dy < 0) || (dx > 0 && dy > 0)) y = y + 1; else y = y - 1;
 					px = px + 2 * (dy1 - dx1);
 				}
 				Draw(x, y, c, col);
@@ -519,14 +520,14 @@ public:
 
 			Draw(x, y, c, col);
 
-			for (i = 0; y<ye; i++)
+			for (i = 0; y < ye; i++)
 			{
 				y = y + 1;
 				if (py <= 0)
 					py = py + 2 * dx1;
 				else
 				{
-					if ((dx<0 && dy<0) || (dx>0 && dy>0)) x = x + 1; else x = x - 1;
+					if ((dx < 0 && dy < 0) || (dx > 0 && dy > 0)) x = x + 1; else x = x - 1;
 					py = py + 2 * (dx1 - dy1);
 				}
 				Draw(x, y, c, col);
@@ -553,16 +554,16 @@ public:
 		int signx1, signx2, dx1, dy1, dx2, dy2;
 		int e1, e2;
 		// Sort vertices
-		if (y1>y2) { SWAP(y1, y2); SWAP(x1, x2); }
-		if (y1>y3) { SWAP(y1, y3); SWAP(x1, x3); }
-		if (y2>y3) { SWAP(y2, y3); SWAP(x2, x3); }
+		if (y1 > y2) { SWAP(y1, y2); SWAP(x1, x2); }
+		if (y1 > y3) { SWAP(y1, y3); SWAP(x1, x3); }
+		if (y2 > y3) { SWAP(y2, y3); SWAP(x2, x3); }
 
 		t1x = t2x = x1; y = y1;   // Starting points
-		dx1 = (int)(x2 - x1); if (dx1<0) { dx1 = -dx1; signx1 = -1; }
+		dx1 = (int)(x2 - x1); if (dx1 < 0) { dx1 = -dx1; signx1 = -1; }
 		else signx1 = 1;
 		dy1 = (int)(y2 - y1);
 
-		dx2 = (int)(x3 - x1); if (dx2<0) { dx2 = -dx2; signx2 = -1; }
+		dx2 = (int)(x3 - x1); if (dx2 < 0) { dx2 = -dx2; signx2 = -1; }
 		else signx2 = 1;
 		dy2 = (int)(y3 - y1);
 
@@ -582,10 +583,10 @@ public:
 
 		for (int i = 0; i < dx1;) {
 			t1xp = 0; t2xp = 0;
-			if (t1x<t2x) { minx = t1x; maxx = t2x; }
+			if (t1x < t2x) { minx = t1x; maxx = t2x; }
 			else { minx = t2x; maxx = t1x; }
 			// process first line until y value is about to change
-			while (i<dx1) {
+			while (i < dx1) {
 				i++;
 				e1 += dy1;
 				while (e1 >= dx1) {
@@ -610,10 +611,10 @@ public:
 				else              t2x += signx2;
 			}
 		next2:
-			if (minx>t1x) minx = t1x; if (minx>t2x) minx = t2x;
-			if (maxx<t1x) maxx = t1x; if (maxx<t2x) maxx = t2x;
+			if (minx > t1x) minx = t1x; if (minx > t2x) minx = t2x;
+			if (maxx < t1x) maxx = t1x; if (maxx < t2x) maxx = t2x;
 			drawline(minx, maxx, y);    // Draw line from min to max points found on the y
-										// Now increase y
+										 // Now increase y
 			if (!changed1) t1x += signx1;
 			t1x += t1xp;
 			if (!changed2) t2x += signx2;
@@ -624,7 +625,7 @@ public:
 		}
 	next:
 		// Second half
-		dx1 = (int)(x3 - x2); if (dx1<0) { dx1 = -dx1; signx1 = -1; }
+		dx1 = (int)(x3 - x2); if (dx1 < 0) { dx1 = -dx1; signx1 = -1; }
 		else signx1 = 1;
 		dy1 = (int)(y3 - y2);
 		t1x = x2;
@@ -639,10 +640,10 @@ public:
 
 		for (int i = 0; i <= dx1; i++) {
 			t1xp = 0; t2xp = 0;
-			if (t1x<t2x) { minx = t1x; maxx = t2x; }
+			if (t1x < t2x) { minx = t1x; maxx = t2x; }
 			else { minx = t2x; maxx = t1x; }
 			// process first line until y value is about to change
-			while (i<dx1) {
+			while (i < dx1) {
 				e1 += dy1;
 				while (e1 >= dx1) {
 					e1 -= dx1;
@@ -651,7 +652,7 @@ public:
 				}
 				if (changed1) break;
 				else   	   	  t1x += signx1;
-				if (i<dx1) i++;
+				if (i < dx1) i++;
 			}
 		next3:
 			// process second line until y value is about to change
@@ -667,15 +668,15 @@ public:
 			}
 		next4:
 
-			if (minx>t1x) minx = t1x; if (minx>t2x) minx = t2x;
-			if (maxx<t1x) maxx = t1x; if (maxx<t2x) maxx = t2x;
+			if (minx > t1x) minx = t1x; if (minx > t2x) minx = t2x;
+			if (maxx < t1x) maxx = t1x; if (maxx < t2x) maxx = t2x;
 			drawline(minx, maxx, y);
 			if (!changed1) t1x += signx1;
 			t1x += t1xp;
 			if (!changed2) t2x += signx2;
 			t2x += t2xp;
 			y += 1;
-			if (y>y3) return;
+			if (y > y3) return;
 		}
 	}
 
@@ -1027,7 +1028,7 @@ protected: // Audio Engine =====================================================
 																	// Note the -2, because the structure has 2 bytes to indicate its own size
 																	// which are not in the wav file
 
-																	// Just check if wave format is compatible with olcCGE
+			// Just check if wave format is compatible with olcCGE
 			if (wavHeader.wBitsPerSample != 16 || wavHeader.nSamplesPerSec != 44100)
 			{
 				std::fclose(f);

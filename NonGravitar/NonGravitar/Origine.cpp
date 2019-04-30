@@ -1,11 +1,14 @@
 #include <iostream>
-#include "Game.h"
+#include <string>
+#include <algorithm>
+using namespace std;
+
+#include "Gravitar.h"
 
 int main() {
 
-	Game gravitar;
-	gravitar.ConstructConsole(160, 100, 8, 8);
-	gravitar.Start();
-
+	Gravitar game;
+	game.ConstructConsole(160, 100, 8, 8);
+	game.Start();
 	return 0;
 }
