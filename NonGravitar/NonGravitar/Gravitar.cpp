@@ -1,7 +1,6 @@
 #include "Gravitar.h"
 
 
-
 Gravitar::Gravitar()
 {
 	m_sAppName = L"Non-Gravitar";
@@ -44,13 +43,17 @@ bool Gravitar::isLeaving() {
 	return false;
 }
 
-void Gravitar::updateTorr() {
+Pianeta * Gravitar::checkPlanet() {
+	return new Pianeta();
+}
+
+void Gravitar::updateTorr(float fElapsedTime) {
 
 }
-void Gravitar::updateBull() {
+void Gravitar::updateBull(float fElapsedTime) {
 
 }
-void Gravitar::updateNav() {
+void Gravitar::updateNav(float fElapsedTime) {
 
 }
 
@@ -61,9 +64,6 @@ bool Gravitar::checkEnd() {
 	return false;
 }
 
-void Gravitar::gameover() {
-
-}
 void Gravitar::reborn() {
 
 }
@@ -87,6 +87,10 @@ void Gravitar::DrawRay() {
 
 }
 
+void Gravitar::DrawGameOver() {
+
+}
+
 void Gravitar::ResetGame() {
 
 }
@@ -100,6 +104,57 @@ bool Gravitar::OnUserCreate() {
 }
 
 bool Gravitar::OnUserUpdate(float fElapsedTime) {
+
+	if (checkEnd()) {				//calcolo dello stato del gioco
+		gameover = true;
+	}
+	else {
+		if (morto) {
+			reborn();
+		}
+		if (pianetaAttivo != NULL && isLeaving()) {
+			exitPlanet();
+		}
+		else if (pianetaAttivo == NULL && isLanding()) {
+			Pianeta *p = checkPlanet();
+			enterPlanet(p);
+		}
+		updateNav(fElapsedTime);		//e stato della tastiera
+										//male che vada, aggiungere qui
+		if (pianetaAttivo!=NULL) {
+			updateBull(fElapsedTime);
+			updateTorr(fElapsedTime);
+			
+		}
+	}
+
+
+	//disegno
+
+	if (gameover) {
+		DrawGameOver();
+	}
+	else {
+		DrawNav();
+		if (pianetaAttivo == NULL) {
+			for (auto &b : pianeti) {
+				DrawPlanet(b);
+			}
+		}
+		else {
+			//for(auto &b : pianetaAttivo->torrette){
+			//DrawTorr(b);
+			//}
+			//for(auto &b : pianetaAttivo->carburanti){
+			//DrawCarb(b);
+			//}
+			for (auto &b : proiettili) {
+				DrawBullet(b);
+			}
+		}
+	}
+
+
 
 	return true;
 }
