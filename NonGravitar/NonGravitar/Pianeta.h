@@ -1,17 +1,21 @@
 #pragma once
 
+#include <vector>
 #include "objGame.h"
+#include "Torretta.h"
+#include "Carburante.h"
 
 class Pianeta : objGame
 {
 public:
 	Pianeta();
 
-	vector<objGame> Terreno;
-	vector<Torretta> Torrette;
-	vector<Carburante> Carburanti;
-	bool isEnded();
+	std::vector<objGame> Terreno;
+	std::vector<Torretta> Torrette;
+	std::vector<Carburante> Carburanti;
+
 	int Colore;
+	bool isEnded();
 
 	~Pianeta();
 };

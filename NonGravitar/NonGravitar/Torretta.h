@@ -1,6 +1,8 @@
 #pragma once
 
-#include "objGame.h"
+#include <vector>
+#include "Proiettile.h"
+
 
 class Torretta : objGame
 {
@@ -8,7 +10,7 @@ public:
 	Torretta();
 
 	int TimeToShoot;
-	vector<Proiettile> Shoot();	//override per la figlia che mira alla navicella
+	Proiettile Shoot();	//override per la figlia che mira alla navicella
 
 	~Torretta();
 };
