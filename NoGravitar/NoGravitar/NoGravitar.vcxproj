@@ -20,8 +20,8 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
-    <ProjectGuid>{73C8B34D-E282-4B4D-8CA3-B0B75DCEFC67}</ProjectGuid>
-    <RootNamespace>NonGravitar</RootNamespace>
+    <ProjectGuid>{2C0D6B78-4374-4A81-BC46-8E1A3F5C4336}</ProjectGuid>
+    <RootNamespace>NoGravitar</RootNamespace>
     <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -42,7 +42,7 @@
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v141</PlatformToolset>
-    <CharacterSet>Unicode</CharacterSet>
+    <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -118,30 +118,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Area.cpp" />
-    <ClCompile Include="Carburante.cpp" />
-    <ClCompile Include="collision.cpp" />
-    <ClCompile Include="Galassia.cpp" />
-    <ClCompile Include="Gravitar.cpp" />
-    <ClCompile Include="Navicella.cpp" />
-    <ClCompile Include="objGame.cpp" />
-    <ClCompile Include="Origine.cpp" />
-    <ClCompile Include="Pianeta.cpp" />
-    <ClCompile Include="Proiettile.cpp" />
-    <ClCompile Include="Torretta.cpp" />
+    <ClInclude Include="Gravitar.h" />
+    <ClInclude Include="olcConsoleGameEngine.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Area.h" />
-    <ClInclude Include="Carburante.h" />
-    <ClInclude Include="collision.h" />
-    <ClInclude Include="Galassia.h" />
-    <ClInclude Include="Gravitar.h" />
-    <ClInclude Include="Navicella.h" />
-    <ClInclude Include="objGame.h" />
-    <ClInclude Include="olcConsoleGameEngine.h" />
-    <ClInclude Include="Pianeta.h" />
-    <ClInclude Include="Proiettile.h" />
-    <ClInclude Include="Torretta.h" />
+    <ClCompile Include="Gravitar.cpp" />
+    <ClCompile Include="Origine.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
