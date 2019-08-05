@@ -5,7 +5,6 @@
 class Galassia
 {
 public:
-	Pianeta pianeti[5];
 	Galassia();
 	Galassia(float screenwidth, float screenheight);
 	int PlanetCollision(); //Galassia

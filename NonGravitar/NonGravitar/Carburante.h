@@ -2,7 +2,7 @@
 
 #include "objGame.h"
 
-class Carburante : objGame
+class Carburante : public objGame
 {
 public:
 	Carburante();

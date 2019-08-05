@@ -118,10 +118,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Area.cpp" />
     <ClCompile Include="Carburante.cpp" />
     <ClCompile Include="collision.cpp" />
-    <ClCompile Include="Galassia.cpp" />
     <ClCompile Include="Gravitar.cpp" />
     <ClCompile Include="Navicella.cpp" />
     <ClCompile Include="objGame.cpp" />
@@ -131,10 +129,8 @@
     <ClCompile Include="Torretta.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Area.h" />
     <ClInclude Include="Carburante.h" />
     <ClInclude Include="collision.h" />
-    <ClInclude Include="Galassia.h" />
     <ClInclude Include="Gravitar.h" />
     <ClInclude Include="Navicella.h" />
     <ClInclude Include="objGame.h" />

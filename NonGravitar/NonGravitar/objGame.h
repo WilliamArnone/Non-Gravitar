@@ -5,6 +5,7 @@ class objGame
 public:
 	objGame();
 	~objGame();
-	float x, y, angle, size;
+	int x, y, size;
+	float angle;
 };
 

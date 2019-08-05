@@ -2,7 +2,7 @@
 
 #include "objGame.h"
 
-class Proiettile : objGame
+class Proiettile : public objGame
 {
 public:
 	Proiettile();

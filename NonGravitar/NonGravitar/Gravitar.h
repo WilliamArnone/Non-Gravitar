@@ -41,7 +41,7 @@ protected:
 	void exitPlanet();
 
 	bool carbnear();
-	bool bulletcollision(objGame oggetto, Proiettile bullet);
+	bool Collision(objGame obj1, objGame obj2);
 	bool objCrashing();
 	bool isLanding();
 	bool isLeaving();

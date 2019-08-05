@@ -17,7 +17,23 @@ void Gravitar::resetGame() {
 }
 
 void Gravitar::newUniverse() {
+	pianeti.push_back(Pianeta(ScreenWidth(), ScreenHeight()));
+	for (int i = 1; i < 5; i++) {
+		
+		Pianeta p = Pianeta(ScreenWidth(), ScreenHeight());
 
+		bool canAdd = false;
+		for (auto &planet : pianeti) {
+			if (!canAdd) {
+				canAdd = !Collision(p, planet);
+			}
+		}
+
+		if (canAdd)
+			pianeti.push_back(Pianeta(ScreenWidth(), ScreenHeight()));
+		else
+			i--;
+	}
 }
 
 void Gravitar::enterPlanet(Pianeta *newplanet) {
@@ -30,7 +46,7 @@ void Gravitar::exitPlanet() {
 bool Gravitar::carbnear() {
 	return false;
 }
-bool Gravitar::bulletcollision(objGame oggetto, Proiettile bullet) {
+bool Gravitar::Collision(objGame obj1, objGame obj2) {
 	return false;
 }
 bool Gravitar::objCrashing() {

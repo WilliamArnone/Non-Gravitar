@@ -1,8 +1,9 @@
 #include "Area.h"
+
 Area::Area()
 {
 }
-Area::Area(float ScreenWidth, float ScreenHeight) {
+Area::Area(int ScreenWidth, int ScreenHeight) {
 	for (int i = 0; i < 4; i++) {
 		x[i] = rand() % ScreenWidth / 5;
 		x[i] = x[i] + ScreenWidth*i / 5 + 6;

@@ -4,7 +4,7 @@
 #include "Proiettile.h"
 
 
-class Torretta : objGame
+class Torretta : public objGame
 {
 public:
 	Torretta();

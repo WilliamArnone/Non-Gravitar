@@ -7,12 +7,7 @@ Galassia::Galassia()
 
 Galassia::Galassia(float screenwidth, float screenheight)
 {
-	pianeti[0] = Pianeta(screenwidth,screenheight);
-	for (int i = 1; i < 5; i++) {
-		do {
-			pianeti[i] = Pianeta(screenwidth, screenheight);
-		} while (checkDistance(pianeti, i, i));
-	}
+	
 }
 
 bool Galassia::checkDistance(Pianeta pianeti[], int i, int c) {
