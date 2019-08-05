@@ -11,6 +11,7 @@ public:
 
 	int TimeToShoot;
 	Proiettile Shoot();	//override per la figlia che mira alla navicella
+	void Update(float fElapsedTime);
 
 	~Torretta();
 };

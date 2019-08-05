@@ -28,7 +28,7 @@ protected:
 	
 	std::vector<Pianeta> pianeti;
 
-	std::vector<Proiettile> proiettili;
+	std::vector<Proiettile> Proiettili;
 
 	Pianeta *pianetaAttivo;
 
@@ -43,9 +43,8 @@ protected:
 	bool carbnear();
 	bool Collision(objGame obj1, objGame obj2);
 	bool objCrashing();
-	bool isLanding();
+	Pianeta * PlanetLanding();
 	bool isLeaving();
-	Pianeta * checkPlanet();
 
 	void updateTorr(float fElapsedTime);
 	void updateBull(float fElapsedTime);

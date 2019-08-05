@@ -2,10 +2,6 @@
 
 
 
-Pianeta::Pianeta()
-{
-}
-
 Pianeta::Pianeta(int ScreenWidth, int ScreenHeight)
 {
 	const int nPoints = 10;
@@ -15,14 +11,14 @@ Pianeta::Pianeta(int ScreenWidth, int ScreenHeight)
 		objGame t = objGame();
 		Terreno.push_back(t);
 	}
-	size = 3 + rand() % 5;
-	int posizione = ScreenWidth - 2 * size;
-	x = size + rand() % posizione;
-	if (x == (ScreenWidth / 2)) {
-		x = x + 1;
+	Size = 3 + rand() % 5;
+	int posizione = ScreenWidth - 2 * Size;
+	X = Size + rand() % posizione;
+	if (X == (ScreenWidth / 2)) {
+		X = X + 1;
 	}
-	posizione = ScreenHeight - 2 * size;
-	y = size + rand() % posizione;
+	posizione = ScreenHeight - 2 * Size;
+	Y = Size + rand() % posizione;
 }
 
 //float Pianeta::FIndY(float x1, float y1, float x2, float y2, float xp) {//fixare i punti critici, creano problemi i lati troppo ripidi dove le torrette (ad ora cerchi) vengono messe sotto terra e non ho sinceramente voglia di capire il perchè, gioco a perudo con tommy ora, 3 6 
@@ -31,11 +27,24 @@ Pianeta::Pianeta(int ScreenWidth, int ScreenHeight)
 
 objGame CreaPuntoTerreno(int ScreenWidthmin, int ScreenWidthmax, int ScreenHeight) {
 	objGame Point = objGame();
-	Point.angle = 0;
-	Point.size = 1;
-	Point.x = rand() % (ScreenWidthmax - ScreenWidthmin) + ScreenWidthmin;
-	Point.y = ScreenHeight - rand() % ScreenHeight / 2;
+	Point.Angle = 0;
+	Point.Size = 1;
+	Point.Color = rand() % 255;
+	Point.X = rand() % (ScreenWidthmax - ScreenWidthmin) + ScreenWidthmin;
+	Point.Y = ScreenHeight - rand() % ScreenHeight / 2;
 	return Point;
+}
+Torretta CreaTorretta(int ScreenWidthmin, int ScreenWidthmax, int ScreenHeight) {
+
+	//Scrivete
+
+	return Torretta();
+}
+Carburante CreaCarburante(int ScreenWidthmin, int ScreenWidthmax, int ScreenHeight) {
+
+	//Scrivete
+
+	return Carburante();
 }
 
 Pianeta::~Pianeta()

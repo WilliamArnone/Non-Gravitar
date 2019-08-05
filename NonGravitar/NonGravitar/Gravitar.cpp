@@ -52,22 +52,22 @@ bool Gravitar::Collision(objGame obj1, objGame obj2) {
 bool Gravitar::objCrashing() {
 	return false;
 }
-bool Gravitar::isLanding() {
-	return false;
+Pianeta * Gravitar::PlanetLanding() {
+	return NULL;
 }
 bool Gravitar::isLeaving() {
 	return false;
 }
 
-Pianeta * Gravitar::checkPlanet() {
-	return new Pianeta();
-}
-
 void Gravitar::updateTorr(float fElapsedTime) {
-
+	for (auto &t : pianetaAttivo->Torrette) {
+		t.Update(fElapsedTime);
+	}
 }
 void Gravitar::updateBull(float fElapsedTime) {
-
+	for (auto &p : Proiettili) {
+		p.Update(fElapsedTime);
+	}
 }
 void Gravitar::updateNav(float fElapsedTime) {
 
@@ -131,18 +131,22 @@ bool Gravitar::OnUserUpdate(float fElapsedTime) {
 		if (pianetaAttivo != NULL && isLeaving()) {
 			exitPlanet();
 		}
-		else if (pianetaAttivo == NULL && isLanding()) {
-			Pianeta *p = checkPlanet();
-			enterPlanet(p);
+		else if (pianetaAttivo == NULL) {
+			Pianeta *p = PlanetLanding();
+			if(p == NULL)
+				enterPlanet(p);
 		}
-		updateNav(fElapsedTime);		//e stato della tastiera
-										//male che vada, aggiungere qui
+
+		updateNav(fElapsedTime);		//da inserire controllo comandi
+										
 		if (pianetaAttivo!=NULL) {
 			updateBull(fElapsedTime);
 			updateTorr(fElapsedTime);
-			
 		}
 	}
+
+
+	//Da controllare Collisioni
 
 
 	//disegno
@@ -158,13 +162,13 @@ bool Gravitar::OnUserUpdate(float fElapsedTime) {
 			}
 		}
 		else {
-			//for(auto &b : pianetaAttivo->torrette){
-			//DrawTorr(b);
-			//}
-			//for(auto &b : pianetaAttivo->carburanti){
-			//DrawCarb(b);
-			//}
-			for (auto &b : proiettili) {
+			for(auto &b : pianetaAttivo->Torrette){
+				DrawTorr(b);
+			}
+			for(auto &b : pianetaAttivo->Carburanti){
+				DrawCarb(b);
+			}
+			for (auto &b : Proiettili) {
 				DrawBullet(b);
 			}
 		}
