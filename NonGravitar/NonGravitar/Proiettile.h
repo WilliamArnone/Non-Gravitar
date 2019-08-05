@@ -6,6 +6,7 @@ class Proiettile : public objGame
 {
 public:
 	Proiettile();
+	void Update(float fElapsedTime);
 	~Proiettile();
 };
 
