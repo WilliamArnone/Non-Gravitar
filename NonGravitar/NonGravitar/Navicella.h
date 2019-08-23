@@ -6,6 +6,7 @@ class Navicella : objGame
 {
 public:
 	Navicella();
+	void DrawNav();
 	~Navicella();
 };
 

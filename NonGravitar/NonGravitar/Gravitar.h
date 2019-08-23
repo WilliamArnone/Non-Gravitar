@@ -1,8 +1,13 @@
 #pragma once
 
-#include <algorithm>
-
 #include "olcConsoleGameEngine.h"
+#include <iostream>
+#include <algorithm>
+#include <ctime>
+#include <iostream>
+#include <string>
+#include <math>
+
 #include "Pianeta.h"
 #include "Proiettile.h"
 #include "Navicella.h"

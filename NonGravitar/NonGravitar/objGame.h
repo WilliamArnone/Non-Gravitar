@@ -1,4 +1,8 @@
 #pragma once
+
+#include "olcConsoleGameEngine.h"
+
+using namespace std;
 class objGame
 {
 public:

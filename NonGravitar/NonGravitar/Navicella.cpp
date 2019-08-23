@@ -6,6 +6,9 @@ Navicella::Navicella()
 {
 }
 
+void DrawNav() {
+
+}
 
 Navicella::~Navicella()
 {
