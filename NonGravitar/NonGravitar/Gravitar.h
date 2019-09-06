@@ -1,8 +1,13 @@
 #pragma once
+
+#include "olcConsoleGameEngine.h"
+
+#include <iostream>
+#include <ctime>
+#include <algorithm>
 #include <iostream>
 #include <string>
-#include <algorithm>
-#include <vector>
+#include <math.h>
 
 #include "Pianeta.h"
 #include "Proiettile.h"
@@ -13,7 +18,6 @@
 
 using namespace std;
 
-
 class Gravitar : public olcConsoleGameEngine
 {
 public:
@@ -21,10 +25,10 @@ public:
 	~Gravitar();
 
 protected:
-	
-	bool morto,gameover;
+
+	bool morto, gameover;
 	int score;
-	
+
 	std::vector<Pianeta> pianeti;
 
 	std::vector<Proiettile> Proiettili;
