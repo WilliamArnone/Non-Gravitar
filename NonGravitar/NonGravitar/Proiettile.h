@@ -2,7 +2,7 @@
 
 #include "objGame.h"
 
-class Proiettile : objGame
+class Proiettile : public objGame
 {
 protected:
 	int nSize;
@@ -14,6 +14,7 @@ protected:
 	bool player = false;
 public:
 	Proiettile();
+	void Update(float fElapsedTime);
 	~Proiettile();
 };
 

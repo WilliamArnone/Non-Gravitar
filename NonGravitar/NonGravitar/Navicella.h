@@ -2,11 +2,13 @@
 
 #include "objGame.h"
 
-class Navicella : objGame
+class Navicella : public objGame
 {
 public:
 	Navicella();
-	void DrawNav();
+
+
+
 	~Navicella();
 };
 

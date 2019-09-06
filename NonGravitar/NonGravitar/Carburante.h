@@ -2,7 +2,7 @@
 
 #include "objGame.h"
 
-class Carburante : objGame
+class Carburante : public objGame
 {
 private:
 	float xc;
@@ -14,6 +14,10 @@ private:
 public:
 
 	Carburante();
+
+	int color;
+	int litri;
+
 	~Carburante();
 };
 
