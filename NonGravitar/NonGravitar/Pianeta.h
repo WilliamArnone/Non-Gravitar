@@ -6,7 +6,6 @@
 #include "Carburante.h"
 #include <iostream>
 #include <ctime>
-#include "Area.h"
 
 class Pianeta : public objGame
 {
