@@ -1,6 +1,8 @@
 #pragma once
-
+#include <iostream>
+#include <string>
 #include <algorithm>
+#include <vector>
 
 #include "olcConsoleGameEngine.h"
 #include "Pianeta.h"
@@ -20,12 +22,13 @@ public:
 	~Gravitar();
 
 protected:
-	bool morto;
+	
+	bool morto,gameover;
 	int score;
 	
-	vector<Pianeta> pianeti;
+	std::vector<Pianeta> pianeti;
 
-	vector<Proiettile> proiettili;
+	std::vector<Proiettile> Proiettili;
 
 	Pianeta *pianetaAttivo;
 
@@ -38,19 +41,18 @@ protected:
 	void exitPlanet();
 
 	bool carbnear();
-	bool bulletcollision(objGame oggetto, Proiettile bullet);
+	bool Collision(objGame obj1, objGame obj2);
 	bool objCrashing();
-	bool isLanding();
+	Pianeta * PlanetLanding();
 	bool isLeaving();
 
-	void updateTorr();
-	void updateBull();
-	void updateNav();
+	void updateTorr(float fElapsedTime);
+	void updateBull(float fElapsedTime);
+	void updateNav(float fElapsedTime);
 
 	void clear();
 	bool checkEnd();
 
-	void gameover();
 	void reborn();
 
 	void DrawNav();
@@ -59,6 +61,7 @@ protected:
 	void DrawPlanet(Pianeta planet);
 	void DrawBullet(Proiettile bullet);
 	void DrawRay();
+	void DrawGameOver();
 
 	void ResetGame();
 
