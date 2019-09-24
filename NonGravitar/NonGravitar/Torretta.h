@@ -14,7 +14,7 @@ protected:
 	bool dead = false;
 public:
 	Torretta();
-	void TurretUpdate();
+	void Update(float fElapsedTime);
 	~Torretta();
 };
 

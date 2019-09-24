@@ -12,10 +12,9 @@ protected:
 	float dy;
 	float angle;
 	bool player = false;
-	vector<Proiettile> vecBullets;
 public:
 	Proiettile();
-	void BulletUpdate(float fElapsedTime);
+	void Update(float fElapsedTime);
 	~Proiettile();
 };
 
