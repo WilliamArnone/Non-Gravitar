@@ -1346,17 +1346,17 @@ protected: // Audio Engine =====================================================
 protected:
 
 
+	int m_mousePosX;
+	int m_mousePosY;
+
+public:
+
 	struct sKeyState
 	{
 		bool bPressed;
 		bool bReleased;
 		bool bHeld;
 	} m_keys[256], m_mouse[5];
-
-	int m_mousePosX;
-	int m_mousePosY;
-
-public:
 	sKeyState GetKey(int nKeyID) { return m_keys[nKeyID]; }
 	int GetMouseX() { return m_mousePosX; }
 	int GetMouseY() { return m_mousePosY; }

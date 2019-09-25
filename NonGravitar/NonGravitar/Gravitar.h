@@ -67,6 +67,7 @@ protected:
 	void DrawGameOver();
 
 	void ResetGame();
+	void CheckCollisions();
 
 	virtual bool OnUserCreate();
 	virtual bool OnUserUpdate(float fElapsedTime);

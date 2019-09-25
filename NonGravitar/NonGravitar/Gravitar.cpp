@@ -70,7 +70,7 @@ void Gravitar::updateBull(float fElapsedTime) {
 	}
 }
 void Gravitar::updateNav(float fElapsedTime) {
-
+	pg.ShipMove(fElapsedTime, m_keys);
 }
 
 void Gravitar::clear() {
@@ -111,7 +111,22 @@ void Gravitar::ResetGame() {
 
 }
 
-
+void Gravitar::CheckCollisions() {
+	if (pianetaAttivo != NULL) {
+		for (auto &b : Proiettili) {
+			if (Collision(pg, b)) {
+				//morto
+			}
+		}
+		for (auto &t : pianetaAttivo->Torrette) {
+			for (auto &b : Proiettili) {
+				if (Collision(t, b)) {
+					//eliminare torretta
+				}
+			}
+		}
+	}
+}
 
 
 bool Gravitar::OnUserCreate() {
@@ -137,7 +152,7 @@ bool Gravitar::OnUserUpdate(float fElapsedTime) {
 				enterPlanet(p);
 		}
 
-		updateNav(fElapsedTime);		//da inserire controllo comandi
+		updateNav(fElapsedTime);
 										
 		if (pianetaAttivo!=NULL) {
 			updateBull(fElapsedTime);
@@ -147,7 +162,7 @@ bool Gravitar::OnUserUpdate(float fElapsedTime) {
 
 
 	//Da controllare Collisioni
-
+	CheckCollisions();
 
 	//disegno
 
