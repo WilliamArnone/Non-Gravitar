@@ -15,7 +15,7 @@ public:
 	std::vector<Torretta> Torrette;
 	std::vector<Carburante> Carburanti;
 
-	int Colore;
+	short Colore;
 	bool isEnded();
 	objGame CreaPuntoTerreno(int ScreenWidthmin, int ScreenWidthmax, int ScreenHeight);
 	Torretta CreaTorretta(int ScreenWidthmin, int ScreenWidthmax, int ScreenHeight);

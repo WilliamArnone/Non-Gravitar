@@ -13,7 +13,12 @@ Gravitar::~Gravitar()
 
 
 void Gravitar::resetGame() {
-
+	newUniverse();
+	score = 0;
+	pg.fuel = 1000000;
+	pg.dx = 0;
+	pg.dy = 0;
+	gameover = false;
 }
 
 void Gravitar::newUniverse() {
@@ -26,6 +31,8 @@ void Gravitar::newUniverse() {
 		} while (checkDistance(pianeti, p));
 		pianeti.push_back(p);
 	}
+	pg.X = ScreenWidth() / 2;
+	pg.Y = ScreenHeight() / 2;
 }
 bool Gravitar::checkDistance(vector<Pianeta> pianeti, Pianeta p) {
 	for(auto &planet: pianeti){
@@ -69,11 +76,27 @@ void Gravitar::updateBull(float fElapsedTime) {
 	}
 }
 void Gravitar::updateNav(float fElapsedTime) {
-	//pg.ShipMove(fElapsedTime, m_keys);
+	if (m_keys[VK_LEFT].bHeld || m_keys[VK_RIGHT].bHeld)
+		pg.ShipRotate(fElapsedTime, m_keys[VK_LEFT].bHeld);
+
+	if (m_keys[VK_UP].bHeld || m_keys[VK_DOWN].bHeld)
+		pg.ShipMove(fElapsedTime, m_keys[VK_UP].bHeld);
+
+
+	//Velocità finale
+	pg.X += pg.dx * fElapsedTime;
+	pg.Y += pg.dy * fElapsedTime;
+
 }
 
 void Gravitar::clear() {
 
+}
+void Gravitar::WrapCoordinate() {
+	if (pg.X < 0.0f)	pg.X += (float)ScreenWidth();
+	if (pg.X >= (float)ScreenWidth())	pg.X -= (float)ScreenWidth();
+	if (pg.Y < 0.0f)	pg.Y += (float)ScreenHeight();
+	if (pg.Y >= (float)ScreenHeight()) pg.Y -= (float)ScreenHeight();
 }
 bool Gravitar::checkEnd() {
 	return false;
@@ -92,8 +115,8 @@ void Gravitar::DrawNav() {
 	// Rotate
 	for (int i = 0; i < 3; i++)
 	{
-		sx[i] = mx[i] * cosf(pg.Angle) - my[i] * sinf(pg.Angle);
-		sy[i] = mx[i] * sinf(pg.Angle) - my[i] * cosf(pg.Angle);
+		sx[i] = mx[i] * cosf(pg.angle) - my[i] * sinf(pg.angle);
+		sy[i] = mx[i] * sinf(pg.angle) + my[i] * cosf(pg.angle);
 	}
 
 	// Translate
@@ -111,26 +134,23 @@ void Gravitar::DrawNav() {
 	}
 }
 void Gravitar::DrawTorr(Torretta torre) {
-
+	Fill(torre.X - 2, torre.Y + 4, torre.X + 2, torre.Y - 4, PIXEL_SOLID, FG_YELLOW);
 }
 void Gravitar::DrawCarb(Carburante carb) {
-
+	Fill(carb.X - 2, carb.Y + 2, carb.X + 2, carb.Y - 2);
 }
 void Gravitar::DrawPlanet(Pianeta planet) {
-	FillCircle(planet.X, planet.Y, planet.Size, planet.Colore, planet.Colore);
+	FillCircle(planet.X, planet.Y, planet.Size, PIXEL_SOLID, planet.Colore);
 }
 void Gravitar::DrawBullet(Proiettile bullet) {
-
+	Draw(bullet.X, bullet.Y);
 }
 void Gravitar::DrawRay() {
-
+	DrawLine(pg.X, pg.Y, pg.X-5, pg.Y-10);
+	DrawLine(pg.X, pg.Y, pg.X+5, pg.Y-10);
 }
 
 void Gravitar::DrawGameOver() {
-
-}
-
-void Gravitar::ResetGame() {
 
 }
 
@@ -153,11 +173,12 @@ void Gravitar::CheckCollisions() {
 
 
 bool Gravitar::OnUserCreate() {
-	newUniverse();
+	resetGame();
 	return true;
 }
 
 bool Gravitar::OnUserUpdate(float fElapsedTime) {
+	Fill(0, 0, ScreenWidth(), ScreenHeight(), PIXEL_SOLID, 0);
 
 	if (checkEnd()) {				//calcolo dello stato del gioco
 		gameover = true;
@@ -166,6 +187,9 @@ bool Gravitar::OnUserUpdate(float fElapsedTime) {
 		if (morto) {
 			reborn();
 		}
+
+		updateNav(fElapsedTime);
+
 		if (pianetaAttivo != NULL && isLeaving()) {
 			exitPlanet();
 		}
@@ -173,18 +197,16 @@ bool Gravitar::OnUserUpdate(float fElapsedTime) {
 			Pianeta *p = PlanetLanding();
 			if(p != NULL)
 				enterPlanet(p);
-		}
-
-		updateNav(fElapsedTime);
-										
+		}						
 		if (pianetaAttivo!=NULL) {
 			updateBull(fElapsedTime);
 			updateTorr(fElapsedTime);
 		}
+		else {
+			WrapCoordinate();
+		}
 	}
 
-
-	//Da controllare Collisioni
 	CheckCollisions();
 
 	//disegno

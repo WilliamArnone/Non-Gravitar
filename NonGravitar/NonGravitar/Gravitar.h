@@ -49,6 +49,7 @@ protected:
 	bool objCrashing();
 	Pianeta * PlanetLanding();
 	bool isLeaving();
+	void WrapCoordinate();
 
 	void updateTorr(float fElapsedTime);
 	void updateBull(float fElapsedTime);
@@ -67,7 +68,6 @@ protected:
 	void DrawRay();
 	void DrawGameOver();
 
-	void ResetGame();
 	void CheckCollisions();
 
 	virtual bool OnUserCreate();
