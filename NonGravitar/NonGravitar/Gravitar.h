@@ -39,6 +39,7 @@ protected:
 
 	void resetGame();
 	void newUniverse();
+	bool checkDistance(vector<Pianeta> pianeti, Pianeta p);
 
 	void enterPlanet(Pianeta *newplanet);
 	void exitPlanet();

@@ -1,7 +1,6 @@
 #pragma once
 
 #include "objGame.h"
-#include "olcConsoleGameEngine.h"
 
 class Navicella : public objGame
 {
@@ -13,7 +12,7 @@ protected:
 public:
 	Navicella();
 	void setShip();
-	void ShipMove(float fElapsedTime, olcConsoleGameEngine::sKeyState keyboard[]);
+	//void ShipMove(float fElapsedTime, olcConsoleGameEngine::sKeyState keyboard[]);
 	~Navicella();
 };
 

@@ -4,6 +4,7 @@
 
 Pianeta::Pianeta(int ScreenWidth, int ScreenHeight)
 {
+	Colore = rand() % 15;
 	const int nPoints = 10;
 	for (int i = 0; i < nPoints; i++) {
 		int min = ScreenWidth / nPoints * i;
@@ -21,9 +22,9 @@ Pianeta::Pianeta(int ScreenWidth, int ScreenHeight)
 	Y = Size + rand() % posizione;
 }
 
-//float Pianeta::FIndY(float x1, float y1, float x2, float y2, float xp) {//fixare i punti critici, creano problemi i lati troppo ripidi dove le torrette (ad ora cerchi) vengono messe sotto terra e non ho sinceramente voglia di capire il perchè, gioco a perudo con tommy ora, 3 6 
-//	return (((xp - x1)*(y2 - y1) / (x2 - x1)) + y1);
-//}
+float Pianeta::FIndY(float x1, float y1, float x2, float y2, float xp) {//fixare i punti critici, creano problemi i lati troppo ripidi dove le torrette (ad ora cerchi) vengono messe sotto terra e non ho sinceramente voglia di capire il perchè, gioco a perudo con tommy ora, 3 6 
+	return (((xp - x1)*(y2 - y1) / (x2 - x1)) + y1);
+}
 
 objGame CreaPuntoTerreno(int ScreenWidthmin, int ScreenWidthmax, int ScreenHeight) {
 	objGame Point = objGame();

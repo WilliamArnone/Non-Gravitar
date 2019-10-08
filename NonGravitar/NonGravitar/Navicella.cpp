@@ -12,6 +12,6 @@ void Navicella::setShip() {
 
 }
 
-void Navicella::ShipMove(float fElapsedTime, olcConsoleGameEngine::sKeyState keyboard[]) {
-
-}
+//void Navicella::ShipMove(float fElapsedTime, olcConsoleGameEngine::sKeyState keyboard[]) {
+//
+//}
