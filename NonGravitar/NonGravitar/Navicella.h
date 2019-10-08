@@ -12,7 +12,7 @@ protected:
 public:
 	Navicella();
 	void setShip();
-	void ShipMove(float fElapsedTime);
+	//void ShipMove(float fElapsedTime, olcConsoleGameEngine::sKeyState keyboard[]);
 	~Navicella();
 };
 
