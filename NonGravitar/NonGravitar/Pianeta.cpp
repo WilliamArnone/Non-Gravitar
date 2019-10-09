@@ -28,7 +28,7 @@ float Pianeta::FIndY(float x1, float y1, float x2, float y2, float xp) {//fixare
 
 objGame CreaPuntoTerreno(int ScreenWidthmin, int ScreenWidthmax, int ScreenHeight) {
 	objGame Point = objGame();
-	Point.Angle = 0;
+	Point.angle = 0;
 	Point.Size = 1;
 	Point.Color = rand() % 255;
 	Point.X = rand() % (ScreenWidthmax - ScreenWidthmin) + ScreenWidthmin;

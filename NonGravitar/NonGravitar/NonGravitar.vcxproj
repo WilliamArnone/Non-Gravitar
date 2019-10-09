@@ -118,6 +118,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Area.cpp" />
     <ClCompile Include="Carburante.cpp" />
     <ClCompile Include="Gravitar.cpp" />
     <ClCompile Include="Navicella.cpp" />
@@ -128,6 +129,7 @@
     <ClCompile Include="Torretta.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Area.h" />
     <ClInclude Include="Carburante.h" />
     <ClInclude Include="Gravitar.h" />
     <ClInclude Include="Navicella.h" />
