@@ -53,7 +53,8 @@ bool Gravitar::carbnear() {
 	return false;
 }
 bool Gravitar::Collision(objGame obj1, objGame obj2) {
-	return false;
+	float x1 = obj1.X, y1 = obj1.Y, x2 = obj2.X, y2 = obj2.Y;
+	return sqrtf((x2 - x1)*(x2 - x1) + (y2 - y1)*(y2 - y1))<(obj1.Size+obj2.Size);
 }
 bool Gravitar::objCrashing() {
 	return false;

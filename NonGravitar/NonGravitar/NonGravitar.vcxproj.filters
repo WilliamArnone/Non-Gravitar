@@ -39,6 +39,9 @@
     <ClCompile Include="Carburante.cpp">
       <Filter>File di origine</Filter>
     </ClCompile>
+    <ClCompile Include="Area.cpp">
+      <Filter>File di origine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="olcConsoleGameEngine.h">
@@ -63,6 +66,9 @@
       <Filter>File di intestazione</Filter>
     </ClInclude>
     <ClInclude Include="Carburante.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="Area.h">
       <Filter>File di intestazione</Filter>
     </ClInclude>
   </ItemGroup>
