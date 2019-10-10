@@ -22,17 +22,17 @@ void Gravitar::resetGame() {
 }
 
 void Gravitar::newUniverse() {
+	pg.X = ScreenWidth() / 2;
+	pg.Y = ScreenHeight() / 2;
 	srand((unsigned)time(NULL));
 	Pianeta p=Pianeta(ScreenWidth(), ScreenHeight(),10);
 	pianeti.push_back(p);
 	for (int i = 0; i < 4; i++) {
 		do {
-			p = Pianeta(ScreenWidth(), ScreenHeight(),10);
-		} while (checkDistance(pianeti, p));
+			p = Pianeta(ScreenWidth()-15, ScreenHeight()-15,10);
+		} while (checkDistance(pianeti, p) || Collision(pg,p));
 		pianeti.push_back(p);
 	}
-	pg.X = ScreenWidth() / 2;
-	pg.Y = ScreenHeight() / 2;
 }
 bool Gravitar::checkDistance(vector<Pianeta> pianeti, Pianeta p) {
 	for(auto &planet: pianeti){
@@ -178,8 +178,8 @@ void Gravitar::DrawRay() {
 }
 void Gravitar::DrawArea() {
 	int areaCorrente = pianetaAttivo->areaCorrente % pianetaAttivo->Aree.size();
-	DrawLine(0, ScreenHeight(), pianetaAttivo->Aree[areaCorrente].Terreno[0].X, pianetaAttivo->Aree[areaCorrente].Terreno[0].Y);
-	for (int i=0; i<pianetaAttivo->Aree[areaCorrente].Terreno.size()-2;i++)
+	DrawLine(0, ScreenHeight(), pianetaAttivo->Aree[areaCorrente].Terreno[0].X, pianetaAttivo->Aree[areaCorrente].Terreno[0].Y,PIXEL_SOLID, pianetaAttivo->Colore);
+	for (int i=0; i<pianetaAttivo->Aree[areaCorrente].Terreno.size()-1;i++)
 	{
 		DrawLine(pianetaAttivo->Aree[areaCorrente].Terreno[i].X, pianetaAttivo->Aree[areaCorrente].Terreno[i].Y, pianetaAttivo->Aree[areaCorrente].Terreno[i+1].X, pianetaAttivo->Aree[areaCorrente].Terreno[i+1].Y,PIXEL_SOLID,pianetaAttivo->Colore);
 	}
