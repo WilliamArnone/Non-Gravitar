@@ -46,9 +46,13 @@ void Gravitar::enterPlanet(Pianeta *newplanet) {
 	pianetaAttivo = newplanet;
 	pg.X = ScreenWidth() / 2;
 	pg.Y = 5;
+	pg.angle = 3.14;
 }
 void Gravitar::exitPlanet() {
-
+	pianetaAttivo = NULL;
+	pg.X = ScreenWidth() / 2;
+	pg.Y = ScreenHeight() / 2;
+	pg.angle = 0;
 }
 
 bool Gravitar::carbnear() {
@@ -69,7 +73,7 @@ Pianeta * Gravitar::PlanetLanding() {
 	return NULL;
 }
 bool Gravitar::isLeaving() {
-	return false;
+	return pg.Y < 5;
 }
 
 void Gravitar::updateTorr(float fElapsedTime) {
@@ -113,6 +117,9 @@ void Gravitar::reborn() {
 
 }
 
+
+#pragma region Draw
+
 void Gravitar::DrawNav() {
 
 	float mx[3] = { 0.0f, -2.5f, +2.5f };
@@ -140,9 +147,11 @@ void Gravitar::DrawNav() {
 		DrawLine(sx[i % 3], sy[i % 3], sx[j % 3], sy[j % 3]);
 	}
 }
+
 void Gravitar::DrawTorr(Torretta torre) {
 	Fill(torre.X - 2, torre.Y + 4, torre.X + 2, torre.Y - 4, PIXEL_SOLID, FG_YELLOW);
 }
+
 void Gravitar::DrawCarb(Carburante carb) {
 	Fill(carb.X - 2, carb.Y + 2, carb.X + 2, carb.Y - 2);
 }
@@ -164,6 +173,8 @@ void Gravitar::DrawArea() {
 		DrawLine(pianetaAttivo->Aree[areaCorrente].Terreno[i].X, pianetaAttivo->Aree[areaCorrente].Terreno[i].Y, pianetaAttivo->Aree[areaCorrente].Terreno[i+1].X, pianetaAttivo->Aree[areaCorrente].Terreno[i+1].Y,PIXEL_SOLID,pianetaAttivo->Colore);
 	}
 }
+#pragma endregion
+
 
 void Gravitar::DrawGameOver() {
 
