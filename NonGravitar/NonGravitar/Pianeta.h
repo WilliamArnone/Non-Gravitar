@@ -4,17 +4,20 @@
 #include "objGame.h"
 #include "Torretta.h"
 #include "Carburante.h"
+#include "Area.h"
 #include <iostream>
 #include <ctime>
 
 class Pianeta : public objGame
 {
 public:
-	Pianeta(int ScreenWidth, int ScreenHeight);
+	Pianeta(int ScreenWidth, int ScreenHeight, int numeroAree);
   	std::vector<objGame> Terreno;
 	std::vector<Torretta> Torrette;
 	std::vector<Carburante> Carburanti;
+	std::vector<Area> Aree;
 
+	int areaCorrente;
 	short Colore;
 	bool isEnded();
 	objGame CreaPuntoTerreno(int ScreenWidthmin, int ScreenWidthmax, int ScreenHeight);
@@ -23,4 +26,3 @@ public:
 	float FIndY(float x1, float y1, float x2, float y2, float xp); //restituisce la y corrispondenta 
 	~Pianeta();
 };
-

@@ -23,11 +23,11 @@ void Gravitar::resetGame() {
 
 void Gravitar::newUniverse() {
 	srand((unsigned)time(NULL));
-	Pianeta p=Pianeta(ScreenWidth(), ScreenHeight());
+	Pianeta p=Pianeta(ScreenWidth(), ScreenHeight(),10);
 	pianeti.push_back(p);
 	for (int i = 0; i < 4; i++) {
 		do {
-			p = Pianeta(ScreenWidth(), ScreenHeight());
+			p = Pianeta(ScreenWidth(), ScreenHeight(),10);
 		} while (checkDistance(pianeti, p));
 		pianeti.push_back(p);
 	}
@@ -43,7 +43,9 @@ bool Gravitar::checkDistance(vector<Pianeta> pianeti, Pianeta p) {
 	return false;
 }
 void Gravitar::enterPlanet(Pianeta *newplanet) {
-
+	pianetaAttivo = newplanet;
+	pg.X = ScreenWidth() / 2;
+	pg.Y = 5;
 }
 void Gravitar::exitPlanet() {
 
@@ -60,6 +62,10 @@ bool Gravitar::objCrashing() {
 	return false;
 }
 Pianeta * Gravitar::PlanetLanding() {
+	for (auto &pian : pianeti) {
+		if (Collision(pg, pian))
+			return &pian;
+	}
 	return NULL;
 }
 bool Gravitar::isLeaving() {
@@ -150,6 +156,14 @@ void Gravitar::DrawRay() {
 	DrawLine(pg.X, pg.Y, pg.X-5, pg.Y-10);
 	DrawLine(pg.X, pg.Y, pg.X+5, pg.Y-10);
 }
+void Gravitar::DrawArea() {
+	int areaCorrente = pianetaAttivo->areaCorrente;
+	DrawLine(0, ScreenHeight(), pianetaAttivo->Aree[areaCorrente].Terreno[0].X, pianetaAttivo->Aree[areaCorrente].Terreno[0].Y);
+	for (int i=0; i<pianetaAttivo->Aree[areaCorrente].Terreno.size()-2;i++)
+	{
+		DrawLine(pianetaAttivo->Aree[areaCorrente].Terreno[i].X, pianetaAttivo->Aree[areaCorrente].Terreno[i].Y, pianetaAttivo->Aree[areaCorrente].Terreno[i+1].X, pianetaAttivo->Aree[areaCorrente].Terreno[i+1].Y,PIXEL_SOLID,pianetaAttivo->Colore);
+	}
+}
 
 void Gravitar::DrawGameOver() {
 
@@ -179,7 +193,7 @@ bool Gravitar::OnUserCreate() {
 }
 
 bool Gravitar::OnUserUpdate(float fElapsedTime) {
-	Fill(0, 0, ScreenWidth(), ScreenHeight(), PIXEL_SOLID, 0);
+	Fill(0, 0, ScreenWidth(), ScreenHeight(), PIXEL_SOLID, 0);	//Pulise la schermata
 
 	if (checkEnd()) {				//calcolo dello stato del gioco
 		gameover = true;
@@ -202,6 +216,7 @@ bool Gravitar::OnUserUpdate(float fElapsedTime) {
 		if (pianetaAttivo!=NULL) {
 			updateBull(fElapsedTime);
 			updateTorr(fElapsedTime);
+			//cambiaarea
 		}
 		else {
 			WrapCoordinate();
@@ -223,7 +238,8 @@ bool Gravitar::OnUserUpdate(float fElapsedTime) {
 			}
 		}
 		else {
-			for(auto &b : pianetaAttivo->Torrette){
+			DrawArea();
+			for (auto &b : pianetaAttivo->Torrette) {
 				DrawTorr(b);
 			}
 			for(auto &b : pianetaAttivo->Carburanti){
