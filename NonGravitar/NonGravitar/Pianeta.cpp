@@ -2,8 +2,9 @@
 
 
 
-Pianeta::Pianeta(int ScreenWidth, int ScreenHeight)
+Pianeta::Pianeta(int ScreenWidth, int ScreenHeight, int numeroAree)
 {
+	areaCorrente = 0;
 	Colore = rand() % 15;
 	const int nPoints = 10;
 	for (int i = 0; i < nPoints; i++) {
@@ -20,6 +21,10 @@ Pianeta::Pianeta(int ScreenWidth, int ScreenHeight)
 	}
 	posizione = ScreenHeight - 2 * Size;
 	Y = Size + rand() % posizione;
+	for (int i = 0; i < numeroAree; i++) {
+		Area in = Area(10,ScreenWidth,ScreenHeight);
+		Aree.push_back(in);
+	}
 }
 
 float Pianeta::FIndY(float x1, float y1, float x2, float y2, float xp) {//fixare i punti critici, creano problemi i lati troppo ripidi dove le torrette (ad ora cerchi) vengono messe sotto terra e non ho sinceramente voglia di capire il perchè, gioco a perudo con tommy ora, 3 6 

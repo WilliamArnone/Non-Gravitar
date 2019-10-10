@@ -23,11 +23,11 @@ void Gravitar::resetGame() {
 
 void Gravitar::newUniverse() {
 	srand((unsigned)time(NULL));
-	Pianeta p=Pianeta(ScreenWidth(), ScreenHeight());
+	Pianeta p=Pianeta(ScreenWidth(), ScreenHeight(),10);
 	pianeti.push_back(p);
 	for (int i = 0; i < 4; i++) {
 		do {
-			p = Pianeta(ScreenWidth(), ScreenHeight());
+			p = Pianeta(ScreenWidth(), ScreenHeight(),10);
 		} while (checkDistance(pianeti, p));
 		pianeti.push_back(p);
 	}
@@ -149,6 +149,13 @@ void Gravitar::DrawBullet(Proiettile bullet) {
 void Gravitar::DrawRay() {
 	DrawLine(pg.X, pg.Y, pg.X-5, pg.Y-10);
 	DrawLine(pg.X, pg.Y, pg.X+5, pg.Y-10);
+}
+void Gravitar::DrawArea(int areaCorrente) {
+	DrawLine(0, ScreenHeight(), pianetaAttivo->Aree[areaCorrente].Terreno[0].X, pianetaAttivo->Aree[areaCorrente].Terreno[0].Y);
+	for (int i=0; i<pianetaAttivo->Aree[areaCorrente].Terreno.size()-2;i++)
+	{
+		DrawLine(pianetaAttivo->Aree[areaCorrente].Terreno[i].X, pianetaAttivo->Aree[areaCorrente].Terreno[i].Y, pianetaAttivo->Aree[areaCorrente].Terreno[i+1].X, pianetaAttivo->Aree[areaCorrente].Terreno[i+1].Y,PIXEL_SOLID,pianetaAttivo->Colore);
+	}
 }
 
 void Gravitar::DrawGameOver() {

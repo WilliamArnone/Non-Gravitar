@@ -13,7 +13,7 @@ public:
 	std::vector<Carburante> Carburanti;
 
 	objGame CreaPuntoTerreno(int ScreenWidthmin, int ScreenWidthmax, int ScreenHeight);
-	void CReaArea(int n, int ScreenWidth, int ScreenHeight);
+	Area(int n, int ScreenWidth, int ScreenHeight);
 	Torretta CreaTorretta(int ScreenWidthmin, int ScreenWidthmax, int ScreenHeight);
 	Torretta CreaCarburanti(int ScreenWidthmin, int ScreenWidthmax, int ScreenHeight);
 };
