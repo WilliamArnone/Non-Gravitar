@@ -5,7 +5,7 @@
 Pianeta::Pianeta(int ScreenWidth, int ScreenHeight, int numeroAree)
 {
 	areaCorrente = 0;
-	Colore = rand() % 15;
+	Colore = (rand() % 14)+1;
 	const int nPoints = 10;
 	for (int i = 0; i < nPoints; i++) {
 		int min = ScreenWidth / nPoints * i;

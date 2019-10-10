@@ -47,12 +47,14 @@ void Gravitar::enterPlanet(Pianeta *newplanet) {
 	pg.X = ScreenWidth() / 2;
 	pg.Y = 5;
 	pg.angle = 3.14;
+	pg.dy = sqrt(pg.dy*pg.dy + pg.dx*pg.dx);
+	pg.dx = 0;
 }
 void Gravitar::exitPlanet() {
+	pg.X = pianetaAttivo->X;
+	pg.Y = pianetaAttivo->Y - pianetaAttivo->Size - 2.6;
+
 	pianetaAttivo = NULL;
-	pg.X = ScreenWidth() / 2;
-	pg.Y = ScreenHeight() / 2;
-	pg.angle = 0;
 }
 
 bool Gravitar::carbnear() {
@@ -73,7 +75,7 @@ Pianeta * Gravitar::PlanetLanding() {
 	return NULL;
 }
 bool Gravitar::isLeaving() {
-	return pg.Y < 5;
+	return pg.Y < 0;
 }
 
 void Gravitar::updateTorr(float fElapsedTime) {
@@ -109,6 +111,15 @@ void Gravitar::WrapCoordinate() {
 	if (pg.Y < 0.0f)	pg.Y += (float)ScreenHeight();
 	if (pg.Y >= (float)ScreenHeight()) pg.Y -= (float)ScreenHeight();
 }
+
+void Gravitar::changeArea() {
+	bool next = pg.X > ScreenWidth();
+	if ((pg.X < 0) || next) {
+		pg.X = next ? pg.X = 5 : pg.X = ScreenWidth() - 5;
+		pianetaAttivo->areaCorrente += next ? 1 : -1;
+	}
+}
+
 bool Gravitar::checkEnd() {
 	return false;
 }
@@ -166,7 +177,7 @@ void Gravitar::DrawRay() {
 	DrawLine(pg.X, pg.Y, pg.X+5, pg.Y-10);
 }
 void Gravitar::DrawArea() {
-	int areaCorrente = pianetaAttivo->areaCorrente;
+	int areaCorrente = pianetaAttivo->areaCorrente % pianetaAttivo->Aree.size();
 	DrawLine(0, ScreenHeight(), pianetaAttivo->Aree[areaCorrente].Terreno[0].X, pianetaAttivo->Aree[areaCorrente].Terreno[0].Y);
 	for (int i=0; i<pianetaAttivo->Aree[areaCorrente].Terreno.size()-2;i++)
 	{
@@ -199,6 +210,7 @@ void Gravitar::CheckCollisions() {
 
 
 bool Gravitar::OnUserCreate() {
+	pg.Size = 2.5;
 	resetGame();
 	return true;
 }
@@ -225,16 +237,19 @@ bool Gravitar::OnUserUpdate(float fElapsedTime) {
 				enterPlanet(p);
 		}						
 		if (pianetaAttivo!=NULL) {
+			//update
 			updateBull(fElapsedTime);
 			updateTorr(fElapsedTime);
-			//cambiaarea
+
+			//collisioni
+			CheckCollisions();
+			changeArea();
 		}
 		else {
 			WrapCoordinate();
 		}
 	}
 
-	CheckCollisions();
 
 	//disegno
 
