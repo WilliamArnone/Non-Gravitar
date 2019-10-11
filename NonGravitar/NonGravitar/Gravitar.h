@@ -66,6 +66,7 @@ protected:
 	void DrawPlanet(Pianeta planet);
 	void DrawBullet(Proiettile bullet);
 	void DrawRay();
+	void DrawArea();
 	void DrawGameOver();
 
 	void CheckCollisions();
