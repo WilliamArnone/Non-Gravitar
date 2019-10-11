@@ -120,6 +120,7 @@
   <ItemGroup>
     <ClCompile Include="Area.cpp" />
     <ClCompile Include="Carburante.cpp" />
+    <ClCompile Include="CarburantePro.cpp" />
     <ClCompile Include="Gravitar.cpp" />
     <ClCompile Include="Navicella.cpp" />
     <ClCompile Include="objGame.cpp" />
@@ -127,10 +128,12 @@
     <ClCompile Include="Pianeta.cpp" />
     <ClCompile Include="Proiettile.cpp" />
     <ClCompile Include="Torretta.cpp" />
+    <ClCompile Include="TorrettaPro.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Area.h" />
     <ClInclude Include="Carburante.h" />
+    <ClInclude Include="CarburantePro.h" />
     <ClInclude Include="Gravitar.h" />
     <ClInclude Include="Navicella.h" />
     <ClInclude Include="objGame.h" />
@@ -138,6 +141,7 @@
     <ClInclude Include="Pianeta.h" />
     <ClInclude Include="Proiettile.h" />
     <ClInclude Include="Torretta.h" />
+    <ClInclude Include="TorrettaPro.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
