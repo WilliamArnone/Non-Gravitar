@@ -15,7 +15,7 @@ Gravitar::~Gravitar()
 void Gravitar::resetGame() {
 	newUniverse();
 	score = 0;
-	pg.fuel = 1000000;
+	fuel = 1000000;
 	pg.dx = 0;
 	pg.dy = 0;
 	gameover = false;

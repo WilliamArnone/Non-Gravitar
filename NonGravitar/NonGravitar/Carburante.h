@@ -13,6 +13,5 @@ public:
 
 	Carburante();
 	~Carburante();
-	bool CarbNear(Carburante);
 };
 

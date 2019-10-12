@@ -13,8 +13,7 @@ protected:
 	int TimeToShoot;
 public:
 	Torretta();
-	Torretta();
-	void Update(float player_x, float player_y);
+	void Update(float fElapsedTime);
 	//Proiettile Shoot();
 	~Torretta();
 };
