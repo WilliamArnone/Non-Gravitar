@@ -4,9 +4,7 @@ Torretta::Torretta()
 {
 }
 
-void Torretta::Update(float player_x, float player_y) {
-	angle = atan2f(player_x - x3, y3 - player_y);
-	TimeToShoot--;
+void Torretta::Update(float fElapsedTime) {
 }
 
 /*Proiettile Torretta::Shoot(){
