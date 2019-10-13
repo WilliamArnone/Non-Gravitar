@@ -8,6 +8,7 @@ Proiettile::~Proiettile()
 {
 }
 
+
 void Proiettile::Update(float fElapsedTime) {
 	x += dx * fElapsedTime;
 	y += dy * fElapsedTime;

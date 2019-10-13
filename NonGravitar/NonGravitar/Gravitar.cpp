@@ -15,7 +15,7 @@ Gravitar::~Gravitar()
 void Gravitar::resetGame() {
 	newUniverse();
 	score = 0;
-	fuel = 1000000;
+	fuel = 1000;
 	pg.dx = 0;
 	pg.dy = 0;
 	gameover = false;
@@ -23,11 +23,11 @@ void Gravitar::resetGame() {
 
 void Gravitar::newUniverse() {
 	srand((unsigned)time(NULL));
-	Pianeta p=Pianeta(ScreenWidth(), ScreenHeight(),10);
+	Pianeta p = Pianeta(ScreenWidth(), ScreenHeight(), 10);
 	pianeti.push_back(p);
 	for (int i = 0; i < 4; i++) {
 		do {
-			p = Pianeta(ScreenWidth(), ScreenHeight(),10);
+			p = Pianeta(ScreenWidth(), ScreenHeight(), 10);
 		} while (checkDistance(pianeti, p));
 		pianeti.push_back(p);
 	}
@@ -35,7 +35,7 @@ void Gravitar::newUniverse() {
 	pg.Y = ScreenHeight() / 2;
 }
 bool Gravitar::checkDistance(vector<Pianeta> pianeti, Pianeta p) {
-	for(auto &planet: pianeti){
+	for (auto &planet : pianeti) {
 		if (abs(p.X - planet.X) < (p.Size + planet.Size) || abs(p.Y - planet.Y) < (p.Size + planet.Size)) {
 			return  true;
 		}
@@ -56,7 +56,7 @@ bool Gravitar::carbnear() {
 }
 bool Gravitar::Collision(objGame obj1, objGame obj2) {
 	float x1 = obj1.X, y1 = obj1.Y, x2 = obj2.X, y2 = obj2.Y;
-	return sqrtf((x2 - x1)*(x2 - x1) + (y2 - y1)*(y2 - y1))<(obj1.Size+obj2.Size);
+	return sqrtf((x2 - x1)*(x2 - x1) + (y2 - y1)*(y2 - y1)) < (obj1.Size + obj2.Size);
 }
 bool Gravitar::objCrashing() {
 	return false;
@@ -78,19 +78,35 @@ void Gravitar::updateTorr(float fElapsedTime) {
 	}
 }
 void Gravitar::updateBull(float fElapsedTime) {
+	/*if (m_keys[VK_LBUTTON].bHeld)
+	{
+
+	}*/
+
 	for (auto &p : Proiettili) {
 		p.Update(fElapsedTime);
 	}
 }
 void Gravitar::updateNav(float fElapsedTime) {
 	if (m_keys[VK_LEFT].bHeld || m_keys[VK_RIGHT].bHeld)
+	{
+		fuel--;
 		pg.ShipRotate(fElapsedTime, m_keys[VK_LEFT].bHeld);
+	}
 
 	if (m_keys[VK_UP].bHeld || m_keys[VK_DOWN].bHeld)
+	{
+		fuel--;
 		pg.ShipMove(fElapsedTime, m_keys[VK_UP].bHeld);
+	}
 
-	pg.X += pg.dx * fElapsedTime;
-	pg.Y += pg.dy * fElapsedTime;
+
+	if (fuel > 0) {
+		pg.X += pg.dx * fElapsedTime;
+		pg.Y += pg.dy * fElapsedTime;
+	}
+	else
+		morto = true;
 }
 
 void Gravitar::clear() {
@@ -126,8 +142,8 @@ void Gravitar::DrawNav() {
 	// Translate
 	for (int i = 0; i < 3; i++)
 	{
-		sx[i] = sx[i]+pg.X;
-		sy[i] = sy[i]+pg.Y;
+		sx[i] = sx[i] + pg.X;
+		sy[i] = sy[i] + pg.Y;
 	}
 
 	// Draw Closed Polygon
@@ -150,15 +166,15 @@ void Gravitar::DrawBullet(Proiettile bullet) {
 	Draw(bullet.X, bullet.Y);
 }
 void Gravitar::DrawRay() {
-	DrawLine(pg.X, pg.Y, pg.X-5, pg.Y-10);
-	DrawLine(pg.X, pg.Y, pg.X+5, pg.Y-10);
+	DrawLine(pg.X, pg.Y, pg.X - 5, pg.Y - 10);
+	DrawLine(pg.X, pg.Y, pg.X + 5, pg.Y - 10);
 }
 void Gravitar::DrawArea() {
 	int areaCorrente = pianetaAttivo->areaCorrente;
 	DrawLine(0, ScreenHeight(), pianetaAttivo->Aree[areaCorrente].Terreno[0].X, pianetaAttivo->Aree[areaCorrente].Terreno[0].Y);
-	for (int i=0; i<pianetaAttivo->Aree[areaCorrente].Terreno.size()-2;i++)
+	for (int i = 0; i < pianetaAttivo->Aree[areaCorrente].Terreno.size() - 2; i++)
 	{
-		DrawLine(pianetaAttivo->Aree[areaCorrente].Terreno[i].X, pianetaAttivo->Aree[areaCorrente].Terreno[i].Y, pianetaAttivo->Aree[areaCorrente].Terreno[i+1].X, pianetaAttivo->Aree[areaCorrente].Terreno[i+1].Y,PIXEL_SOLID,pianetaAttivo->Colore);
+		DrawLine(pianetaAttivo->Aree[areaCorrente].Terreno[i].X, pianetaAttivo->Aree[areaCorrente].Terreno[i].Y, pianetaAttivo->Aree[areaCorrente].Terreno[i + 1].X, pianetaAttivo->Aree[areaCorrente].Terreno[i + 1].Y, PIXEL_SOLID, pianetaAttivo->Colore);
 	}
 }
 
@@ -207,10 +223,10 @@ bool Gravitar::OnUserUpdate(float fElapsedTime) {
 		}
 		else if (pianetaAttivo == NULL) {
 			Pianeta *p = PlanetLanding();
-			if(p != NULL)
+			if (p != NULL)
 				enterPlanet(p);
-		}						
-		if (pianetaAttivo!=NULL) {
+		}
+		if (pianetaAttivo != NULL) {
 			updateBull(fElapsedTime);
 			updateTorr(fElapsedTime);
 			//cambiaarea
@@ -239,7 +255,7 @@ bool Gravitar::OnUserUpdate(float fElapsedTime) {
 			for (auto &b : pianetaAttivo->Torrette) {
 				DrawTorr(b);
 			}
-			for(auto &b : pianetaAttivo->Carburanti){
+			for (auto &b : pianetaAttivo->Carburanti) {
 				DrawCarb(b);
 			}
 			for (auto &b : Proiettili) {
