@@ -13,6 +13,14 @@ void Navicella::setShip(float width, float heigth) {
 }
 
 void Navicella::ShipMove(float fElapsedTime, bool Up) {
+	if (Up) {
+		dx += sin(angle) * 15.0f * fElapsedTime;
+		dy += -cos(angle) * 15.0f * fElapsedTime;
+	}
+	else {
+		dx -= sin(angle) * 10.0f * fElapsedTime;
+		dy -= -cos(angle) * 10.0f * fElapsedTime;
+	}
 
 }
 

@@ -89,11 +89,8 @@ void Gravitar::updateNav(float fElapsedTime) {
 	if (m_keys[VK_UP].bHeld || m_keys[VK_DOWN].bHeld)
 		pg.ShipMove(fElapsedTime, m_keys[VK_UP].bHeld);
 
-
-	//Velocità finale
 	pg.X += pg.dx * fElapsedTime;
 	pg.Y += pg.dy * fElapsedTime;
-
 }
 
 void Gravitar::clear() {
