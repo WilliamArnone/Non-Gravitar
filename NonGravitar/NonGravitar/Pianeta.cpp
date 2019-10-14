@@ -2,7 +2,7 @@
 
 
 
-Pianeta::Pianeta(int ScreenWidth, int ScreenHeight, int numeroAree)
+Pianeta::Pianeta(const int ScreenWidth, const int ScreenHeight, int numeroAree)
 {
 	areaCorrente = 0;
 	Colore = (rand() % 14)+1;

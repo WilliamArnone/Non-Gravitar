@@ -29,7 +29,7 @@ void Gravitar::newUniverse() {
 	pianeti.push_back(p);
 	for (int i = 0; i < 4; i++) {
 		do {
-			p = Pianeta(ScreenWidth()-15, ScreenHeight()-15,10);
+			p = Pianeta(ScreenWidth(), ScreenHeight(),10);
 		} while (checkDistance(pianeti, p) || Collision(pg,p));
 		pianeti.push_back(p);
 	}
@@ -94,8 +94,10 @@ void Gravitar::updateNav(float fElapsedTime) {
 
 	if (m_keys[VK_UP].bHeld || m_keys[VK_DOWN].bHeld)
 		pg.ShipMove(fElapsedTime, m_keys[VK_UP].bHeld);
-
-
+	if (m_keys[VK_SPACE].bHeld) {
+		pg.dx = 0;
+		pg.dy = 0;
+	}
 	//Velocità finale
 	pg.X += pg.dx * fElapsedTime;
 	pg.Y += pg.dy * fElapsedTime;
@@ -212,6 +214,7 @@ void Gravitar::CheckCollisions() {
 bool Gravitar::OnUserCreate() {
 	pg.Size = 2.5;
 	resetGame();
+	
 	return true;
 }
 
