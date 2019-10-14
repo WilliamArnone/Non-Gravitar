@@ -1,4 +1,5 @@
 #include "Proiettile.h"
+#include <math.h>
 
 Proiettile::Proiettile()
 {
@@ -8,17 +9,18 @@ Proiettile::~Proiettile()
 {
 }
 Proiettile::Proiettile(bool p, float x, float y, float a) {
+	nSize = 0;
 	player = p;
 	X = x;
 	Y = y;
-	angle = a;
-	dx = 0;
-	dy = 0;
+	angle = 100.0f;
+	dx = 50.0f * sinf(a);
+	dy = -50.0f * cosf(a);
 }
 
 void Proiettile::Update(float fElapsedTime) {
-	dx = dx * fElapsedTime;
-	dy = dy * fElapsedTime;
+	dx *= fElapsedTime;
+	dy *= fElapsedTime;
 	angle -= 1.0f * fElapsedTime;
 }
 
