@@ -27,7 +27,7 @@ public:
 protected:
 
 	bool morto, gameover;
-	int score;
+	int score, vite;
 
 	std::vector<Pianeta> pianeti;
 

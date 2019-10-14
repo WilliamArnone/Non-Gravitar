@@ -21,10 +21,13 @@ Pianeta::Pianeta(const int ScreenWidth, const int ScreenHeight, int numeroAree)
 	}
 	posizione = ScreenHeight - 2 * Size;
 	Y = Size + rand() % posizione;
-	for (int i = 0; i < numeroAree; i++) {
-		Area in = Area(10,ScreenWidth,ScreenHeight);
+	Area inizio = Area(10, ScreenWidth, ScreenHeight,ScreenHeight);
+	Aree.push_back(inizio);
+	for (int i = 1; i < numeroAree; i++) {
+		Area in = Area(10,ScreenWidth,ScreenHeight,Aree[i-1].Terreno[Aree[i-1].Terreno.size()-1].Y);
 		Aree.push_back(in);
 	}
+	Aree[numeroAree - 1].Terreno[Aree[numeroAree - 1].Terreno.size() - 1].Y = ScreenHeight;
 }
 objGame CreaPuntoTerreno(int ScreenWidthmin, int ScreenWidthmax, int ScreenHeight) {
 	objGame Point = objGame();

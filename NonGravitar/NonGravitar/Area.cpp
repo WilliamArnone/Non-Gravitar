@@ -17,13 +17,15 @@ float Area::FindY(float xp) {
 	return 0;
 }
 
-Area::Area(int n, const int ScreenWidth, const int ScreenHeight) {
-	Terreno.push_back(CreaPuntoTerreno(0, ScreenWidth/n, ScreenHeight));
+Area::Area(int n, const int ScreenWidth, const int ScreenHeight, int LP = 0) {
+	objGame Inizio;
+	Inizio.Y = LP;
+	Inizio.X = 0;
+	Terreno.push_back(Inizio);
 	for (int i = 1; i < n-2; i++) {
 		Terreno.push_back(CreaPuntoTerreno(ScreenWidth* i/n,ScreenWidth* (i+1)/n,ScreenHeight));
 	}
-	objGame fine;
+	objGame fine = CreaPuntoTerreno(ScreenWidth* (n - 1) / n, ScreenWidth, ScreenHeight);
 	fine.X = ScreenWidth;
-	fine.Y = ScreenHeight;
 	Terreno.push_back(fine);
 }

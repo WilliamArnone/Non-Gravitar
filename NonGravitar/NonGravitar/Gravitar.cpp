@@ -14,6 +14,7 @@ Gravitar::~Gravitar()
 
 void Gravitar::resetGame() {
 	newUniverse();
+	vite = 2;
 	score = 0;
 	pg.fuel = 1000000;
 	pg.dx = 0;
@@ -22,6 +23,8 @@ void Gravitar::resetGame() {
 }
 
 void Gravitar::newUniverse() {
+	pianetaAttivo = NULL;
+	pianeti.clear();
 	pg.X = ScreenWidth() / 2;
 	pg.Y = ScreenHeight() / 2;
 	srand((unsigned)time(NULL));
@@ -128,7 +131,13 @@ bool Gravitar::checkEnd() {
 }
 
 void Gravitar::reborn() {
-
+	vite--;
+	pianetaAttivo = NULL;
+	pg.X = ScreenWidth() / 2;
+	pg.Y = ScreenHeight() / 2;
+	pg.dx = 0;
+	pg.dy = 0;
+	morto = false;
 }
 
 
@@ -160,6 +169,7 @@ void Gravitar::DrawNav() {
 		int j = i + 1;
 		DrawLine(sx[i % 3], sy[i % 3], sx[j % 3], sy[j % 3]);
 	}
+	FillCircle(pg.X, pg.Y, pg.Size, PIXEL_SOLID, FG_CYAN);
 }
 
 void Gravitar::DrawTorr(Torretta torre) {
@@ -181,21 +191,25 @@ void Gravitar::DrawRay() {
 }
 void Gravitar::DrawArea() {
 	int areaCorrente = pianetaAttivo->areaCorrente;
-	DrawLine(0, ScreenHeight(), pianetaAttivo->Aree[areaCorrente].Terreno[0].X, pianetaAttivo->Aree[areaCorrente].Terreno[0].Y,PIXEL_SOLID, pianetaAttivo->Colore);
 	for (int i=0; i<pianetaAttivo->Aree[areaCorrente].Terreno.size()-1;i++)
 	{
 		DrawLine(pianetaAttivo->Aree[areaCorrente].Terreno[i].X, pianetaAttivo->Aree[areaCorrente].Terreno[i].Y, pianetaAttivo->Aree[areaCorrente].Terreno[i+1].X, pianetaAttivo->Aree[areaCorrente].Terreno[i+1].Y,PIXEL_SOLID,pianetaAttivo->Colore);
 	}
 }
+
+void Gravitar::DrawGameOver() {
+	DrawCircle(50, 50, 7);
+}
+
 #pragma endregion
 
 
-void Gravitar::DrawGameOver() {
-
-}
 
 void Gravitar::CheckCollisions() {
 	if (pianetaAttivo != NULL) {
+		if (pg.Y >= pianetaAttivo->Aree[pianetaAttivo->areaCorrente].FindY(pg.X)) {
+			//morto = true;
+		}
 		for (auto &b : Proiettili) {
 			if (Collision(pg, b)) {
 				//morto
@@ -222,12 +236,19 @@ bool Gravitar::OnUserCreate() {
 bool Gravitar::OnUserUpdate(float fElapsedTime) {
 	Fill(0, 0, ScreenWidth(), ScreenHeight(), PIXEL_SOLID, 0);	//Pulise la schermata
 
+	if (m_keys[VK_TAB].bHeld) {
+		resetGame();
+	}
+
 	if (checkEnd()) {				//calcolo dello stato del gioco
 		gameover = true;
 	}
 	else {
 		if (morto) {
-			reborn();
+			if (vite == 0)
+				gameover = true;
+			else
+				reborn();
 		}
 
 		updateNav(fElapsedTime);
