@@ -119,6 +119,7 @@ void Gravitar::changeArea() {
 	if ((pg.X < 0) || next) {
 		pg.X = next ? pg.X = 5 : pg.X = ScreenWidth() - 5;
 		pianetaAttivo->areaCorrente += next ? 1 : -1;
+		pianetaAttivo->areaCorrente = pianetaAttivo->areaCorrente % pianetaAttivo->Aree.size();
 	}
 }
 
@@ -179,7 +180,7 @@ void Gravitar::DrawRay() {
 	DrawLine(pg.X, pg.Y, pg.X+5, pg.Y-10);
 }
 void Gravitar::DrawArea() {
-	int areaCorrente = pianetaAttivo->areaCorrente % pianetaAttivo->Aree.size();
+	int areaCorrente = pianetaAttivo->areaCorrente;
 	DrawLine(0, ScreenHeight(), pianetaAttivo->Aree[areaCorrente].Terreno[0].X, pianetaAttivo->Aree[areaCorrente].Terreno[0].Y,PIXEL_SOLID, pianetaAttivo->Colore);
 	for (int i=0; i<pianetaAttivo->Aree[areaCorrente].Terreno.size()-1;i++)
 	{
@@ -268,6 +269,7 @@ bool Gravitar::OnUserUpdate(float fElapsedTime) {
 		}
 		else {
 			DrawArea();
+			Draw(pg.X, pianetaAttivo->Aree[pianetaAttivo->areaCorrente].FindY(pg.X), PIXEL_SOLID, FG_RED);
 			for (auto &b : pianetaAttivo->Torrette) {
 				DrawTorr(b);
 			}

@@ -14,6 +14,7 @@ public:
 
 	objGame CreaPuntoTerreno(int ScreenWidthmin, int ScreenWidthmax, int ScreenHeight);
 	Area(int n, int ScreenWidth, int ScreenHeight);
+	float FindY(float xp);
 	Torretta CreaTorretta(int ScreenWidthmin, int ScreenWidthmax, int ScreenHeight);
 	Torretta CreaCarburanti(int ScreenWidthmin, int ScreenWidthmax, int ScreenHeight);
 };
