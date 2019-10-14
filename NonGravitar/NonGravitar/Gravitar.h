@@ -26,8 +26,6 @@ public:
 
 protected:
 
-	float fuel;
-
 	bool morto, gameover;
 	int score;
 

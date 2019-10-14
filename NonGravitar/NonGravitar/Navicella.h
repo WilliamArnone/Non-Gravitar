@@ -13,7 +13,7 @@
 class Navicella : public objGame
 {
 public:
-	float dx, dy;
+	float dx, dy,fuel;
 	Navicella();
 	void setShip(float width, float heigth);
 	void ShipMove(float fElapsedTime, bool Up);
