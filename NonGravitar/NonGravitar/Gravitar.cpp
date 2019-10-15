@@ -198,7 +198,90 @@ void Gravitar::DrawArea() {
 }
 
 void Gravitar::DrawGameOver() {
-	DrawCircle(50, 50, 7);
+	//G
+	DrawLine(66, 45, 56, 45);
+	DrawLine(66, 45, 66, 38);
+	DrawLine(56, 45, 56, 25);
+	DrawLine(66, 25, 56, 25);
+	DrawLine(66, 38, 61, 38);
+
+	//A
+	DrawLine(78, 45, 74, 25);
+	DrawLine(74, 25, 70, 45);
+	DrawLine(76, 38, 72, 38);
+
+	//M
+	DrawLine(82, 25, 87, 35);
+	DrawLine(82, 45, 82, 25);
+	DrawLine(87, 35, 92, 25);
+	DrawLine(92, 45, 92, 25);
+
+	//E
+	DrawLine(96, 45, 96, 25);
+	DrawLine(96, 45, 104, 45);
+	DrawLine(96, 25, 104, 25);
+	DrawLine(96, 35, 104, 35);
+
+	//O
+	DrawLine(66, 75, 57, 75);
+	DrawLine(66, 75, 66, 55);
+	DrawLine(57, 75, 57, 55);
+	DrawLine(66, 55, 57, 55);
+
+	//V
+	DrawLine(78, 55, 74, 75);
+	DrawLine(74, 75, 70, 55);
+
+	//E
+	DrawLine(82, 75, 82, 55);
+	DrawLine(82, 75, 91, 75);
+	DrawLine(82, 55, 91, 55);
+	DrawLine(82, 65, 91, 65);
+
+	//R
+	DrawLine(95, 75, 95, 55);
+	DrawLine(95, 55, 103, 55);
+	DrawLine(103, 55, 103, 65);
+	DrawLine(95, 65, 103, 65);
+	DrawLine(95, 65, 103, 75);
+
+	// pulsanti
+
+	//->
+	DrawLine(150, 90, 150, 96);
+	DrawLine(150, 90, 156, 90);
+	DrawLine(156, 96, 150, 96);
+	DrawLine(156, 96, 156, 90);
+	DrawLine(151, 93, 154, 93);
+	DrawLine(154, 93, 152, 91);
+	DrawLine(154, 93, 152, 95);
+
+	//<-
+	DrawLine(130, 90, 130, 96);
+	DrawLine(130, 90, 136, 90);
+	DrawLine(136, 96, 130, 96);
+	DrawLine(136, 96, 136, 90);
+	DrawLine(132, 93, 135, 93);
+	DrawLine(132, 93, 134, 91);
+	DrawLine(132, 93, 134, 95);
+
+	//giù
+	DrawLine(140, 90, 140, 96);
+	DrawLine(140, 90, 146, 90);
+	DrawLine(146, 96, 140, 96);
+	DrawLine(146, 96, 146, 90);
+	DrawLine(143, 90, 143, 94);
+	DrawLine(143, 94, 141, 92);
+	DrawLine(143, 94, 145, 92);
+
+	//^
+	DrawLine(140, 80, 140, 86);
+	DrawLine(140, 80, 146, 80);
+	DrawLine(146, 86, 140, 86);
+	DrawLine(146, 86, 146, 80);
+	DrawLine(143, 82, 143, 86);
+	DrawLine(143, 82, 141, 84);
+	DrawLine(143, 82, 145, 84);
 }
 
 #pragma endregion
@@ -207,8 +290,9 @@ void Gravitar::DrawGameOver() {
 
 void Gravitar::CheckCollisions() {
 	if (pianetaAttivo != NULL) {
-		if (pg.Y >= pianetaAttivo->Aree[pianetaAttivo->areaCorrente].FindY(pg.X)) {
-			//morto = true;
+		objGame terr = objGame(pg.X, pianetaAttivo->Aree[pianetaAttivo->areaCorrente].FindY(pg.X), 0);
+		if (Collision(pg, terr)) {
+			morto = true;
 		}
 		for (auto &b : Proiettili) {
 			if (Collision(pg, b)) {
@@ -302,7 +386,7 @@ bool Gravitar::OnUserUpdate(float fElapsedTime) {
 			}
 		}
 	}
-
+	DrawString(2, 2, L"Vite: " + to_wstring(vite));
 
 
 	return true;
