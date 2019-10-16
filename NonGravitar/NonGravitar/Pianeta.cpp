@@ -38,19 +38,6 @@ objGame CreaPuntoTerreno(int ScreenWidthmin, int ScreenWidthmax, int ScreenHeigh
 	return Point;
 }
 
-//per come è stata creata Torretta prende i valori del terreno, quindi mi sa che dovrò prendere in un input <vector>Terreno
-Torretta CreaTorretta(int ScreenWidthmin, int ScreenWidthmax, int ScreenHeight) {
-
-
-	return Torretta();
-}
-//Stessa cosa per carburante
-Carburante CreaCarburante(int ScreenWidthmin, int ScreenWidthmax, int ScreenHeight) {
-
-
-
-	return Carburante();
-}
 
 bool Pianeta::isEnded() {
 	if (Torrette.empty())

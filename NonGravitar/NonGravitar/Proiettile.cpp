@@ -9,7 +9,6 @@ Proiettile::~Proiettile()
 {
 }
 Proiettile::Proiettile(bool p, float x, float y, float a) {
-	nSize = 0;
 	player = p;
 	X = x;
 	Y = y;
@@ -19,12 +18,7 @@ Proiettile::Proiettile(bool p, float x, float y, float a) {
 }
 
 void Proiettile::Update(float fElapsedTime) {
-	dx *= fElapsedTime;
-	dy *= fElapsedTime;
+	X += dx * fElapsedTime;
+	Y += dy * fElapsedTime;
 	angle -= 1.0f * fElapsedTime;
-}
-
-bool Proiettile::IsOutOfMap(float width, float heigth) {
-	if (X < 1 || Y < 1 || X >= width - 1 || Y >= heigth - 1)
-		return true;
 }

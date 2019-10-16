@@ -46,7 +46,7 @@ void Gravitar::enterPlanet(Pianeta *newplanet) {
 	pianetaAttivo = newplanet;
 	pg.X = ScreenWidth() / 2;
 	pg.Y = 5;
-	pg.angle = 3.14;
+	pg.angle = 0;
 	pg.dy = sqrt(pg.dy*pg.dy + pg.dx*pg.dx);
 	pg.dx = 0;
 }
@@ -78,27 +78,75 @@ bool Gravitar::isLeaving() {
 	return pg.Y < 0;
 }
 
+void Gravitar::EraseBullets(vector<Proiettile> &Proiettili) {
+
+	if (Proiettili.size() > 0)
+	{
+		auto i = remove_if(Proiettili.begin(), Proiettili.end(), [&](Proiettile o) {return (o.X < 1 || o.Y < 1 || o.X >= ScreenWidth() - 1 || o.Y >= ScreenHeight() - 1); });
+		if (i != Proiettili.end())
+			Proiettili.erase(i);
+	}
+
+	for (auto &p : Proiettili)
+	{
+		if (p.X < pianetaAttivo->Terreno[0].X) {
+			auto i = remove_if(Proiettili.begin(), Proiettili.end(), [&](Proiettile o) { return Collision(o, pianetaAttivo->Terreno[0]); });
+			if (i != Proiettili.end())
+				Proiettili.erase(i);
+		}
+		/*
+		else if (b.x < Base.P[pianetaCorrente].A[AreaCorrente].x[1] && b.x > Base.P[pianetaCorrente].A[AreaCorrente].x[0]) {
+			auto i = remove_if(vecBullets.begin(), vecBullets.end(), [&](sSpaceObject o) { return (Collision(Base.P[pianetaCorrente].A[AreaCorrente].x[0], Base.P[pianetaCorrente].A[AreaCorrente].y[0], Base.P[pianetaCorrente].A[AreaCorrente].x[1], Base.P[pianetaCorrente].A[AreaCorrente].y[1], b.x, b.y)); });
+			if (i != vecBullets.end())
+				vecBullets.erase(i);
+		}
+		else if (b.x < Base.P[pianetaCorrente].A[AreaCorrente].x[2] && b.x > Base.P[pianetaCorrente].A[AreaCorrente].x[1]) {
+			auto i = remove_if(vecBullets.begin(), vecBullets.end(), [&](sSpaceObject o) { return (Collision(Base.P[pianetaCorrente].A[AreaCorrente].x[1], Base.P[pianetaCorrente].A[AreaCorrente].y[1], Base.P[pianetaCorrente].A[AreaCorrente].x[2], Base.P[pianetaCorrente].A[AreaCorrente].y[2], b.x, b.y)); });
+			if (i != vecBullets.end())
+				vecBullets.erase(i);
+		}
+		else if (b.x < Base.P[pianetaCorrente].A[AreaCorrente].x[3] && b.x > Base.P[pianetaCorrente].A[AreaCorrente].x[2]) {
+			auto i = remove_if(vecBullets.begin(), vecBullets.end(), [&](sSpaceObject o) { return(Collision(Base.P[pianetaCorrente].A[AreaCorrente].x[2], Base.P[pianetaCorrente].A[AreaCorrente].y[2], Base.P[pianetaCorrente].A[AreaCorrente].x[3], Base.P[pianetaCorrente].A[AreaCorrente].y[3], b.x, b.y)); });
+			if (i != vecBullets.end())
+				vecBullets.erase(i);
+		}
+		else if (b.x < Base.P[pianetaCorrente].A[AreaCorrente].x[4] && b.x > Base.P[pianetaCorrente].A[AreaCorrente].x[3]) {
+			auto i = remove_if(vecBullets.begin(), vecBullets.end(), [&](sSpaceObject o) { return (Collision(Base.P[pianetaCorrente].A[AreaCorrente].x[3], Base.P[pianetaCorrente].A[AreaCorrente].y[3], Base.P[pianetaCorrente].A[AreaCorrente].x[4], Base.P[pianetaCorrente].A[AreaCorrente].y[4], b.x, b.y)); });
+			if (i != vecBullets.end())
+				vecBullets.erase(i);
+		}
+		else if (b.x > Base.P[pianetaCorrente].A[AreaCorrente].x[4]) {
+			auto i = remove_if(vecBullets.begin(), vecBullets.end(), [&](sSpaceObject o) { return Collision(Base.P[pianetaCorrente].A[AreaCorrente].x[4], Base.P[pianetaCorrente].A[AreaCorrente].y[4], ScreenWidth(), ScreenHeight(), b.x, b.y); });
+			if (i != vecBullets.end())
+				vecBullets.erase(i);
+		}*/
+	}
+
+}
+
+
 void Gravitar::updateTorr(float fElapsedTime) {
 	for (auto &t : pianetaAttivo->Torrette) {
-		t.Update(fElapsedTime);
+		t.Update(fElapsedTime, pg.X, pg.Y);
 	}
 }
 void Gravitar::updateBull(float fElapsedTime) {
-	for (auto &p : Proiettili) {
+	for (auto &p : Proiettili)
 		p.Update(fElapsedTime);
-		p.X += p.dx;
-		p.Y += p.dy;
-	}
+
+	EraseBullets(Proiettili);
+
 }
 void Gravitar::updateNav(float fElapsedTime) {
-	if (m_keys[VK_LBUTTON].bPressed)
-		Proiettili.push_back({ true, pg.X, pg.Y, pg.angle });
 
 	if (m_keys[VK_LEFT].bHeld || m_keys[VK_RIGHT].bHeld)
 		pg.ShipRotate(fElapsedTime, m_keys[VK_LEFT].bHeld);
 
 	if (m_keys[VK_UP].bHeld || m_keys[VK_DOWN].bHeld)
 		pg.ShipMove(fElapsedTime, m_keys[VK_UP].bHeld);
+
+	if (m_keys[VK_RETURN].bPressed && pianetaAttivo != NULL)
+		Proiettili.push_back({ true, pg.X, pg.Y, pg.angle });
 
 	if (m_keys[VK_SPACE].bHeld) {
 		pg.dx = 0;
@@ -108,7 +156,6 @@ void Gravitar::updateNav(float fElapsedTime) {
 	//Velocità finale
 	pg.X += pg.dx * fElapsedTime;
 	pg.Y += pg.dy * fElapsedTime;
-
 }
 
 void Gravitar::clear() {

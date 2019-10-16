@@ -8,9 +8,6 @@ Navicella::~Navicella()
 {
 }
 
-void Navicella::setShip(float width, float heigth) {
-
-}
 
 void Navicella::ShipMove(float fElapsedTime, bool Up) {
 	if (Up) {

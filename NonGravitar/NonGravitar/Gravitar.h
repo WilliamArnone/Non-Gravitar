@@ -50,6 +50,7 @@ protected:
 	Pianeta * PlanetLanding();
 	bool isLeaving();
 	void WrapCoordinate();
+	void EraseBullets(vector<Proiettile> &Proiettili);
 
 	void updateTorr(float fElapsedTime);
 	void updateBull(float fElapsedTime);
