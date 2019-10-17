@@ -14,7 +14,7 @@ float Area::FindY(float xp) {
 			return l;
 		}
 	}
-	return 100000;
+	return 10000;
 }
 
 Area::Area(int n, const int ScreenWidth, const int ScreenHeight, int LP = 0) {

@@ -10,7 +10,7 @@ int main() {
 
 	
 	Gravitar game;
-	game.ConstructConsole(160, 100, 8, 8);
+	game.ConstructConsole(160, 100, 10, 10);
 	game.Start();
 	return 0;
 }

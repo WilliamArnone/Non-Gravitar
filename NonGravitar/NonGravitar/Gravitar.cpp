@@ -198,6 +198,55 @@ void Gravitar::DrawArea() {
 }
 
 void Gravitar::DrawGameOver() {
+	//G
+	DrawLine(66, 45, 56, 45);
+	DrawLine(66, 45, 66, 38);
+	DrawLine(56, 45, 56, 25);
+	DrawLine(66, 25, 56, 25);
+	DrawLine(66, 38, 61, 38);
+
+	//A
+	DrawLine(78, 45, 74, 25);
+	DrawLine(74, 25, 70, 45);
+	DrawLine(76, 38, 72, 38);
+
+	//M
+	DrawLine(82, 25, 87, 35);
+	DrawLine(82, 45, 82, 25);
+	DrawLine(87, 35, 92, 25);
+	DrawLine(92, 45, 92, 25);
+
+	//E
+	DrawLine(96, 45, 96, 25);
+	DrawLine(96, 45, 104, 45);
+	DrawLine(96, 25, 104, 25);
+	DrawLine(96, 35, 104, 35);
+
+	//O
+	DrawLine(66, 75, 57, 75);
+	DrawLine(66, 75, 66, 55);
+	DrawLine(57, 75, 57, 55);
+	DrawLine(66, 55, 57, 55);
+
+	//V
+	DrawLine(78, 55, 74, 75);
+	DrawLine(74, 75, 70, 55);
+
+	//E
+	DrawLine(82, 75, 82, 55);
+	DrawLine(82, 75, 91, 75);
+	DrawLine(82, 55, 91, 55);
+	DrawLine(82, 65, 91, 65);
+
+	//R
+	DrawLine(95, 75, 95, 55);
+	DrawLine(95, 55, 103, 55);
+	DrawLine(103, 55, 103, 65);
+	DrawLine(95, 65, 103, 65);
+	DrawLine(95, 65, 103, 75);
+
+	// pulsanti
+
 	//->
 	DrawLine(150, 90, 150, 96);
 	DrawLine(150, 90, 156, 90);
@@ -241,7 +290,8 @@ void Gravitar::DrawGameOver() {
 
 void Gravitar::CheckCollisions() {
 	if (pianetaAttivo != NULL) {
-		if (pg.Y >= pianetaAttivo->Aree[pianetaAttivo->areaCorrente].FindY(pg.X)) {
+		objGame terr = objGame(pg.X, pianetaAttivo->Aree[pianetaAttivo->areaCorrente].FindY(pg.X), 0);
+		if (Collision(pg, terr)) {
 			morto = true;
 		}
 		for (auto &b : Proiettili) {
@@ -262,8 +312,8 @@ void Gravitar::CheckCollisions() {
 
 bool Gravitar::OnUserCreate() {
 	pg.Size = 2.5;
-	gameover = true;
-	vite = 2;
+	resetGame();
+	
 	return true;
 }
 
@@ -336,7 +386,7 @@ bool Gravitar::OnUserUpdate(float fElapsedTime) {
 			}
 		}
 	}
-
+	DrawString(2, 2, L"Vite: " + to_wstring(vite));
 
 
 	return true;
