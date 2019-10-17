@@ -198,7 +198,41 @@ void Gravitar::DrawArea() {
 }
 
 void Gravitar::DrawGameOver() {
-	DrawCircle(50, 50, 7);
+	//->
+	DrawLine(150, 90, 150, 96);
+	DrawLine(150, 90, 156, 90);
+	DrawLine(156, 96, 150, 96);
+	DrawLine(156, 96, 156, 90);
+	DrawLine(151, 93, 154, 93);
+	DrawLine(154, 93, 152, 91);
+	DrawLine(154, 93, 152, 95);
+
+	//<-
+	DrawLine(130, 90, 130, 96);
+	DrawLine(130, 90, 136, 90);
+	DrawLine(136, 96, 130, 96);
+	DrawLine(136, 96, 136, 90);
+	DrawLine(132, 93, 135, 93);
+	DrawLine(132, 93, 134, 91);
+	DrawLine(132, 93, 134, 95);
+
+	//giù
+	DrawLine(140, 90, 140, 96);
+	DrawLine(140, 90, 146, 90);
+	DrawLine(146, 96, 140, 96);
+	DrawLine(146, 96, 146, 90);
+	DrawLine(143, 90, 143, 94);
+	DrawLine(143, 94, 141, 92);
+	DrawLine(143, 94, 145, 92);
+
+	//^
+	DrawLine(140, 80, 140, 86);
+	DrawLine(140, 80, 146, 80);
+	DrawLine(146, 86, 140, 86);
+	DrawLine(146, 86, 146, 80);
+	DrawLine(143, 82, 143, 86);
+	DrawLine(143, 82, 141, 84);
+	DrawLine(143, 82, 145, 84);
 }
 
 #pragma endregion
@@ -208,7 +242,7 @@ void Gravitar::DrawGameOver() {
 void Gravitar::CheckCollisions() {
 	if (pianetaAttivo != NULL) {
 		if (pg.Y >= pianetaAttivo->Aree[pianetaAttivo->areaCorrente].FindY(pg.X)) {
-			//morto = true;
+			morto = true;
 		}
 		for (auto &b : Proiettili) {
 			if (Collision(pg, b)) {
@@ -228,8 +262,8 @@ void Gravitar::CheckCollisions() {
 
 bool Gravitar::OnUserCreate() {
 	pg.Size = 2.5;
-	resetGame();
-	
+	gameover = true;
+	vite = 2;
 	return true;
 }
 
