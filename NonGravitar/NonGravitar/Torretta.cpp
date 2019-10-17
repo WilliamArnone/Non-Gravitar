@@ -4,15 +4,17 @@ Torretta::Torretta()
 {
 }
 
-Torretta::Torretta(float width, float heigth)
+Torretta::Torretta(float xu, float yu, float xl, float yl, float xr, float yr)
 {
 	TimeToShoot = 500;
-	X = width;
-	Y = heigth;
-	XUp = X;
-	YUp = Y + 2;
-	Xl = X - 2;
-	Xr = X + 2;
+	XUp = xu;
+	YUp = yu;
+	Xl = xl;
+	Yl = yl;
+	Xr = xr;
+	Yr = yr;
+	X = xu;
+	Y = yu - 2;
 }
 
 void Torretta::Update(float fElapsedTime, float Px, float Py) {

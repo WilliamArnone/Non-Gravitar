@@ -46,7 +46,7 @@ void Gravitar::enterPlanet(Pianeta *newplanet) {
 	pianetaAttivo = newplanet;
 	pg.X = ScreenWidth() / 2;
 	pg.Y = 5;
-	pg.angle = 0;
+	pg.angle = 3.14;
 	pg.dy = sqrt(pg.dy*pg.dy + pg.dx*pg.dx);
 	pg.dx = 0;
 }
@@ -217,7 +217,7 @@ void Gravitar::DrawNav() {
 }
 
 void Gravitar::DrawTorr(Torretta torre) {
-	Fill(torre.X - 2, torre.Y + 4, torre.X + 2, torre.Y - 4, PIXEL_SOLID, FG_YELLOW);
+	FillTriangle(torre.Xl, torre.Yl, torre.XUp, torre.YUp, torre.Xr, torre.Yr, PIXEL_SOLID, FG_DARK_GREEN);
 }
 
 void Gravitar::DrawCarb(Carburante carb) {
@@ -324,7 +324,7 @@ bool Gravitar::OnUserUpdate(float fElapsedTime) {
 		else {
 			DrawArea();
 			Draw(pg.X, pianetaAttivo->Aree[pianetaAttivo->areaCorrente].FindY(pg.X), PIXEL_SOLID, FG_RED);
-			for (auto &b : pianetaAttivo->Torrette) {
+ 			for (auto &b : pianetaAttivo->Aree[pianetaAttivo->areaCorrente].Torrette) {
 				DrawTorr(b);
 			}
 			for (auto &b : pianetaAttivo->Carburanti) {

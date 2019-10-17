@@ -6,13 +6,13 @@
 class Torretta : public objGame
 {
 protected:
-	float XUp, YUp;
 	int TimeToShoot;
 public:
+	float XUp, YUp;
 	float Xl, Xr;
 	float Yl, Yr;
 	Torretta();
-	Torretta(float width, float heigth);
+	Torretta(float xu, float yu,float xl,float yl,float xr,float yr);
 	void Update(float fElapsedTime, float Px, float Py);
 	~Torretta();
 };

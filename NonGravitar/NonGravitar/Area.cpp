@@ -8,12 +8,9 @@ objGame Area::CreaPuntoTerreno(int ScreenWidthmin, int ScreenWidthmax, int Scree
 	return punto;
 }
 
-Torretta Area::CreaTorretta(std::vector<objGame> Terreno) {
-	Torretta P;
-	float x = rand() % Terreno.size();
-	Torretta(x, FindY(x));
-	P.Yl = FindY(P.Xl);
-	P.Yr = FindY(P.Xr);
+Torretta Area::CreaTorretta(std::vector<objGame> Terreno, int ScreenWidth) {
+	float x = rand() % ScreenWidth;
+	Torretta P = Torretta(x, FindY(x) + 2, x - 2, FindY(x - 2), x + 2, FindY(x + 2));
 	return P;
 }
 
@@ -32,7 +29,8 @@ Area::Area(int n, const int ScreenWidth, const int ScreenHeight) {
 	for (int i = 1; i < n - 2; i++)
 		Terreno.push_back(CreaPuntoTerreno(ScreenWidth* i / n, ScreenWidth* (i + 1) / n, ScreenHeight));
 
-	Torrette.push_back(CreaTorretta(Terreno));
+	Torrette.push_back(CreaTorretta(Terreno, ScreenWidth));
+
 	objGame fine;
 	fine.X = ScreenWidth;
 	fine.Y = ScreenHeight;
