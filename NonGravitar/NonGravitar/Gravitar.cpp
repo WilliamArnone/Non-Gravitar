@@ -217,11 +217,11 @@ void Gravitar::DrawNav() {
 }
 
 void Gravitar::DrawTorr(Torretta torre) {
-	FillTriangle(torre.Xl, torre.Yl, torre.XUp, torre.YUp, torre.Xr, torre.Yr, PIXEL_SOLID, FG_DARK_GREEN);
+	FillTriangle(torre.Xl, torre.Yl, torre.XUp, torre.YUp, torre.Xr, torre.Yr, PIXEL_SOLID, FG_RED);
 }
 
 void Gravitar::DrawCarb(Carburante carb) {
-	Fill(carb.X - 2, carb.Y + 2, carb.X + 2, carb.Y - 2);
+	FillCircle(carb.X, carb.Y, 2, PIXEL_SOLID, FG_CYAN);
 }
 void Gravitar::DrawPlanet(Pianeta planet) {
 	FillCircle(planet.X, planet.Y, planet.Size, PIXEL_SOLID, planet.Colore);
@@ -327,7 +327,7 @@ bool Gravitar::OnUserUpdate(float fElapsedTime) {
  			for (auto &b : pianetaAttivo->Aree[pianetaAttivo->areaCorrente].Torrette) {
 				DrawTorr(b);
 			}
-			for (auto &b : pianetaAttivo->Carburanti) {
+			for (auto &b : pianetaAttivo->Aree[pianetaAttivo->areaCorrente].Carburanti) {
 				DrawCarb(b);
 			}
 			for (auto &b : Proiettili) {

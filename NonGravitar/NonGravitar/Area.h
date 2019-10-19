@@ -17,5 +17,5 @@ public:
 	Area(int n, int ScreenWidth, int ScreenHeight);
 	float FindY(float xp);
 	Torretta CreaTorretta(std::vector<objGame> Terreno, int ScreenWidth);
-	Torretta CreaCarburanti(int ScreenWidthmin, int ScreenWidthmax, int ScreenHeight);
+	Carburante CreaCarburanti(std::vector<objGame> Terreno, int ScreenWidth);
 };
