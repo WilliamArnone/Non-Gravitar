@@ -13,8 +13,9 @@ Torretta::Torretta(float xu, float yu, float xl, float yl, float xr, float yr)
 	Yl = yl;
 	Xr = xr;
 	Yr = yr;
-	X = xu;
-	Y = yu - 2;
+	//Baricentro Cerchio
+	X = (XUp + Xl + Xr) / 3;
+	Y = (YUp + Yl + Yr) / 3;
 }
 
 void Torretta::Update(float fElapsedTime, float Px, float Py) {
