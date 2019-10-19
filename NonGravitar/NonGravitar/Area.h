@@ -6,6 +6,7 @@
 #include "objGame.h"
 #include "Torretta.h"
 #include "Carburante.h"
+#include "TorrettaPro.h"
 
 class Area {
 public:

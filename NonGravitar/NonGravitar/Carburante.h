@@ -4,9 +4,8 @@
 
 class Carburante : public objGame
 {
-private:
-	float r, liter;
 public:
+	float r, liter;
 	Carburante();
 	Carburante(float x, float y);
 	~Carburante();

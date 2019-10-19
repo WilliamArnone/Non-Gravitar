@@ -8,7 +8,7 @@ Carburante::Carburante()
 Carburante::Carburante(float x, float y) {
 	X = x;
 	Y = y;
-	r = 2;
+	r = 1;
 }
 
 

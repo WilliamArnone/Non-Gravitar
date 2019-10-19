@@ -10,8 +10,10 @@ objGame Area::CreaPuntoTerreno(int ScreenWidthmin, int ScreenWidthmax, int Scree
 
 Torretta Area::CreaTorretta(std::vector<objGame> Terreno, int ScreenWidth) {
 	float x = 10 + rand() % (ScreenWidth - 20);
-	Torretta P = Torretta(x, FindY(x) - ((FindY(x - 2) + FindY(x + 2)) / 24), x - 2, FindY(x - 2), x + 2, FindY(x + 2));
-	return P;
+	if (rand() % 101 > 45)
+		return Torretta(x, FindY(x) - ((FindY(x - 2) + FindY(x + 2)) / 32), x - 2, FindY(x - 2), x + 2, FindY(x + 2));
+	else
+		return TorrettaPro(x, FindY(x) - ((FindY(x - 2) + FindY(x + 2)) / 32), x - 2, FindY(x - 2), x + 2, FindY(x + 2));
 }
 
 Carburante Area::CreaCarburanti(std::vector<objGame> Terreno, int ScreenWidth) {
@@ -24,7 +26,7 @@ Carburante Area::CreaCarburanti(std::vector<objGame> Terreno, int ScreenWidth) {
 
 float Area::FindY(float xp) {
 	for (int i = 0; i < Terreno.size() - 1; i++) {
-		if ((Terreno[i].X <= xp) && (xp <= Terreno[i + 1].X)) {
+		if ((Terreno[i].X <= xp) && (xp < Terreno[i + 1].X)) {
 			float l = ((xp - Terreno[i].X)*(Terreno[i + 1].Y - Terreno[i].Y) / (Terreno[i + 1].X - Terreno[i].X)) + Terreno[i].Y;
 			return l;
 		}
