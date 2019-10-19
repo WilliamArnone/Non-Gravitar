@@ -2,10 +2,10 @@
 
 
 
-Pianeta::Pianeta(int ScreenWidth, int ScreenHeight, int numeroAree)
+Pianeta::Pianeta(const int ScreenWidth, const int ScreenHeight, int numeroAree)
 {
 	areaCorrente = 0;
-	Colore = rand() % 15;
+	Colore = (rand() % 14) + 1;
 	const int nPoints = 10;
 	for (int i = 0; i < nPoints; i++) {
 		int min = ScreenWidth / nPoints * i;
@@ -27,10 +27,6 @@ Pianeta::Pianeta(int ScreenWidth, int ScreenHeight, int numeroAree)
 	}
 }
 
-float Pianeta::FIndY(float x1, float y1, float x2, float y2, float xp) {
-	//fixare i punti critici, creano problemi i lati troppo ripidi dove le torrette (ad ora cerchi) vengono messe sotto terra e non ho sinceramente voglia di capire il perchè, gioco a perudo con tommy ora, 3 6 
-	return (((xp - x1)*(y2 - y1) / (x2 - x1)) + y1);
-}
 
 objGame CreaPuntoTerreno(int ScreenWidthmin, int ScreenWidthmax, int ScreenHeight) {
 	objGame Point = objGame();
@@ -42,19 +38,6 @@ objGame CreaPuntoTerreno(int ScreenWidthmin, int ScreenWidthmax, int ScreenHeigh
 	return Point;
 }
 
-//per come è stata creata Torretta prende i valori del terreno, quindi mi sa che dovrò prendere in un input <vector>Terreno
-Torretta CreaTorretta(int ScreenWidthmin, int ScreenWidthmax, int ScreenHeight) {
-
-
-	return Torretta();
-}
-//Stessa cosa per carburante
-Carburante CreaCarburante(int ScreenWidthmin, int ScreenWidthmax, int ScreenHeight) {
-
-
-
-	return Carburante();
-}
 
 bool Pianeta::isEnded() {
 	if (Torrette.empty())

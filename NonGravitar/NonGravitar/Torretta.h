@@ -1,20 +1,19 @@
 #pragma once
 
-#include <vector>
-#include "Proiettile.h"
-
+#include "objGame.h"
+#include <math.h>
 
 class Torretta : public objGame
 {
 protected:
-	float x1, x2, x3;
-	float y1, y2, y3;
-	float angle;
 	int TimeToShoot;
 public:
+	float XUp, YUp;
+	float Xl, Xr;
+	float Yl, Yr;
 	Torretta();
-	void Update(float fElapsedTime);
-	//Proiettile Shoot();
+	Torretta(float xu, float yu,float xl,float yl,float xr,float yr);
+	void Update(float fElapsedTime, float Px, float Py);
 	~Torretta();
 };
 

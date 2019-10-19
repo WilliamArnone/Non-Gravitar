@@ -26,8 +26,6 @@ public:
 
 protected:
 
-	float fuel;
-
 	bool morto, gameover;
 	int score;
 
@@ -52,10 +50,12 @@ protected:
 	Pianeta * PlanetLanding();
 	bool isLeaving();
 	void WrapCoordinate();
+	void EraseBullets(vector<Proiettile> &Proiettili);
 
 	void updateTorr(float fElapsedTime);
 	void updateBull(float fElapsedTime);
 	void updateNav(float fElapsedTime);
+	void changeArea();
 
 	void clear();
 	bool checkEnd();

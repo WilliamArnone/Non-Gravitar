@@ -4,25 +4,23 @@ Torretta::Torretta()
 {
 }
 
-void Torretta::Update(float fElapsedTime) {
+Torretta::Torretta(float xu, float yu, float xl, float yl, float xr, float yr)
+{
+	TimeToShoot = 500;
+	XUp = xu;
+	YUp = yu;
+	Xl = xl;
+	Yl = yl;
+	Xr = xr;
+	Yr = yr;
+	X = xu;
+	Y = yu - 2;
 }
 
-/*Proiettile Torretta::Shoot(){
-	//Primo tipo di Torretta Spara
-	if (type == 1 && TimeToShoot == 0)
-	{
-		vecBullets.push_back({ 0, x3,y3, 50.0f * sinf(angle), -50.0f * cosf(angle), 100.0f,false });
-		TimeToShoot = 500;
-	}
-	//Secondo tipo di torretta
-	else if (Base.P[pianetaCorrente].A[AreaCorrente].T.type == 2 && Base.P[pianetaCorrente].A[AreaCorrente].T.TimeToShoot == 0)
-	{
-		vecBullets.push_back({ 0, Base.P[pianetaCorrente].A[AreaCorrente].T.x3,Base.P[pianetaCorrente].A[AreaCorrente].T.y3, 30.0f * sinf(Base.P[pianetaCorrente].A[AreaCorrente].T.angle + 0.3), -30.0f * cosf(Base.P[pianetaCorrente].A[AreaCorrente].T.angle + 0.3), 100.0f,false });
-		vecBullets.push_back({ 0, Base.P[pianetaCorrente].A[AreaCorrente].T.x3,Base.P[pianetaCorrente].A[AreaCorrente].T.y3, 30.0f * sinf(Base.P[pianetaCorrente].A[AreaCorrente].T.angle), -30.0f * cosf(Base.P[pianetaCorrente].A[AreaCorrente].T.angle), 100.0f,false });
-		vecBullets.push_back({ 0, Base.P[pianetaCorrente].A[AreaCorrente].T.x3,Base.P[pianetaCorrente].A[AreaCorrente].T.y3, 30.0f * sinf(Base.P[pianetaCorrente].A[AreaCorrente].T.angle - 0.3), -30.0f * cosf(Base.P[pianetaCorrente].A[AreaCorrente].T.angle - 0.3), 100.0f,false });
-		Base.P[pianetaCorrente].A[AreaCorrente].T.TimeToShoot = 640;
-	}
-}*/
+void Torretta::Update(float fElapsedTime, float Px, float Py) {
+	angle = atan2f(Px - X, Y - Py);
+	TimeToShoot--;
+}
 
 Torretta::~Torretta()
 {

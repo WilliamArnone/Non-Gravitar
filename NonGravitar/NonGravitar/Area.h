@@ -1,10 +1,11 @@
 #pragma once
 
 #include <vector>
+#include <ctime>
+
 #include "objGame.h"
 #include "Torretta.h"
 #include "Carburante.h"
-#include <ctime>
 
 class Area {
 public:
@@ -14,6 +15,7 @@ public:
 
 	objGame CreaPuntoTerreno(int ScreenWidthmin, int ScreenWidthmax, int ScreenHeight);
 	Area(int n, int ScreenWidth, int ScreenHeight);
-	Torretta CreaTorretta(int ScreenWidthmin, int ScreenWidthmax, int ScreenHeight);
+	float FindY(float xp);
+	Torretta CreaTorretta(std::vector<objGame> Terreno, int ScreenWidth);
 	Torretta CreaCarburanti(int ScreenWidthmin, int ScreenWidthmax, int ScreenHeight);
 };

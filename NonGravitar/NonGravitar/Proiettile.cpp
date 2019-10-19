@@ -1,4 +1,5 @@
 #include "Proiettile.h"
+#include <math.h>
 
 Proiettile::Proiettile()
 {
@@ -7,15 +8,18 @@ Proiettile::Proiettile()
 Proiettile::~Proiettile()
 {
 }
+Proiettile::Proiettile(bool p, float x, float y, float a) {
+	player = p;
+	X = x;
+	Y = y;
+	angle = 100.0f;
+	dx = 50.0f * sinf(a);
+	dy = -50.0f * cosf(a);
+}
 
 
 void Proiettile::Update(float fElapsedTime) {
-	x += dx * fElapsedTime;
-	y += dy * fElapsedTime;
+	X += dx * fElapsedTime;
+	Y += dy * fElapsedTime;
 	angle -= 1.0f * fElapsedTime;
-}
-
-bool Proiettile::IsOutOfMap(float width, float heigth) {
-	if (x < 1 || y < 1 || x >= width - 1 || y >= heigth - 1)
-		return true;
 }
