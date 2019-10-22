@@ -1,22 +1,20 @@
 #pragma once
 
 #include <vector>
-#include <ctime>
-
 #include "objGame.h"
 #include "Torretta.h"
 #include "Carburante.h"
-#include "TorrettaPro.h"
+#include <ctime>
 
 class Area {
 public:
-	std::vector<objGame> Terreno;
+	std::vector<objGame> Terreno; //Assieme di punti che compongono il terreno dell'area
 	std::vector<Torretta> Torrette;
 	std::vector<Carburante> Carburanti;
 
-	objGame CreaPuntoTerreno(const int ScreenWidthmin, const int ScreenWidthmax, int ScreenHeight);
-	Area(int n, const int ScreenWidth, const int ScreenHeight, int LP);
-	float FindY(float xp);
-	Torretta CreaTorretta(std::vector<objGame> Terreno, int ScreenWidth);
-	Carburante CreaCarburanti(std::vector<objGame> Terreno, int ScreenWidth);
+	objGame CreaPuntoTerreno(int ScreenWidthmin, int ScreenWidthmax, int ScreenHeight); //crea un punto appartenente al terreno dell'area 
+	Area(int n, int ScreenWidth, int ScreenHeight, int LP); 
+	float FindY(float xp); //funzione che restituisc l'altezza realtiva al punto x scelto di modo che venga posizionato esattamente sul terreno dell'area
+	Torretta CreaTorretta(int ScreenWidthmin, int ScreenWidthmax, int ScreenHeight);
+	Torretta CreaCarburanti(int ScreenWidthmin, int ScreenWidthmax, int ScreenHeight);
 };
