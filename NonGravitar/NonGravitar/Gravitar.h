@@ -60,6 +60,7 @@ protected:
 
 	void clear();
 	bool checkEnd();
+	void changeArea();
 
 	void reborn();
 
