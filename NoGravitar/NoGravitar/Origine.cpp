@@ -306,6 +306,7 @@ protected:
 
 		// Draw Score
 		DrawString(2, 2, L"SCORE: " + to_wstring(nScore));
+	
 		return true;
 	}
 

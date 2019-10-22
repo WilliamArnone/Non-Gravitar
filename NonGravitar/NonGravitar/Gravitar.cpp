@@ -14,29 +14,34 @@ Gravitar::~Gravitar()
 
 void Gravitar::resetGame() {
 	newUniverse();
+	vite = 2;
 	score = 0;
 	pg.fuel = 1000000;
 	pg.dx = 0;
 	pg.dy = 0;
 	gameover = false;
 }
-
 void Gravitar::newUniverse() {
+	pianetaAttivo = NULL;
+	pianeti.clear();
 	pg.X = ScreenWidth() / 2;
 	pg.Y = ScreenHeight() / 2;
 	srand((unsigned)time(NULL));
-	Pianeta p=Pianeta(ScreenWidth(), ScreenHeight(),10);
+	Pianeta p;
+	do {
+		p=Pianeta(ScreenWidth(), ScreenHeight()); // il primo pianeta viene generato fuori così che si possa fare il controllo che gli altri non vengano creati attaccati a lui
+	} while (Collision(pg, p)); //si controlla che il pianeta non collida con il giocatore all'inizio. Si cicla fino a che questa condizione non è rispettata 
 	pianeti.push_back(p);
 	for (int i = 0; i < 4; i++) {
 		do {
-			p = Pianeta(ScreenWidth(), ScreenHeight(),10);
-		} while (checkDistance(pianeti, p) || Collision(pg,p));
+			p = Pianeta(ScreenWidth(), ScreenHeight());
+		} while (checkDistance(pianeti, p) || Collision(pg,p)); //si controlla che il pianeta non collida con il giocatore all'inizio e neanche con gli altri pianeti. Si cicla fino a che questa condizione non è rispettata
 		pianeti.push_back(p);
 	}
 }
-bool Gravitar::checkDistance(vector<Pianeta> pianeti, Pianeta p) {
+bool Gravitar::checkDistance(vector<Pianeta> pianeti, Pianeta p) { 
 	for(auto &planet: pianeti){
-		if (abs(p.X - planet.X) < (p.Size + planet.Size) || abs(p.Y - planet.Y) < (p.Size + planet.Size)) {
+		if (abs(p.X - planet.X) < (p.Size + planet.Size) || abs(p.Y - planet.Y) < (p.Size + planet.Size)) { //si controlla per ogni pianeta che non collida con gli altri. In caso succeda si ritorna true
 			return  true;
 		}
 	}
@@ -119,6 +124,7 @@ void Gravitar::changeArea() {
 	if ((pg.X < 0) || next) {
 		pg.X = next ? pg.X = 5 : pg.X = ScreenWidth() - 5;
 		pianetaAttivo->areaCorrente += next ? 1 : -1;
+		pianetaAttivo->areaCorrente = pianetaAttivo->areaCorrente % pianetaAttivo->Aree.size();
 	}
 }
 
@@ -127,7 +133,13 @@ bool Gravitar::checkEnd() {
 }
 
 void Gravitar::reborn() {
-
+	vite--;
+	pianetaAttivo = NULL;
+	pg.X = ScreenWidth() / 2;
+	pg.Y = ScreenHeight() / 2;
+	pg.dx = 0;
+	pg.dy = 0;
+	morto = false;
 }
 
 
@@ -159,6 +171,7 @@ void Gravitar::DrawNav() {
 		int j = i + 1;
 		DrawLine(sx[i % 3], sy[i % 3], sx[j % 3], sy[j % 3]);
 	}
+	FillCircle(pg.X, pg.Y, pg.Size, PIXEL_SOLID, FG_CYAN);
 }
 
 void Gravitar::DrawTorr(Torretta torre) {
@@ -169,7 +182,7 @@ void Gravitar::DrawCarb(Carburante carb) {
 	Fill(carb.X - 2, carb.Y + 2, carb.X + 2, carb.Y - 2);
 }
 void Gravitar::DrawPlanet(Pianeta planet) {
-	FillCircle(planet.X, planet.Y, planet.Size, PIXEL_SOLID, planet.Colore);
+	FillCircle(planet.X, planet.Y, planet.Size, PIXEL_SOLID, planet.Colore); 
 }
 void Gravitar::DrawBullet(Proiettile bullet) {
 	Draw(bullet.X, bullet.Y);
@@ -179,22 +192,109 @@ void Gravitar::DrawRay() {
 	DrawLine(pg.X, pg.Y, pg.X+5, pg.Y-10);
 }
 void Gravitar::DrawArea() {
-	int areaCorrente = pianetaAttivo->areaCorrente % pianetaAttivo->Aree.size();
-	DrawLine(0, ScreenHeight(), pianetaAttivo->Aree[areaCorrente].Terreno[0].X, pianetaAttivo->Aree[areaCorrente].Terreno[0].Y,PIXEL_SOLID, pianetaAttivo->Colore);
+	int areaCorrente = pianetaAttivo->areaCorrente; //quando esiste il pianeta attivo viene presa l'area in cui il giocatore si trova e ne vengono disegnati tutti i punti
 	for (int i=0; i<pianetaAttivo->Aree[areaCorrente].Terreno.size()-1;i++)
 	{
 		DrawLine(pianetaAttivo->Aree[areaCorrente].Terreno[i].X, pianetaAttivo->Aree[areaCorrente].Terreno[i].Y, pianetaAttivo->Aree[areaCorrente].Terreno[i+1].X, pianetaAttivo->Aree[areaCorrente].Terreno[i+1].Y,PIXEL_SOLID,pianetaAttivo->Colore);
 	}
 }
+void Gravitar::DrawGameOver() {
+	//G
+	DrawLine(66, 45, 56, 45);
+	DrawLine(66, 45, 66, 38);
+	DrawLine(56, 45, 56, 25);
+	DrawLine(66, 25, 56, 25);
+	DrawLine(66, 38, 61, 38);
+
+	//A
+	DrawLine(78, 45, 74, 25);
+	DrawLine(74, 25, 70, 45);
+	DrawLine(76, 38, 72, 38);
+
+	//M
+	DrawLine(82, 25, 87, 35);
+	DrawLine(82, 45, 82, 25);
+	DrawLine(87, 35, 92, 25);
+	DrawLine(92, 45, 92, 25);
+
+	//E
+	DrawLine(96, 45, 96, 25);
+	DrawLine(96, 45, 104, 45);
+	DrawLine(96, 25, 104, 25);
+	DrawLine(96, 35, 104, 35);
+
+	//O
+	DrawLine(66, 75, 57, 75);
+	DrawLine(66, 75, 66, 55);
+	DrawLine(57, 75, 57, 55);
+	DrawLine(66, 55, 57, 55);
+
+	//V
+	DrawLine(78, 55, 74, 75);
+	DrawLine(74, 75, 70, 55);
+
+	//E
+	DrawLine(82, 75, 82, 55);
+	DrawLine(82, 75, 91, 75);
+	DrawLine(82, 55, 91, 55);
+	DrawLine(82, 65, 91, 65);
+
+	//R
+	DrawLine(95, 75, 95, 55);
+	DrawLine(95, 55, 103, 55);
+	DrawLine(103, 55, 103, 65);
+	DrawLine(95, 65, 103, 65);
+	DrawLine(95, 65, 103, 75);
+
+	// pulsanti
+
+	//->
+	DrawLine(150, 90, 150, 96);
+	DrawLine(150, 90, 156, 90);
+	DrawLine(156, 96, 150, 96);
+	DrawLine(156, 96, 156, 90);
+	DrawLine(151, 93, 154, 93);
+	DrawLine(154, 93, 152, 91);
+	DrawLine(154, 93, 152, 95);
+
+	//<-
+	DrawLine(130, 90, 130, 96);
+	DrawLine(130, 90, 136, 90);
+	DrawLine(136, 96, 130, 96);
+	DrawLine(136, 96, 136, 90);
+	DrawLine(132, 93, 135, 93);
+	DrawLine(132, 93, 134, 91);
+	DrawLine(132, 93, 134, 95);
+
+	//giù
+	DrawLine(140, 90, 140, 96);
+	DrawLine(140, 90, 146, 90);
+	DrawLine(146, 96, 140, 96);
+	DrawLine(146, 96, 146, 90);
+	DrawLine(143, 90, 143, 94);
+	DrawLine(143, 94, 141, 92);
+	DrawLine(143, 94, 145, 92);
+
+	//^
+	DrawLine(140, 80, 140, 86);
+	DrawLine(140, 80, 146, 80);
+	DrawLine(146, 86, 140, 86);
+	DrawLine(146, 86, 146, 80);
+	DrawLine(143, 82, 143, 86);
+	DrawLine(143, 82, 141, 84);
+	DrawLine(143, 82, 145, 84);
+}
+
 #pragma endregion
 
 
-void Gravitar::DrawGameOver() {
-
-}
 
 void Gravitar::CheckCollisions() {
 	if (pianetaAttivo != NULL) {
+		objGame terr = objGame(pg.X, pianetaAttivo->Aree[pianetaAttivo->areaCorrente].FindY(pg.X), 0);
+		if (Collision(pg, terr)) {
+			morto = true;
+		}
 		for (auto &b : Proiettili) {
 			if (Collision(pg, b)) {
 				//morto
@@ -221,12 +321,19 @@ bool Gravitar::OnUserCreate() {
 bool Gravitar::OnUserUpdate(float fElapsedTime) {
 	Fill(0, 0, ScreenWidth(), ScreenHeight(), PIXEL_SOLID, 0);	//Pulise la schermata
 
+	if (m_keys[VK_TAB].bHeld) {
+		resetGame();
+	}
+
 	if (checkEnd()) {				//calcolo dello stato del gioco
 		gameover = true;
 	}
 	else {
 		if (morto) {
-			reborn();
+			if (vite == 0)
+				gameover = true;
+			else
+				reborn();
 		}
 
 		updateNav(fElapsedTime);
@@ -268,6 +375,7 @@ bool Gravitar::OnUserUpdate(float fElapsedTime) {
 		}
 		else {
 			DrawArea();
+			Draw(pg.X, pianetaAttivo->Aree[pianetaAttivo->areaCorrente].FindY(pg.X), PIXEL_SOLID, FG_RED);
 			for (auto &b : pianetaAttivo->Torrette) {
 				DrawTorr(b);
 			}
@@ -279,7 +387,7 @@ bool Gravitar::OnUserUpdate(float fElapsedTime) {
 			}
 		}
 	}
-
+	DrawString(2, 2, L"Vite: " + to_wstring(vite));
 
 
 	return true;
