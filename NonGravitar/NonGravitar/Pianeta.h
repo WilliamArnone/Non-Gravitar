@@ -11,7 +11,8 @@
 class Pianeta : public objGame
 {
 public:
-	Pianeta(int ScreenWidth, int ScreenHeight, int numeroAree);
+	Pianeta();
+	Pianeta(int ScreenWidth, int ScreenHeight);
   	std::vector<objGame> Terreno;
 	std::vector<Torretta> Torrette;
 	std::vector<Carburante> Carburanti;

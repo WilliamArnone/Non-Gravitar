@@ -14,8 +14,8 @@ public:
 	std::vector<Torretta> Torrette;
 	std::vector<Carburante> Carburanti;
 
-	objGame CreaPuntoTerreno(int n, const int ScreenWidth, const int ScreenHeight, int LP);
-	Area(int n, int ScreenWidth, int ScreenHeight);
+	objGame CreaPuntoTerreno(const int ScreenWidthmin, const int ScreenWidthmax, int ScreenHeight);
+	Area(int n, const int ScreenWidth, const int ScreenHeight, int LP);
 	float FindY(float xp);
 	Torretta CreaTorretta(std::vector<objGame> Terreno, int ScreenWidth);
 	Carburante CreaCarburanti(std::vector<objGame> Terreno, int ScreenWidth);

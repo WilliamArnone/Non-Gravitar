@@ -1,5 +1,17 @@
 #include "Area.h"
 
+Area::Area(int n, const int ScreenWidth, const int ScreenHeight, int LP) {
+	objGame Inizio;
+	Inizio.Y = LP; // il primo punto ha x uguale a 0 e y passata in ingresso (è la y dell'ultimo punto dell'area precedente) così da avere una continuità nelle aree
+	Inizio.X = 0;
+	Terreno.push_back(Inizio);
+	for (int i = 1; i < n - 2; i++) {
+		Terreno.push_back(CreaPuntoTerreno(ScreenWidth* i / n, ScreenWidth* (i + 1) / n, ScreenHeight)); // per non avere tutti i punti ammassati assime ogni punto viene calcolato in una zona che varia in base al numero di punti dell'area
+	}
+	objGame fine = CreaPuntoTerreno(ScreenWidth* (n - 1) / n, ScreenWidth, ScreenHeight);
+	fine.X = ScreenWidth; //l'ultimo punto ha solo la y random e la x corrisponde alla totalità della schermata così da creare continuità con le altre aree
+	Terreno.push_back(fine);
+}
 Torretta Area::CreaTorretta(std::vector<objGame> Terreno, int ScreenWidth) {
 	float x = 10 + rand() % (ScreenWidth - 20);
 	if (rand() % 101 > 45)
@@ -16,7 +28,7 @@ Carburante Area::CreaCarburanti(std::vector<objGame> Terreno, int ScreenWidth) {
 	}
 }
 
-objGame Area::CreaPuntoTerreno(int ScreenWidthmin, int ScreenWidthmax, int ScreenHeight) {
+objGame Area::CreaPuntoTerreno(const int ScreenWidthmin, const int ScreenWidthmax, int ScreenHeight) {
 	objGame punto;
 	punto.X = 1 + ScreenWidthmin + rand() % (ScreenWidthmax - ScreenWidthmin);
 	punto.Y = rand() % ScreenHeight / 4;
@@ -31,17 +43,4 @@ float Area::FindY(float xp) {
 		}
 	}
 	return 10000; //valore arbitrariamente grande da restituire in caso non si trovi un range in cui è compreso il punto dato in ingresso 
-}
-
-Area::Area(int n, const int ScreenWidth, const int ScreenHeight, int LP) {
-	objGame Inizio;
-	Inizio.Y = LP; // il primo punto ha x uguale a 0 e y passata in ingresso (è la y dell'ultimo punto dell'area precedente) così da avere una continuità nelle aree
-	Inizio.X = 0;
-	Terreno.push_back(Inizio);
-	for (int i = 1; i < n - 2; i++) {
-		Terreno.push_back(CreaPuntoTerreno(ScreenWidth* i / n, ScreenWidth* (i + 1) / n, ScreenHeight)); // per non avere tutti i punti ammassati assime ogni punto viene calcolato in una zona che varia in base al numero di punti dell'area
-	}
-	objGame fine = CreaPuntoTerreno(ScreenWidth* (n - 1) / n, ScreenWidth, ScreenHeight);
-	fine.X = ScreenWidth; //l'ultimo punto ha solo la y random e la x corrisponde alla totalità della schermata così da creare continuità con le altre aree
-	Terreno.push_back(fine);
 }

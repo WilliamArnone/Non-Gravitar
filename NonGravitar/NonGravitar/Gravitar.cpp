@@ -25,11 +25,11 @@ void Gravitar::newUniverse() {
 	pg.X = ScreenWidth() / 2;
 	pg.Y = ScreenHeight() / 2;
 	srand((unsigned)time(NULL));
-	Pianeta p = Pianeta(ScreenWidth(), ScreenHeight(), 10);
+	Pianeta p = Pianeta(ScreenWidth(), ScreenHeight());
 	pianeti.push_back(p);
 	for (int i = 0; i < 4; i++) {
 		do {
-			p = Pianeta(ScreenWidth(), ScreenHeight(), 10);
+			p = Pianeta(ScreenWidth(), ScreenHeight());
 		} while (checkDistance(pianeti, p) || Collision(pg, p));
 		pianeti.push_back(p);
 	}
