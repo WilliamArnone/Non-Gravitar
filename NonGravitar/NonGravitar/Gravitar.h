@@ -56,6 +56,7 @@ protected:
 	void updateTorr(float fElapsedTime);
 	void updateBull(float fElapsedTime);
 	void updateNav(float fElapsedTime);
+	void changeArea();
 
 	void clear();
 	bool checkEnd();
