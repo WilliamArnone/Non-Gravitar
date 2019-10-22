@@ -46,7 +46,7 @@ void Gravitar::enterPlanet(Pianeta *newplanet) {
 	pianetaAttivo = newplanet;
 	pg.X = ScreenWidth() / 2;
 	pg.Y = 5;
-	pg.angle = 0;
+	pg.angle = 3.14;
 	pg.dy = sqrt(pg.dy*pg.dy + pg.dx*pg.dx);
 	pg.dx = 0;
 }
@@ -126,8 +126,10 @@ void Gravitar::EraseBullets(vector<Proiettile> &Proiettili) {
 
 
 void Gravitar::updateTorr(float fElapsedTime) {
-	for (auto &t : pianetaAttivo->Torrette) {
+	for (auto &t : pianetaAttivo->Aree[pianetaAttivo->areaCorrente].Torrette) {
 		t.Update(fElapsedTime, pg.X, pg.Y);
+		if (t.TimeToShoot <= 0)
+			Proiettili.push_back({ false, t.XUp, t.YUp, t.angle });
 	}
 }
 void Gravitar::updateBull(float fElapsedTime) {
@@ -217,11 +219,14 @@ void Gravitar::DrawNav() {
 }
 
 void Gravitar::DrawTorr(Torretta torre) {
-	Fill(torre.X - 2, torre.Y + 4, torre.X + 2, torre.Y - 4, PIXEL_SOLID, FG_YELLOW);
+	if (torre.pro)
+		FillTriangle(torre.Xl, torre.Yl, torre.XUp, torre.YUp, torre.Xr, torre.Yr, PIXEL_SOLID, FG_RED);
+	else
+		FillTriangle(torre.Xl, torre.Yl, torre.XUp, torre.YUp, torre.Xr, torre.Yr, PIXEL_SOLID, FG_WHITE);
 }
 
 void Gravitar::DrawCarb(Carburante carb) {
-	Fill(carb.X - 2, carb.Y + 2, carb.X + 2, carb.Y - 2);
+	FillCircle(carb.X, carb.Y, carb.r, PIXEL_SOLID, FG_CYAN);
 }
 void Gravitar::DrawPlanet(Pianeta planet) {
 	FillCircle(planet.X, planet.Y, planet.Size, PIXEL_SOLID, planet.Colore);
@@ -324,10 +329,10 @@ bool Gravitar::OnUserUpdate(float fElapsedTime) {
 		else {
 			DrawArea();
 			Draw(pg.X, pianetaAttivo->Aree[pianetaAttivo->areaCorrente].FindY(pg.X), PIXEL_SOLID, FG_RED);
-			for (auto &b : pianetaAttivo->Torrette) {
+			for (auto &b : pianetaAttivo->Aree[pianetaAttivo->areaCorrente].Torrette) {
 				DrawTorr(b);
 			}
-			for (auto &b : pianetaAttivo->Carburanti) {
+			for (auto &b : pianetaAttivo->Aree[pianetaAttivo->areaCorrente].Carburanti) {
 				DrawCarb(b);
 			}
 			for (auto &b : Proiettili) {

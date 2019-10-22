@@ -17,6 +17,7 @@ Proiettile::Proiettile(bool p, float x, float y, float a) {
 	dy = -50.0f * cosf(a);
 }
 
+
 void Proiettile::Update(float fElapsedTime) {
 	X += dx * fElapsedTime;
 	Y += dy * fElapsedTime;

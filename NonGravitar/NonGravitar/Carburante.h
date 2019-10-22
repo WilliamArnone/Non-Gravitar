@@ -4,14 +4,10 @@
 
 class Carburante : public objGame
 {
-private:
-	float xc, yc, r;
-	int type;
-	bool IsHere = false;
-	bool taken = false;
 public:
-
+	float r, liter;
 	Carburante();
+	Carburante(float x, float y);
 	~Carburante();
 };
 

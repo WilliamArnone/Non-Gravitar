@@ -4,20 +4,29 @@ Torretta::Torretta()
 {
 }
 
-Torretta::Torretta(float width, float heigth)
+Torretta::Torretta(float xu, float yu, float xl, float yl, float xr, float yr)
 {
+	//Baricentro Cerchio
+	X = (XUp + Xl + Xr) / 3;
+	Y = (YUp + Yl + Yr) / 3;
+
+	XUp = xu;
+	YUp = yu;
+	Xl = xl;
+	Yl = yl;
+	Xr = xr;
+	Yr = yr;
+
 	TimeToShoot = 500;
-	X = width;
-	Y = heigth;
-	XUp = X;
-	YUp = Y + 2;
-	Xl = X - 2;
-	Xr = X + 2;
+	pro = false;
 }
 
 void Torretta::Update(float fElapsedTime, float Px, float Py) {
-	angle = atan2f(Px - X, Y - Py);
-	TimeToShoot--;
+	angle = atan2f(Px - XUp, YUp - Py);
+	if (TimeToShoot <= 0)
+		 TimeToShoot = 500;
+	else
+		TimeToShoot--;
 }
 
 Torretta::~Torretta()
