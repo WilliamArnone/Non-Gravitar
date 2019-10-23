@@ -10,7 +10,8 @@
 class Navicella : public objGame
 {
 public:
-	float dx, dy,fuel;
+	float dx, dy;
+	int fuel;
 	Navicella();
 	void ShipMove(float fElapsedTime, bool Up);
 	void ShipRotate(float fElapsedTime, bool Left);
