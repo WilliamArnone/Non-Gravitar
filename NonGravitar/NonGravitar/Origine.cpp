@@ -8,7 +8,7 @@ using namespace std;
 
 int main() {
 	Gravitar game;
-	int pixel = 100;
+	int pixel = 10;
 	while (game.ConstructConsole(160,100,pixel,pixel)!=1)
 	{
 		pixel= pixel - 1;

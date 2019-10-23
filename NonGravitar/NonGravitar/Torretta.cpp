@@ -7,8 +7,6 @@ Torretta::Torretta()
 Torretta::Torretta(float xu, float yu, float xl, float yl, float xr, float yr)
 {
 	//Baricentro Cerchio
-	X = (XUp + Xl + Xr) / 3;
-	Y = (YUp + Yl + Yr) / 3;
 
 	XUp = xu;
 	YUp = yu;
@@ -17,8 +15,11 @@ Torretta::Torretta(float xu, float yu, float xl, float yl, float xr, float yr)
 	Xr = xr;
 	Yr = yr;
 
+	X = (XUp + Xl + Xr) / 3;
+	Y = (YUp + Yl + Yr) / 3;
+
 	list.clear();
-	TimeToShoot = 100;
+	TimeToShoot = 200;
 	pro = false;
 	Size = 2;
 }
@@ -29,7 +30,7 @@ void Torretta::Update(float fElapsedTime, float Px, float Py) {
 	if (TimeToShoot <= 0) {
 		list.push_back({ false, XUp, YUp, angle - 0.08f });
 		list.push_back({ false, XUp, YUp, angle + 0.08f });
-		TimeToShoot = 100;
+		TimeToShoot = 200;
 	}
 	else
 		TimeToShoot= TimeToShoot-1*fElapsedTime;

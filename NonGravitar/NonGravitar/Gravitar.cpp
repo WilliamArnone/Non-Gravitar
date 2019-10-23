@@ -320,6 +320,34 @@ void Gravitar::DrawGameOver() {
 	DrawLine(143, 82, 143, 86);
 	DrawLine(143, 82, 141, 84);
 	DrawLine(143, 82, 145, 84);
+
+	//(
+	Draw(68, 21);
+	DrawLine(67,20,67,15);
+	Draw(68, 14);
+	
+
+	//N
+	DrawLine(71, 20, 71, 15);
+	DrawLine(71, 15, 75, 20);
+	DrawLine(75, 20, 75, 15);
+
+	//O
+	DrawLine(78, 20, 78, 15);
+	DrawLine(78, 20, 82, 20);
+	DrawLine(78, 15, 82, 15);
+	DrawLine(82, 15, 82, 20);
+
+	//N
+	DrawLine(85, 20, 85, 15);
+	DrawLine(85, 15, 89, 20);
+	DrawLine(89, 20, 89, 15);
+
+	//(
+	Draw(92, 21);
+	DrawLine(93, 20, 93, 15);
+	Draw(92, 14);
+
 }
 
 #pragma endregion
@@ -334,15 +362,20 @@ void Gravitar::CheckCollisions() {
 		}
 		for (auto &b : Proiettili) {
 			if (Collision(pg, b) && !b.player) {
-				morto = true;
-				Proiettili.clear();
+				//morto = true;
+				//Proiettili.clear();
 			}
 		}
 		int indiceT = 0;
 		for (auto &t : pianetaAttivo->Aree[pianetaAttivo->areaCorrente].Torrette) {
 			for (auto &b : Proiettili) {
  				if (Collision(t, b) && b.player) {
-					//??????
+					if (t.pro) {
+						score += 500;
+					}
+					else{
+						score += 100;
+					}
 					pianetaAttivo->Aree[pianetaAttivo->areaCorrente].Torrette.erase(pianetaAttivo->Aree[pianetaAttivo->areaCorrente].Torrette.begin()+indiceT);
 				}
 			}
@@ -438,9 +471,10 @@ bool Gravitar::OnUserUpdate(float fElapsedTime) {
 				DrawBullet(b);
 			}
 		}
+		DrawString(2, 2, L"Vite: " + to_wstring(vite));
+		DrawString(2, 4, L"Fuel: " + to_wstring(pg.fuel));
+		DrawString(2, 6, L"Score: " + to_wstring(score));
 	}
-	DrawString(2, 2, L"Vite: " + to_wstring(vite));
-	DrawString(2, 4, L"Fuel: " + to_wstring(pg.fuel));
 
 	return true;
 }
