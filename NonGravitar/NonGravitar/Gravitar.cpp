@@ -212,6 +212,7 @@ void Gravitar::DrawTorr(Torretta torre) {
 		FillTriangle(torre.Xl, torre.Yl, torre.XUp, torre.YUp, torre.Xr, torre.Yr, PIXEL_SOLID, FG_WHITE);
 	else
 		FillTriangle(torre.Xl, torre.Yl, torre.XUp, torre.YUp, torre.Xr, torre.Yr, PIXEL_SOLID, FG_RED);
+	FillCircle(torre.X, torre.Y, torre.Size, PIXEL_SOLID, FG_BLUE);
 }
 
 void Gravitar::DrawCarb(Carburante carb) {
@@ -336,15 +337,25 @@ void Gravitar::CheckCollisions() {
 			morto = true;
 		}
 		for (auto &b : Proiettili) {
-			if (Collision(pg, b)) {
-				//morto
+			if (Collision(pg, b) && !b.player) {
+				morto = true;
+				Proiettili.clear();
 			}
 		}
-		for (auto &t : pianetaAttivo->Torrette) {
+		int indiceT = 0;
+		for (auto &t : pianetaAttivo->Aree[pianetaAttivo->areaCorrente].Torrette) {
+			indiceT++;
 			for (auto &b : Proiettili) {
-				if (Collision(t, b)) {
-					//eliminare torretta
+ 				if (Collision(t, b) && b.player) {
+					pianetaAttivo->Aree[pianetaAttivo->areaCorrente].Torrette.erase(pianetaAttivo->Aree[pianetaAttivo->areaCorrente].Torrette.begin()+indiceT-1);
 				}
+			}
+		}
+		for (auto &b : Proiettili) {
+			objGame pt = objGame(b.X, pianetaAttivo->Aree[pianetaAttivo->areaCorrente].FindY(b.X), 0);
+			if (Collision(b, pt))
+			{
+				b.X = -1000;
 			}
 		}
 	}
