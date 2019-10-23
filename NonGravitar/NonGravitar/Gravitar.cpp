@@ -338,8 +338,8 @@ void Gravitar::CheckCollisions() {
 		}
 		for (auto &b : Proiettili) {
 			if (Collision(pg, b) && !b.player) {
-				morto = true;
-				Proiettili.clear();
+				//morto = true;
+				//Proiettili.clear();
 			}
 		}
 		int indiceT = 0;

@@ -6,9 +6,6 @@ Torretta::Torretta()
 
 Torretta::Torretta(float xu, float yu, float xl, float yl, float xr, float yr)
 {
-	//Baricentro Cerchio
-	X = (XUp + Xl + Xr) / 3;
-	Y = (YUp + Yl + Yr) / 3;
 
 	XUp = xu;
 	YUp = yu;
@@ -17,7 +14,10 @@ Torretta::Torretta(float xu, float yu, float xl, float yl, float xr, float yr)
 	Xr = xr;
 	Yr = yr;
 
-	list.clear();
+	//Baricentro Cerchio
+	X = (XUp + Xl + Xr) / 3;
+	Y = (YUp + Yl + Yr) / 3;
+
 	TimeToShoot = 100;
 	pro = false;
 	Size = 2;

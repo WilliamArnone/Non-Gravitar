@@ -9,6 +9,12 @@ TorrettaPro::TorrettaPro()
 TorrettaPro::TorrettaPro(float xu, float yu, float xl, float yl, float xr, float yr) :Torretta(xu, yu, xl, yl, xr, yr) {
 	X = (XUp + Xl + Xr) / 3;
 	Y = (YUp + Yl + Yr) / 3;
+	XUp = xu;
+	YUp = yu;
+	Xl = xl;
+	Yl = yl;
+	Xr = xr;
+	Yr = yr;
 	TimeToShoot = 100;
 	pro = true;
 	Size = 2;
