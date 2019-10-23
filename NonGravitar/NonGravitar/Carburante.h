@@ -5,7 +5,7 @@
 class Carburante : public objGame
 {
 public:
-	float r, liter;
+	float liter;
 	bool pro;
 	Carburante();
 	Carburante(float x, float y);

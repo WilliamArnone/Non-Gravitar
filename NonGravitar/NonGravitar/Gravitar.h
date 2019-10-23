@@ -72,6 +72,7 @@ protected:
 	void DrawBullet(Proiettile bullet);
 	void DrawRay();
 	void DrawArea();
+	void DrawTitle();
 	void DrawGameOver();
 
 	void CheckCollisions();

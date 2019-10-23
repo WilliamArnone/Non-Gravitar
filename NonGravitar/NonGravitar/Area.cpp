@@ -8,22 +8,38 @@ objGame Area::CreaPuntoTerreno(int ScreenWidthmin, int ScreenWidthmax, int Scree
 	return punto;
 }
 
-Torretta Area::CreaTorretta(std::vector<objGame> Terreno, int ScreenWidth) {
-	float x = (Terreno[0].X + 2) + rand() % (int)(ScreenWidth - Terreno[0].X - 4);
-	if (rand() % 101 > 45)
-		return Torretta(x, FindY(x) - ((FindY(x - 2) + FindY(x + 2)) / 32), x - 2, FindY(x - 2), x + 2, FindY(x + 2));
+Torretta Area::CreaTorretta(int ScreenWidth) {
+	float x1, x2, y1, y2, angle;
+	float x = 10 + rand() % (int)(ScreenWidth-10);
+	float y = FindY(x);
+
+	for (auto &p : Terreno) {
+		if (p.X < x) {
+			x1 = p.X;
+			y1 = p.Y;
+		}
+		if (p.X > x) {
+			x2 = p.X;
+			y2 = p.Y;
+			break;
+		}
+	}
+
+	angle = atan((y2 - y1) / (x2 - x1)) + 3.14;
+
+	if (rand() % 101 < 71)
+		return Torretta(x,FindY(x), angle);
 	else
-		return TorrettaPro(x, FindY(x) - ((FindY(x - 2) + FindY(x + 2)) / 32), x - 2, FindY(x - 2), x + 2, FindY(x + 2));
+		return TorrettaPro(x, FindY(x), angle);
 }
 
-Carburante Area::CreaCarburanti(std::vector<objGame> Terreno, int ScreenWidth) {
-	float x = Terreno[0].X + rand() % (int)(ScreenWidth - Terreno[0].X);
-	if (rand() % 101 < 35) {
-		if (rand() % 101 > 70)
-			return Carburante(x, FindY(x));
-		else
-			return CarburantePro(x, FindY(x));
-	}
+Carburante Area::CreaCarburanti(int ScreenWidth) {
+	float x = 10 + rand() % (int)(ScreenWidth - 10);
+	if ((rand() % 101) > 70)
+		return Carburante(x, FindY(x));
+	else
+		return CarburantePro(x, FindY(x));
+	
 }
 
 float Area::FindY(float xp) {
@@ -48,6 +64,11 @@ Area::Area(int n, const int ScreenWidth, const int ScreenHeight, int LP) {
 	fine.X = ScreenWidth; //l'ultimo punto ha solo la y random e la x corrisponde alla totalità della schermata così da creare continuità con le altre aree
 	Terreno.push_back(fine);
 
-	Torrette.push_back(CreaTorretta(Terreno, ScreenWidth));
-	Carburanti.push_back(CreaCarburanti(Terreno, ScreenWidth));
+	while ((rand() % 101) <= 51) {
+		Torrette.push_back(CreaTorretta(ScreenWidth));
+	}
+
+	while ((rand() % 101) < 31) {
+		Carburanti.push_back(CreaCarburanti(ScreenWidth));
+	}
 }

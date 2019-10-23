@@ -19,6 +19,7 @@ void Gravitar::resetGame() {
 	pg.fuel = 1000000;
 	pg.dx = 0;
 	pg.dy = 0;
+	pg.angle = 0;
 	gameover = false;
 }
 void Gravitar::newUniverse() {
@@ -63,10 +64,18 @@ void Gravitar::exitPlanet() {
 }
 
 void Gravitar::carbnear() {
-	/*for (auto &c : pianetaAttivo->Aree[pianetaAttivo->areaCorrente].Carburanti)
+	int i = 0;
+	for (auto &c : pianetaAttivo->Aree[pianetaAttivo->areaCorrente].Carburanti)
 	{
-		if()
-	}*/
+		float dx = (c.Y-pg.Y);
+		if ((c.Y > pg.Y) && (c.Y < pg.Y + 10) && (c.X < pg.X + dx) && (c.X > pg.X - dx)) {
+			pg.fuel += c.pro? 200 : 100;
+		}
+
+		pianetaAttivo->Aree[pianetaAttivo->areaCorrente].Carburanti.erase(pianetaAttivo->Aree[pianetaAttivo->areaCorrente].Carburanti.begin() + i);
+
+		i++;
+	}
 }
 bool Gravitar::Collision(objGame obj1, objGame obj2) {
 	float x1 = obj1.X, y1 = obj1.Y, x2 = obj2.X, y2 = obj2.Y;
@@ -164,6 +173,7 @@ void Gravitar::reborn() {
 	pg.Y = ScreenHeight() / 2;
 	pg.dx = 0;
 	pg.dy = 0;
+	pg.angle = 0;
 	morto = false;
 }
 
@@ -199,19 +209,40 @@ void Gravitar::DrawNav() {
 }
 
 void Gravitar::DrawTorr(Torretta torre) {
-	//Torrette da cancellare
-	if (torre.pro)
-		FillTriangle(torre.Xl, torre.Yl, torre.XUp, torre.YUp, torre.Xr, torre.Yr, PIXEL_SOLID, FG_WHITE);
-	else
-		FillTriangle(torre.Xl, torre.Yl, torre.XUp, torre.YUp, torre.Xr, torre.Yr, PIXEL_SOLID, FG_RED);
-	FillCircle(torre.X, torre.Y, torre.Size, PIXEL_SOLID, FG_BLUE);
+	int color = torre.pro ? FG_RED : FG_WHITE;
+	float mx[3] = { 0.0f, -2.5f, +2.5f };
+	float my[3] = { -4.0f, +2.5f, +2.5f };
+	float sx[3], sy[3];
+
+	// Rotate
+	for (int i = 0; i < 3; i++)
+	{
+		sx[i] = mx[i] * cosf(torre.angle) - my[i] * sinf(torre.angle);
+		sy[i] = mx[i] * sinf(torre.angle) + my[i] * cosf(torre.angle);
+	}
+
+	// Translate
+	for (int i = 0; i < 3; i++)
+	{
+		sx[i] = sx[i] + torre.X;
+		sy[i] = sy[i] + torre.Y;
+	}
+
+	// Draw Closed Polygon
+	for (int i = 0; i < 4; i++)
+	{
+		int j = i + 1;
+		DrawLine(sx[i % 3], sy[i % 3], sx[j % 3], sy[j % 3], PIXEL_SOLID, color);
+	}
+
+
 }
 
 void Gravitar::DrawCarb(Carburante carb) {
 	if (carb.pro)
-		FillCircle(carb.X, carb.Y, carb.r, PIXEL_SOLID, FG_CYAN);
+		FillCircle(carb.X, carb.Y, carb.Size, PIXEL_SOLID, FG_CYAN);
 	else
-		FillCircle(carb.X, carb.Y, carb.r, PIXEL_SOLID, FG_DARK_YELLOW);
+		FillCircle(carb.X, carb.Y, carb.Size, PIXEL_SOLID, FG_DARK_YELLOW);
 }
 
 void Gravitar::DrawPlanet(Pianeta planet) {
@@ -231,6 +262,48 @@ void Gravitar::DrawArea() {
 		DrawLine(pianetaAttivo->Aree[areaCorrente].Terreno[i].X, pianetaAttivo->Aree[areaCorrente].Terreno[i].Y, pianetaAttivo->Aree[areaCorrente].Terreno[i + 1].X, pianetaAttivo->Aree[areaCorrente].Terreno[i + 1].Y, PIXEL_SOLID, pianetaAttivo->Colore);
 	}
 }
+void Gravitar::DrawTitle() {
+	// pulsanti
+	//->
+	DrawLine(150, 90, 150, 96);
+	DrawLine(150, 90, 156, 90);
+	DrawLine(156, 96, 150, 96);
+	DrawLine(156, 96, 156, 90);
+	DrawLine(151, 93, 154, 93);
+	DrawLine(154, 93, 152, 91);
+	DrawLine(154, 93, 152, 95);
+
+	//<-
+	DrawLine(130, 90, 130, 96);
+	DrawLine(130, 90, 136, 90);
+	DrawLine(136, 96, 130, 96);
+	DrawLine(136, 96, 136, 90);
+	DrawLine(132, 93, 135, 93);
+	DrawLine(132, 93, 134, 91);
+	DrawLine(132, 93, 134, 95);
+
+	//giù
+	DrawLine(140, 90, 140, 96);
+	DrawLine(140, 90, 146, 90);
+	DrawLine(146, 96, 140, 96);
+	DrawLine(146, 96, 146, 90);
+	DrawLine(143, 90, 143, 94);
+	DrawLine(143, 94, 141, 92);
+	DrawLine(143, 94, 145, 92);
+
+	//^
+	DrawLine(140, 80, 140, 86);
+	DrawLine(140, 80, 146, 80);
+	DrawLine(146, 86, 140, 86);
+	DrawLine(146, 86, 146, 80);
+	DrawLine(143, 82, 143, 86);
+	DrawLine(143, 82, 141, 84);
+	DrawLine(143, 82, 145, 84);
+
+	DrawString(140, 75, L"Move");
+	DrawString(ScreenWidth() / 2 - 8, ScreenHeight() / 2 + 35, L"Press TAB to start");
+}
+
 void Gravitar::DrawGameOver() {
 	//G
 	DrawLine(66, 45, 56, 45);
@@ -279,43 +352,7 @@ void Gravitar::DrawGameOver() {
 	DrawLine(95, 65, 103, 65);
 	DrawLine(95, 65, 103, 75);
 
-	// pulsanti
-
-	//->
-	DrawLine(150, 90, 150, 96);
-	DrawLine(150, 90, 156, 90);
-	DrawLine(156, 96, 150, 96);
-	DrawLine(156, 96, 156, 90);
-	DrawLine(151, 93, 154, 93);
-	DrawLine(154, 93, 152, 91);
-	DrawLine(154, 93, 152, 95);
-
-	//<-
-	DrawLine(130, 90, 130, 96);
-	DrawLine(130, 90, 136, 90);
-	DrawLine(136, 96, 130, 96);
-	DrawLine(136, 96, 136, 90);
-	DrawLine(132, 93, 135, 93);
-	DrawLine(132, 93, 134, 91);
-	DrawLine(132, 93, 134, 95);
-
-	//giù
-	DrawLine(140, 90, 140, 96);
-	DrawLine(140, 90, 146, 90);
-	DrawLine(146, 96, 140, 96);
-	DrawLine(146, 96, 146, 90);
-	DrawLine(143, 90, 143, 94);
-	DrawLine(143, 94, 141, 92);
-	DrawLine(143, 94, 145, 92);
-
-	//^
-	DrawLine(140, 80, 140, 86);
-	DrawLine(140, 80, 146, 80);
-	DrawLine(146, 86, 140, 86);
-	DrawLine(146, 86, 146, 80);
-	DrawLine(143, 82, 143, 86);
-	DrawLine(143, 82, 141, 84);
-	DrawLine(143, 82, 145, 84);
+	DrawString(ScreenWidth() / 2 - 5, ScreenHeight() / 2 + 35, L"Score: " + to_wstring(score));
 }
 
 #pragma endregion
@@ -357,9 +394,10 @@ void Gravitar::CheckCollisions() {
 
 
 bool Gravitar::OnUserCreate() {
-
 	pg.Size = 2.5;
-	resetGame();
+	morto = false;
+	gameover = true;
+	//resetGame();
 	return true;
 
 }
@@ -372,7 +410,7 @@ bool Gravitar::OnUserUpdate(float fElapsedTime) {
 		resetGame();
 	}
 
-	if (checkEnd()) {				//calcolo dello stato del gioco
+	if (checkEnd()) {
 		gameover = true;
 	}
 	else {
@@ -401,17 +439,21 @@ bool Gravitar::OnUserUpdate(float fElapsedTime) {
 			//collisioni
 			CheckCollisions();
 			changeArea();
+			if (rayOn)
+				carbnear();
 		}
 		else {
 			WrapCoordinate();
 		}
 	}
 
-
 	//disegno
 
 	if (gameover) {
-		DrawGameOver();
+		if (morto)
+			DrawGameOver();
+		else
+			DrawTitle();
 	}
 	else {
 		DrawNav();
@@ -434,9 +476,10 @@ bool Gravitar::OnUserUpdate(float fElapsedTime) {
 				DrawBullet(b);
 			}
 		}
+		DrawString(2, 2, L"Life: " + to_wstring(vite));
+		DrawString(2, 4, L"Fuel: " + to_wstring(pg.fuel));
+		DrawString(2, 6, L"Score: " + to_wstring(score));
 	}
-	DrawString(2, 2, L"Vite: " + to_wstring(vite));
-	DrawString(2, 4, L"Fuel: " + to_wstring(pg.fuel));
 
 	return true;
 }
