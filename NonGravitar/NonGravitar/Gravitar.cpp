@@ -130,6 +130,10 @@ void Gravitar::updateNav(float fElapsedTime) {
 	//Velocità finale
 	pg.X += pg.dx * fElapsedTime;
 	pg.Y += pg.dy * fElapsedTime;
+	if (m_keys[VK_F1].bPressed) {
+		pg.dx = 0;
+		pg.dy = 0;
+	}
 
 }
 
