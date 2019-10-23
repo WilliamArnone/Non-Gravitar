@@ -85,7 +85,7 @@ bool Gravitar::isLeaving() {
 
 void Gravitar::updateTorr(float fElapsedTime) {
 	for (auto &t : pianetaAttivo->Torrette) {
-		t.Update(fElapsedTime);
+		t.Update(fElapsedTime,pg.X, pg.Y);
 	}
 }
 void Gravitar::updateBull(float fElapsedTime) {
@@ -112,6 +112,7 @@ void Gravitar::updateNav(float fElapsedTime) {
 void Gravitar::clear() {
 
 }
+
 void Gravitar::WrapCoordinate() {
 	if (pg.X < 0.0f)	pg.X += (float)ScreenWidth();
 	if (pg.X >= (float)ScreenWidth())	pg.X -= (float)ScreenWidth();
