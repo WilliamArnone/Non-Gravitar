@@ -52,7 +52,7 @@ void Gravitar::enterPlanet(Pianeta *newplanet) {
 	pg.X = ScreenWidth() / 2;
 	pg.Y = 5;
 	pg.angle = 3.14;
-	pg.dy = sqrt(pg.dy*pg.dy + pg.dx*pg.dx);
+	pg.dy = sqrt(pg.dy*pg.dy + pg.dx*pg.dx)/2;
 	pg.dx = 0;
 }
 void Gravitar::exitPlanet() {
@@ -62,8 +62,11 @@ void Gravitar::exitPlanet() {
 	pianetaAttivo = NULL;
 }
 
-bool Gravitar::carbnear() {
-	return false;
+void Gravitar::carbnear() {
+	/*for (auto &c : pianetaAttivo->Aree[pianetaAttivo->areaCorrente].Carburanti)
+	{
+		if()
+	}*/
 }
 bool Gravitar::Collision(objGame obj1, objGame obj2) {
 	float x1 = obj1.X, y1 = obj1.Y, x2 = obj2.X, y2 = obj2.Y;
@@ -90,16 +93,6 @@ void Gravitar::EraseBullets(vector<Proiettile> &Proiettili) {
 		if (i != Proiettili.end())
 			Proiettili.erase(i);
 	}
-	//Da continuate
-	//for (auto &p : Proiettili)
-	//{
-	//	if (p.X < pianetaAttivo->Terreno[0].X) {
-	//		auto i = remove_if(Proiettili.begin(), Proiettili.end(), [&](Proiettile o) { return Collision(o, pianetaAttivo->Terreno[0]); });
-	//		if (i != Proiettili.end())
-	//			Proiettili.erase(i);
-	//	}
-	//}
-
 }
 
 void Gravitar::updateTorr(float fElapsedTime) {
@@ -128,12 +121,11 @@ void Gravitar::updateNav(float fElapsedTime) {
 	if (m_keys[VK_UP].bHeld || m_keys[VK_DOWN].bHeld)
 		pg.ShipMove(fElapsedTime, m_keys[VK_UP].bHeld);
 
-	if (m_keys[VK_RETURN].bPressed && pianetaAttivo != NULL)
+	if (m_keys[VK_SPACE].bPressed && pianetaAttivo != NULL)
 		Proiettili.push_back({ true, pg.X, pg.Y, pg.angle });
 
-	if (m_keys[VK_SPACE].bHeld) {
-		pg.dx = 0;
-		pg.dy = 0;
+	if (m_keys[VK_RETURN].bHeld) {
+		rayOn = true;
 	}
 	//Velocità finale
 	pg.X += pg.dx * fElapsedTime;
@@ -204,10 +196,10 @@ void Gravitar::DrawNav() {
 		int j = i + 1;
 		DrawLine(sx[i % 3], sy[i % 3], sx[j % 3], sy[j % 3]);
 	}
-	FillCircle(pg.X, pg.Y, pg.Size, PIXEL_SOLID, FG_CYAN);
 }
 
 void Gravitar::DrawTorr(Torretta torre) {
+	//Torrette da cancellare
 	if (torre.pro)
 		FillTriangle(torre.Xl, torre.Yl, torre.XUp, torre.YUp, torre.Xr, torre.Yr, PIXEL_SOLID, FG_WHITE);
 	else
@@ -229,8 +221,8 @@ void Gravitar::DrawBullet(Proiettile bullet) {
 	Draw(bullet.X, bullet.Y);
 }
 void Gravitar::DrawRay() {
-	DrawLine(pg.X, pg.Y, pg.X - 5, pg.Y - 10);
-	DrawLine(pg.X, pg.Y, pg.X + 5, pg.Y - 10);
+	DrawLine(pg.X, pg.Y, pg.X - 5, pg.Y + 10, PIXEL_THREEQUARTERS,FG_CYAN);
+	DrawLine(pg.X, pg.Y, pg.X + 5, pg.Y + 10, PIXEL_THREEQUARTERS, FG_CYAN);
 }
 void Gravitar::DrawArea() {
 	int areaCorrente = pianetaAttivo->areaCorrente; //quando esiste il pianeta attivo viene presa l'area in cui il giocatore si trova e ne vengono disegnati tutti i punti
@@ -344,16 +336,18 @@ void Gravitar::CheckCollisions() {
 		}
 		int indiceT = 0;
 		for (auto &t : pianetaAttivo->Aree[pianetaAttivo->areaCorrente].Torrette) {
-			indiceT++;
 			for (auto &b : Proiettili) {
  				if (Collision(t, b) && b.player) {
-					pianetaAttivo->Aree[pianetaAttivo->areaCorrente].Torrette.erase(pianetaAttivo->Aree[pianetaAttivo->areaCorrente].Torrette.begin()+indiceT-1);
+					//??????
+					pianetaAttivo->Aree[pianetaAttivo->areaCorrente].Torrette.erase(pianetaAttivo->Aree[pianetaAttivo->areaCorrente].Torrette.begin()+indiceT);
 				}
 			}
+			indiceT++;
 		}
 		for (auto &b : Proiettili) {
-			objGame pt = objGame(b.X, pianetaAttivo->Aree[pianetaAttivo->areaCorrente].FindY(b.X), 0);
-			if (Collision(b, pt))
+			terr.X = b.X;
+			terr.Y = pianetaAttivo->Aree[pianetaAttivo->areaCorrente].FindY(b.X);
+			if (Collision(b, terr))
 			{
 				b.X = -1000;
 			}
@@ -363,14 +357,16 @@ void Gravitar::CheckCollisions() {
 
 
 bool Gravitar::OnUserCreate() {
+
 	pg.Size = 2.5;
 	resetGame();
-
 	return true;
+
 }
 
 bool Gravitar::OnUserUpdate(float fElapsedTime) {
 	Fill(0, 0, ScreenWidth(), ScreenHeight(), PIXEL_SOLID, 0);	//Pulise la schermata
+	rayOn=false;
 
 	if (m_keys[VK_TAB].bHeld) {
 		resetGame();
@@ -426,7 +422,8 @@ bool Gravitar::OnUserUpdate(float fElapsedTime) {
 		}
 		else {
 			DrawArea();
-			Draw(pg.X, pianetaAttivo->Aree[pianetaAttivo->areaCorrente].FindY(pg.X), PIXEL_SOLID, FG_RED);
+			if (rayOn)
+				DrawRay();
 			for (auto &b : pianetaAttivo->Aree[pianetaAttivo->areaCorrente].Torrette) {
 				DrawTorr(b);
 			}

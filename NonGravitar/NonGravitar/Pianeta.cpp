@@ -19,27 +19,6 @@ Pianeta::Pianeta(const int ScreenWidth, const int ScreenHeight)
 	}
 	Aree[Size*2 - 1].Terreno[Aree[Size*2 - 1].Terreno.size() - 1].Y = ScreenHeight;
 }
-objGame CreaPuntoTerreno(int ScreenWidthmin, int ScreenWidthmax, int ScreenHeight) {
-	objGame Point = objGame();
-	Point.angle = 0;
-	Point.Size = 1;
-	Point.Color = rand() % 255;
-	Point.X = rand() % (ScreenWidthmax - ScreenWidthmin) + ScreenWidthmin;
-	Point.Y = ScreenHeight - rand() % ScreenHeight / 2;
-	return Point;
-}
-Torretta CreaTorretta(int ScreenWidthmin, int ScreenWidthmax, int ScreenHeight) {
-
-	//Scrivete
-
-	return Torretta();
-}
-Carburante CreaCarburante(int ScreenWidthmin, int ScreenWidthmax, int ScreenHeight) {
-
-	//Scrivete
-
-	return Carburante();
-}
 
 Pianeta::~Pianeta()
 {

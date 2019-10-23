@@ -28,7 +28,7 @@ protected:
 
 	float fuel;
 
-	bool morto, gameover;
+	bool morto, gameover, rayOn;
 	int score, vite;
 
 	std::vector<Pianeta> pianeti;
@@ -46,7 +46,7 @@ protected:
 	void enterPlanet(Pianeta *newplanet);
 	void exitPlanet();
 
-	bool carbnear();
+	void carbnear();
 	bool Collision(objGame obj1, objGame obj2);
 	bool objCrashing();
 	Pianeta * PlanetLanding();
