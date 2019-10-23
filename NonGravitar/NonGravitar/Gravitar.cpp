@@ -129,7 +129,7 @@ void Gravitar::updateNav(float fElapsedTime) {
 		pg.ShipMove(fElapsedTime, m_keys[VK_UP].bHeld);
 
 	if (m_keys[VK_RETURN].bPressed && pianetaAttivo != NULL)
-		Proiettili.push_back({ true, pg.X, pg.Y, pg.angle });
+		Proiettili.push_back({ true, pg.X, pg.Y+4, pg.angle });
 
 	if (m_keys[VK_SPACE].bHeld) {
 		pg.dx = 0;
