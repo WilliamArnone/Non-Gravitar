@@ -90,16 +90,6 @@ void Gravitar::EraseBullets(vector<Proiettile> &Proiettili) {
 		if (i != Proiettili.end())
 			Proiettili.erase(i);
 	}
-	//Da continuate
-	//for (auto &p : Proiettili)
-	//{
-	//	if (p.X < pianetaAttivo->Terreno[0].X) {
-	//		auto i = remove_if(Proiettili.begin(), Proiettili.end(), [&](Proiettile o) { return Collision(o, pianetaAttivo->Terreno[0]); });
-	//		if (i != Proiettili.end())
-	//			Proiettili.erase(i);
-	//	}
-	//}
-
 }
 
 void Gravitar::updateTorr(float fElapsedTime) {
@@ -338,8 +328,8 @@ void Gravitar::CheckCollisions() {
 		}
 		for (auto &b : Proiettili) {
 			if (Collision(pg, b) && !b.player) {
-				//morto = true;
-				//Proiettili.clear();
+				morto = true;
+				Proiettili.clear();
 			}
 		}
 		int indiceT = 0;
