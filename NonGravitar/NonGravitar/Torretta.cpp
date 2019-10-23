@@ -18,8 +18,9 @@ Torretta::Torretta(float xu, float yu, float xl, float yl, float xr, float yr)
 	Yr = yr;
 
 	list.clear();
-	TimeToShoot = 500;
+	TimeToShoot = 100;
 	pro = false;
+	Size = 2;
 }
 
 void Torretta::Update(float fElapsedTime, float Px, float Py) {
@@ -28,10 +29,10 @@ void Torretta::Update(float fElapsedTime, float Px, float Py) {
 	if (TimeToShoot <= 0) {
 		list.push_back({ false, XUp, YUp, angle - 0.08f });
 		list.push_back({ false, XUp, YUp, angle + 0.08f });
-		TimeToShoot = 500;
+		TimeToShoot = 100;
 	}
 	else
-		TimeToShoot--;
+		TimeToShoot= TimeToShoot-1*fElapsedTime;
 }
 
 Torretta::~Torretta()

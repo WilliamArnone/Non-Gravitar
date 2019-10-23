@@ -15,6 +15,7 @@ Proiettile::Proiettile(bool p, float x, float y, float a) {
 	angle = 100.0f;
 	dx = 50.0f * sinf(a);
 	dy = -50.0f * cosf(a);
+	Size = 1;
 }
 
 
