@@ -53,7 +53,7 @@ void Gravitar::enterPlanet(Pianeta *newplanet) {
 	pg.X = ScreenWidth() / 2;
 	pg.Y = 5;
 	pg.angle = 3.14;
-	pg.dy = sqrt(pg.dy*pg.dy + pg.dx*pg.dx)/2;
+	pg.dy = sqrt(pg.dy*pg.dy + pg.dx*pg.dx) / 2;
 	pg.dx = 0;
 }
 void Gravitar::exitPlanet() {
@@ -67,9 +67,9 @@ void Gravitar::carbnear() {
 	int i = 0;
 	for (auto &c : pianetaAttivo->Aree[pianetaAttivo->areaCorrente].Carburanti)
 	{
-		float dx = (c.Y-pg.Y);
+		float dx = (c.Y - pg.Y);
 		if ((c.Y > pg.Y) && (c.Y < pg.Y + 10) && (c.X < pg.X + dx) && (c.X > pg.X - dx)) {
-			pg.fuel += c.pro? 200 : 100;
+			pg.fuel += c.pro ? 200 : 100;
 		}
 
 		pianetaAttivo->Aree[pianetaAttivo->areaCorrente].Carburanti.erase(pianetaAttivo->Aree[pianetaAttivo->areaCorrente].Carburanti.begin() + i);
@@ -157,7 +157,11 @@ void Gravitar::changeArea() {
 	if ((pg.X < 0) || next) {
 		pg.X = next ? pg.X = 5 : pg.X = ScreenWidth() - 5;
 		pianetaAttivo->areaCorrente += next ? 1 : -1;
-		pianetaAttivo->areaCorrente = pianetaAttivo->areaCorrente % pianetaAttivo->Aree.size();
+		if (pianetaAttivo->areaCorrente - pianetaAttivo->Aree.size() <= 0)
+			pianetaAttivo->areaCorrente = 0;
+		if (pianetaAttivo->areaCorrente == -1)
+			pianetaAttivo->areaCorrente = pianetaAttivo->Aree.size() - 1;
+		//pianetaAttivo->areaCorrente = pianetaAttivo->areaCorrente % pianetaAttivo->Aree.size();
 		Proiettili.clear();
 	}
 }
@@ -252,7 +256,7 @@ void Gravitar::DrawBullet(Proiettile bullet) {
 	Draw(bullet.X, bullet.Y);
 }
 void Gravitar::DrawRay() {
-	DrawLine(pg.X, pg.Y, pg.X - 5, pg.Y + 10, PIXEL_THREEQUARTERS,FG_CYAN);
+	DrawLine(pg.X, pg.Y, pg.X - 5, pg.Y + 10, PIXEL_THREEQUARTERS, FG_CYAN);
 	DrawLine(pg.X, pg.Y, pg.X + 5, pg.Y + 10, PIXEL_THREEQUARTERS, FG_CYAN);
 }
 void Gravitar::DrawArea() {
@@ -374,9 +378,11 @@ void Gravitar::CheckCollisions() {
 		int indiceT = 0;
 		for (auto &t : pianetaAttivo->Aree[pianetaAttivo->areaCorrente].Torrette) {
 			for (auto &b : Proiettili) {
- 				if (Collision(t, b) && b.player) {
+				if (Collision(t, b) && b.player && pianetaAttivo->Aree[pianetaAttivo->areaCorrente].Torrette.size() > 0) {
 					//??????
-					pianetaAttivo->Aree[pianetaAttivo->areaCorrente].Torrette.erase(pianetaAttivo->Aree[pianetaAttivo->areaCorrente].Torrette.begin()+indiceT);
+					pianetaAttivo->Aree[pianetaAttivo->areaCorrente].Torrette.erase(pianetaAttivo->Aree[pianetaAttivo->areaCorrente].Torrette.begin() + indiceT);
+					b.X = -1000;
+					break;
 				}
 			}
 			indiceT++;
@@ -404,7 +410,7 @@ bool Gravitar::OnUserCreate() {
 
 bool Gravitar::OnUserUpdate(float fElapsedTime) {
 	Fill(0, 0, ScreenWidth(), ScreenHeight(), PIXEL_SOLID, 0);	//Pulise la schermata
-	rayOn=false;
+	rayOn = false;
 
 	if (m_keys[VK_TAB].bHeld) {
 		resetGame();
@@ -423,7 +429,22 @@ bool Gravitar::OnUserUpdate(float fElapsedTime) {
 
 		updateNav(fElapsedTime);
 
+		int remove = 0;
+		for (auto p : pianeti) {
+			if (p.isEnded()) {
+				pianeti.erase(pianeti.begin() + remove);
+				pianetaAttivo = NULL;
+				pg.X = ScreenWidth() / 2;
+				pg.Y = ScreenHeight() / 2;
+				pg.dx = 0;
+				pg.dy = 0;
+				Proiettili.clear();
+				break;
+			}
+			remove++;
+		}
 		if (pianetaAttivo != NULL && isLeaving()) {
+			Proiettili.clear();
 			exitPlanet();
 		}
 		else if (pianetaAttivo == NULL) {

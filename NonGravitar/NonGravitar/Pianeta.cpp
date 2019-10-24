@@ -2,6 +2,7 @@
 
 
 Pianeta::Pianeta(){}
+
 Pianeta::Pianeta(const int ScreenWidth, const int ScreenHeight)
 {
 	areaCorrente = 0; 
@@ -18,6 +19,16 @@ Pianeta::Pianeta(const int ScreenWidth, const int ScreenHeight)
 		Aree.push_back(in);
 	}
 	Aree[Size*2 - 1].Terreno[Aree[Size*2 - 1].Terreno.size() - 1].Y = ScreenHeight;
+}
+
+bool Pianeta::isEnded() {
+	bool dead = true;
+	for (auto &t : Aree)
+	{
+		if (t.Torrette.size() > 0)
+			dead = false;
+	}
+	return dead;
 }
 
 Pianeta::~Pianeta()
