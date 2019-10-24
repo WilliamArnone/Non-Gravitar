@@ -152,7 +152,7 @@ void Gravitar::changeArea() {
 	if ((pg.X < 0) || next) {
 		pg.X = next ? pg.X = 5 : pg.X = ScreenWidth() - 5;
 		pianetaAttivo->areaCorrente += next ? 1 : -1;
-		pianetaAttivo->areaCorrente = pianetaAttivo->areaCorrente % pianetaAttivo->Aree.size();
+		pianetaAttivo->areaCorrente = (pianetaAttivo->areaCorrente == 0) ? pianetaAttivo->areaCorrente= pianetaAttivo->Aree.size()-1 : pianetaAttivo->areaCorrente % pianetaAttivo->Aree.size();
 		Proiettili.clear();
 	}
 }
@@ -377,6 +377,7 @@ void Gravitar::CheckCollisions() {
 						score += 100;
 					}
 					pianetaAttivo->Aree[pianetaAttivo->areaCorrente].Torrette.erase(pianetaAttivo->Aree[pianetaAttivo->areaCorrente].Torrette.begin()+indiceT);
+					indiceT++;
 				}
 			}
 			indiceT++;
@@ -470,6 +471,7 @@ bool Gravitar::OnUserUpdate(float fElapsedTime) {
 			for (auto &b : Proiettili) {
 				DrawBullet(b);
 			}
+			DrawString(2, 8, L"Area: " + to_wstring(pianetaAttivo->areaCorrente));
 		}
 		DrawString(2, 2, L"Vite: " + to_wstring(vite));
 		DrawString(2, 4, L"Fuel: " + to_wstring(pg.fuel));
