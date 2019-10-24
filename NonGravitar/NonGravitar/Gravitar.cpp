@@ -152,7 +152,7 @@ void Gravitar::changeArea() {
 	if ((pg.X < 0) || next) {
 		pg.X = next ? pg.X = 5 : pg.X = ScreenWidth() - 5;
 		pianetaAttivo->areaCorrente += next ? 1 : -1;
-		pianetaAttivo->areaCorrente = (pianetaAttivo->areaCorrente == 0) ? pianetaAttivo->areaCorrente= pianetaAttivo->Aree.size()-1 : pianetaAttivo->areaCorrente % pianetaAttivo->Aree.size();
+		pianetaAttivo->areaCorrente = (pianetaAttivo->areaCorrente == -1) ? pianetaAttivo->areaCorrente= pianetaAttivo->Aree.size()-1 : pianetaAttivo->areaCorrente % pianetaAttivo->Aree.size();
 		Proiettili.clear();
 	}
 }
