@@ -295,13 +295,13 @@ void Gravitar::DrawTitle() {
 
 	// pulsanti
 	//->
-	DrawLine(150, 90, 150, 96);
-	DrawLine(150, 90, 156, 90);
-	DrawLine(156, 96, 150, 96);
-	DrawLine(156, 96, 156, 90);
-	DrawLine(151, 93, 154, 93);
-	DrawLine(154, 93, 152, 91);
-	DrawLine(154, 93, 152, 95);
+	DrawLine(20, 90, 20, 96);
+	DrawLine(20, 90, 26, 90);
+	DrawLine(26, 96, 20, 96);
+	DrawLine(26, 96, 26, 90);
+	DrawLine(21, 93, 24, 93);
+	DrawLine(24, 93, 22, 91);
+	DrawLine(24, 93, 22, 95);
 
 	//<-
 	DrawLine(130, 90, 130, 96);
