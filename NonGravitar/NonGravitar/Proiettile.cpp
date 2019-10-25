@@ -8,6 +8,8 @@ Proiettile::Proiettile()
 Proiettile::~Proiettile()
 {
 }
+
+//Secondo costruttore del proiettile
 Proiettile::Proiettile(bool p, float x, float y, float a) {
 	player = p;
 	X = x;
@@ -18,7 +20,7 @@ Proiettile::Proiettile(bool p, float x, float y, float a) {
 	Size = 1;
 }
 
-
+//Update del proiettile, modificando la direzione e l'angolo
 void Proiettile::Update(float fElapsedTime) {
 	X += dx * fElapsedTime;
 	Y += dy * fElapsedTime;

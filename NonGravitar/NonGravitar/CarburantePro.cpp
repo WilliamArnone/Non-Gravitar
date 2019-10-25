@@ -1,7 +1,5 @@
 #include "CarburantePro.h"
 
-
-
 CarburantePro::CarburantePro()
 {
 }

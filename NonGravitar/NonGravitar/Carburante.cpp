@@ -1,6 +1,5 @@
 #include "Carburante.h"
 
-
 Carburante::Carburante()
 {
 }
