@@ -68,6 +68,7 @@ void Gravitar::carbnear() {
 	{
 		float dx = (c.Y - pg.Y);
 		if ((c.Y > pg.Y) && (c.Y < pg.Y + 10) && (c.X < pg.X + dx) && (c.X > pg.X - dx)) {
+			// TODO : Convertire nei valori originali, così per i timer che per il fuel
 			pg.fuel += c.pro ? 2000 : 1000;
 			return true;
 		}
@@ -369,20 +370,24 @@ void Gravitar::CheckCollisions() {
 		//Collisione Terreno-Astronave
 		objGame terr = objGame(pg.X, pianetaAttivo->Aree[pianetaAttivo->areaCorrente].FindY(pg.X), 0);
 		if (Collision(pg, terr)) {
+			Proiettili.clear();
 			morto = true;
 		}
 		//Collisione Proiettile-Astronave
 		for (auto &b : Proiettili) {
 			if (Collision(pg, b) && !b.player) {
-				morto = true;
 				Proiettili.clear();
+				morto = true;
 			}
 		}
 		//Collisione Proiettile-Torretta
 		for (auto &p : Proiettili) {
 			auto i = remove_if(pianetaAttivo->Aree[pianetaAttivo->areaCorrente].Torrette.begin(), pianetaAttivo->Aree[pianetaAttivo->areaCorrente].Torrette.end(), [&](Torretta t) {return (Collision(p, t) && p.player); });
 			if (i != pianetaAttivo->Aree[pianetaAttivo->areaCorrente].Torrette.end())
+			{
 				pianetaAttivo->Aree[pianetaAttivo->areaCorrente].Torrette.erase(i);
+				score += 100;
+			}
 		}
 		//Collisione Proiettile-Terreno
 		for (auto &b : Proiettili) {
@@ -414,7 +419,10 @@ bool Gravitar::OnUserUpdate(float fElapsedTime) {
 
 	/*Se il gioco è finito, crea un nuovo universo*/
 	if (checkEnd())
+	{
 		newUniverse();
+		score += 1;
+	}
 
 	else {
 		if (morto) {
@@ -436,6 +444,7 @@ bool Gravitar::OnUserUpdate(float fElapsedTime) {
 			pg.Y = ScreenHeight() / 2;
 			pg.dx = 0;
 			pg.dy = 0;
+			score += 1000;
 			Proiettili.clear();
 		}
 		/*l'astronave esce dall' atmosfera*/
@@ -466,7 +475,7 @@ bool Gravitar::OnUserUpdate(float fElapsedTime) {
 		}
 	}
 
-	/*Se il giocatore è morto o è appena spawnato, gli mostra una schermata*/
+	/*Se il giocatore è morto o è appena spawnato, gli mostra una schermata di gameover o benvenuto*/
 	if (gameover) {
 		if (morto)
 			DrawGameOver();
@@ -494,7 +503,8 @@ bool Gravitar::OnUserUpdate(float fElapsedTime) {
 				DrawBullet(b);
 			}
 		}
-		DrawString(2, 2, L"Life: " + to_wstring(vite));
+		//Stampa a schermo i valori che il giocatore deve sapere
+		DrawString(2, 2, L"Life: " + to_wstring(vite + 1));
 		DrawString(2, 4, L"Fuel: " + to_wstring(pg.fuel));
 		DrawString(2, 6, L"Score: " + to_wstring(score));
 	}
