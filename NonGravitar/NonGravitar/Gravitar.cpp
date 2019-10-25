@@ -85,9 +85,6 @@ bool Gravitar::Collision(objGame obj1, objGame obj2) {
 	return sqrtf((x2 - x1)*(x2 - x1) + (y2 - y1)*(y2 - y1)) < (obj1.Size + obj2.Size);
 }
 
-bool Gravitar::objCrashing() {
-	return false;
-}
 
 Pianeta * Gravitar::PlanetLanding() {
 	for (auto &pian : pianeti) {
@@ -97,10 +94,6 @@ Pianeta * Gravitar::PlanetLanding() {
 	return NULL;
 }
 
-bool Gravitar::isLeaving() {
-	return pg.Y < 0;
-	Proiettili.clear();
-}
 
 void Gravitar::EraseBullets(vector<Proiettile> &Proiettili) {
 	if (Proiettili.size() > 0)
@@ -165,14 +158,12 @@ void Gravitar::changeArea() {
 	if ((pg.X < 0) || next) {
 		pg.X = next ? pg.X = 5 : pg.X = ScreenWidth() - 5;
 		pianetaAttivo->areaCorrente += pianetaAttivo->Aree.size() + (next ? +1 : -1);
-		pianetaAttivo->areaCorrente = pianetaAttivo->areaCorrente % pianetaAttivo->Aree.size(); 
+		pianetaAttivo->areaCorrente = pianetaAttivo->areaCorrente % pianetaAttivo->Aree.size();
 		Proiettili.clear();
 	}
 }
 
-bool Gravitar::checkEnd() {
-	return !(pianeti.size() > 0);
-}
+
 
 void Gravitar::reborn() {
 	vite--;
@@ -457,7 +448,7 @@ bool Gravitar::OnUserUpdate(float fElapsedTime) {
 	}
 
 	/*Se il gioco è finito, crea un nuovo universo*/
-	if (checkEnd())
+	if (pianeti.size() <= 0)
 	{
 		newUniverse();
 		score += 1;
@@ -487,7 +478,7 @@ bool Gravitar::OnUserUpdate(float fElapsedTime) {
 			Proiettili.clear();
 		}
 		/*l'astronave esce dall' atmosfera*/
-		if (pianetaAttivo != NULL && isLeaving()) {
+		if (pianetaAttivo != NULL && pg.Y < 0) {
 			Proiettili.clear();
 			exitPlanet();
 		}
