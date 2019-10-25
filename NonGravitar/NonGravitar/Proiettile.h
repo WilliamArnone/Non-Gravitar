@@ -4,8 +4,6 @@
 
 class Proiettile : public objGame
 {
-protected:
-	float dx, dy;
 public:
 	bool player = false;
 	Proiettile();

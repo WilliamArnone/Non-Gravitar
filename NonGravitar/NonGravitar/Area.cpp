@@ -13,6 +13,7 @@ Torretta Area::CreaTorretta(int ScreenWidth) {
 	float x = 10 + rand() % (int)(ScreenWidth-20);
 	float y = FindY(x);
 
+
 	for (auto &p : Terreno) {
 		if (p.X < x) {
 			x1 = p.X;
@@ -25,16 +26,19 @@ Torretta Area::CreaTorretta(int ScreenWidth) {
 		}
 	}
 
-	angle = atan((y2 - y1) / (x2 - x1)) + 3.14;
+	angle = atan((y2 - y1) / (x2 - x1));
+
+	x += sinf(angle) * 2.5;
+	y -= cosf(angle) * 2.5;
 
 	if (rand() % 101 < 71)
-		return Torretta(x,FindY(x), angle);
+		return Torretta(x, y, angle);
 	else
-		return TorrettaPro(x, FindY(x), angle);
+		return TorrettaPro(x, y, angle);
 }
 
 Carburante Area::CreaCarburanti(int ScreenWidth) {
-	float x = 10 + rand() % (int)(ScreenWidth - 10);
+	float x = 10 + rand() % (int)(ScreenWidth - 20);
 	if ((rand() % 101) > 70)
 		return Carburante(x, FindY(x));
 	else
