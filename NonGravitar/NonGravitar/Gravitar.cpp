@@ -108,6 +108,7 @@ Pianeta * Gravitar::PlanetLanding() {
 	return NULL;
 }
 
+
 //Vengono cancellati tutti i proiettili fuori dallo schermo
 void Gravitar::EraseBullets(vector<Proiettile> &Proiettili) {
 	if (Proiettili.size() > 0)
@@ -467,7 +468,7 @@ bool Gravitar::OnUserUpdate(float fElapsedTime) {
 	}
 
 	//Se il gioco è finito, crea un nuovo universo
-	if (pianeti.size() > 0)
+	if (pianeti.size() <= 0)
 	{
 		newUniverse();
 		score += 1;
