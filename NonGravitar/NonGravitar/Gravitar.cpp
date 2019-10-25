@@ -16,7 +16,7 @@ void Gravitar::resetGame() {
 	newUniverse();
 	vite = 2;
 	score = 0;
-	pg.fuel = 1000;
+	pg.fuel = 10000;
 	pg.dx = 0;
 	pg.dy = 0;
 	pg.angle = 0;
@@ -70,8 +70,8 @@ void Gravitar::carbnear() {
 	{
 		float dx = (c.Y - pg.Y);
 		if ((c.Y > pg.Y) && (c.Y < pg.Y + 10) && (c.X < pg.X + dx) && (c.X > pg.X - dx)) {
-			// TODO : Convertire nei valori originali, così per i timer che per il fuel
-			pg.fuel += c.pro ? 2000 : 1000;
+			pg.fuel += c.pro ? 4000 : 2000;
+			score += c.pro ? 100 : 50;
 			return true;
 		}
 		else
@@ -242,7 +242,7 @@ void Gravitar::DrawPlanet(Pianeta planet) {
 }
 
 void Gravitar::DrawBullet(Proiettile bullet) {
-	Draw(bullet.X, bullet.Y);
+	Draw(bullet.X, bullet.Y,PIXEL_SOLID,bullet.Color);
 }
 
 void Gravitar::DrawRay() {
@@ -480,11 +480,13 @@ void Gravitar::CheckCollisions() {
 		}
 		//Collisione Proiettile-Torretta
 		for (auto &p : Proiettili) {
-			auto i = remove_if(pianetaAttivo->Aree[pianetaAttivo->areaCorrente].Torrette.begin(), pianetaAttivo->Aree[pianetaAttivo->areaCorrente].Torrette.end(), [&](Torretta t) {return (Collision(p, t) && p.player); });
-			if (i != pianetaAttivo->Aree[pianetaAttivo->areaCorrente].Torrette.end())
-			{
-				pianetaAttivo->Aree[pianetaAttivo->areaCorrente].Torrette.erase(i);
-				score += 100;
+		int IndiceT=0;
+			for (auto &t : pianetaAttivo->Aree[pianetaAttivo->areaCorrente].Torrette) {
+				if (Collision(p,t)) {
+					score += (t.pro)? 500 : 100;
+					pianetaAttivo->Aree[pianetaAttivo->areaCorrente].Torrette.erase(pianetaAttivo->Aree[pianetaAttivo->areaCorrente].Torrette.begin()+IndiceT);
+				}
+				IndiceT++;
 			}
 		}
 		//Collisione Proiettile-Terreno
@@ -501,7 +503,7 @@ void Gravitar::CheckCollisions() {
 bool Gravitar::OnUserCreate() {
 	blink = 1.0f;
 	pg.Size = 2.5;
-	pg.fuel = 1000;
+	pg.fuel = 10000;
 	morto = false;
 	gameover = true;
 	return true;
@@ -520,7 +522,7 @@ bool Gravitar::OnUserUpdate(float fElapsedTime) {
 	if (pianeti.size() <= 0)
 	{
 		newUniverse();
-		score += 1;
+		score += 10000;
 	}
 
 	else {

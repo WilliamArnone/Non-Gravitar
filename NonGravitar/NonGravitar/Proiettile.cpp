@@ -11,6 +11,7 @@ Proiettile::~Proiettile()
 Proiettile::Proiettile(bool p, float x, float y, float a): objGame(x,y,1) {
 	player = p;
 	angle = a;
+	Color = p ? 15 : 4;
 }
 
 
