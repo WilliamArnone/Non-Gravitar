@@ -20,4 +20,5 @@ public:
 	float FindY(float xp); //funzione che restituisc l'altezza realtiva al punto x scelto di modo che venga posizionato esattamente sul terreno dell'area
 	Torretta CreaTorretta(int ScreenWidth);
 	Carburante CreaCarburanti(int ScreenWidth);
+	void CreaTorrette(int ScreenWidth);
 };

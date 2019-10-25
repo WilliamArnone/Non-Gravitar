@@ -8,9 +8,10 @@ Torretta::Torretta(float x, float y, float Angle):objGame(x, y, 2)
 {
 	angle = Angle;
 
-	list.clear();
+	//list.clear();
 	TimeToShoot = 200;
 	pro = false;
+	Color = 3;
 }
 
 void Torretta::Update(float fElapsedTime, float Px, float Py) {

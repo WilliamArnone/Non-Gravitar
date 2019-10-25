@@ -10,6 +10,7 @@ Carburante::Carburante(float x, float y) {
 	Size = 1;
 	liter = 300;
 	pro = false;
+	Color = 2;
 }
 
 

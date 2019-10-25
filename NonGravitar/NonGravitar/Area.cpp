@@ -11,19 +11,16 @@ objGame Area::CreaPuntoTerreno(int ScreenWidthmin, int ScreenWidthmax, int Scree
 //Viene creata una torretta in un punto casuale della mappa
 Torretta Area::CreaTorretta(int ScreenWidth) {
 	float x1, x2, y1, y2, angle;
-	float x = 10 + rand() % (int)(ScreenWidth-20);
+	int zone;
+	float x = 10 + rand() % (int)(ScreenWidth - 20);
 	float y = FindY(x);
 
-
-	for (auto &p : Terreno) {
-		if (p.X < x) {
-			x1 = p.X;
-			y1 = p.Y;
-		}
-		if (p.X > x) {
-			x2 = p.X;
-			y2 = p.Y;
-			break;
+	for (int i = 0; i < (Terreno.size() - 1); i++) {
+		if (Terreno[i].X < x && x <= Terreno[i + 1].X) {
+			x1 = Terreno[i].X;
+			y1 = Terreno[i].Y;
+			x2 = Terreno[i+1].X;
+			y2 = Terreno[i+1].Y;
 		}
 	}
 
@@ -78,9 +75,11 @@ Area::Area(int n, const int ScreenWidth, const int ScreenHeight, int LP) {
 	fine.X = ScreenWidth; 
 	Terreno.push_back(fine);
 
-	//Viene creata una torretta in maniera casuale
+}
+void Area::CreaTorrette(int ScreenWidth) {
 	while ((rand() % 101) <= 51) {
-		Torrette.push_back(CreaTorretta(ScreenWidth));
+		Torretta t = CreaTorretta(ScreenWidth);
+		Torrette.push_back(t);
 	}
 
 	while ((rand() % 101) < 31) {

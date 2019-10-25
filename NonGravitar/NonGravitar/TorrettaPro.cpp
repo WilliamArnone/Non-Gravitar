@@ -10,6 +10,7 @@ TorrettaPro::TorrettaPro(float x, float y, float Angle) : Torretta(x, y, Angle) 
 	
 	TimeToShoot = 200;
 	pro = true;
+	Color = 4;
 }
 
 void TorrettaPro::UpdatePro(float fElapsedTime, float Px, float Py) {
