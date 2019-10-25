@@ -263,6 +263,31 @@ void Gravitar::DrawArea() {
 	}
 }
 void Gravitar::DrawTitle() {
+	//titolo
+
+
+
+	//N
+	DrawLine(71, 20, 71, 15);
+	DrawLine(71, 15, 75, 20);
+	DrawLine(75, 20, 75, 15);
+
+	//O
+	DrawLine(78, 20, 78, 15);
+	DrawLine(78, 20, 82, 20);
+	DrawLine(78, 15, 82, 15);
+	DrawLine(82, 15, 82, 20);
+
+	//N
+	DrawLine(85, 20, 85, 15);
+	DrawLine(85, 15, 89, 20);
+	DrawLine(89, 20, 89, 15);
+
+	//(
+	Draw(92, 21);
+	DrawLine(93, 20, 93, 15);
+	Draw(92, 14);
+
 	// pulsanti
 	//->
 	DrawLine(150, 90, 150, 96);
