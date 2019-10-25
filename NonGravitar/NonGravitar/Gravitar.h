@@ -26,7 +26,7 @@ public:
 
 protected:
 
-	float fuel;
+	float fuel, blink;
 
 	bool morto, gameover, rayOn;
 	int score, vite;
@@ -67,8 +67,8 @@ protected:
 	void DrawBullet(Proiettile bullet);
 	void DrawRay();
 	void DrawArea();
-	void DrawTitle();
-	void DrawGameOver();
+	void DrawTitle(float fElapsedTime);
+	void DrawGameOver(float fElapsedTime);
 
 	void CheckCollisions();
 

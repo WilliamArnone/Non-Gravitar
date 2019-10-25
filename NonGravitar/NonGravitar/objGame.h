@@ -12,4 +12,3 @@ public:
 	short Color;
 	float angle;
 };
-
