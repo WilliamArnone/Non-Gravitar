@@ -48,9 +48,7 @@ protected:
 
 	void carbnear();
 	bool Collision(objGame obj1, objGame obj2);
-	bool objCrashing();
 	Pianeta * PlanetLanding();
-	bool isLeaving();
 	void WrapCoordinate();
 	void EraseBullets(vector<Proiettile> &Proiettili);
 
@@ -58,11 +56,8 @@ protected:
 	void updateBull(float fElapsedTime);
 	void updateNav(float fElapsedTime);
 
-	void clear();
-	bool checkEnd();
 	void changeArea();
 	
-
 	void reborn();
 
 	void DrawNav();

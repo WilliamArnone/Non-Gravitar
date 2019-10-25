@@ -8,6 +8,7 @@ objGame Area::CreaPuntoTerreno(int ScreenWidthmin, int ScreenWidthmax, int Scree
 	return punto;
 }
 
+//Viene creata una torretta in un punto casuale della mappa
 Torretta Area::CreaTorretta(int ScreenWidth) {
 	float x1, x2, y1, y2, angle;
 	float x = 10 + rand() % (int)(ScreenWidth-20);
@@ -47,27 +48,37 @@ Carburante Area::CreaCarburanti(int ScreenWidth) {
 }
 
 float Area::FindY(float xp) {
-	for (int i = 0; i < Terreno.size() - 1; i++) { //vengono ciclati tutti i punti della'area per trovare in quale range è compreso il punto passato in ingresso
+	//vengono ciclati tutti i punti della'area per trovare in quale range è compreso il punto passato in ingresso
+	for (int i = 0; i < Terreno.size() - 1; i++) { 
 		if ((Terreno[i].X <= xp) && (xp < Terreno[i + 1].X)) {
-			float y = ((xp - Terreno[i].X)*(Terreno[i + 1].Y - Terreno[i].Y) / (Terreno[i + 1].X - Terreno[i].X)) + Terreno[i].Y; //quando trovato il punto allora viene calcolata la y relativa usando la formula della retta passante per 2 punti e calcolando il punto sostituendo il valore alla x
+			//quando trovato il punto allora viene calcolata la y relativa usando la formula della retta passante per 2 punti e calcolando il punto sostituendo il valore alla x
+			float y = ((xp - Terreno[i].X)*(Terreno[i + 1].Y - Terreno[i].Y) / (Terreno[i + 1].X - Terreno[i].X)) + Terreno[i].Y; 
 			return y;
 		}
 	}
-	return 10000; //valore arbitrariamente grande da restituire in caso non si trovi un range in cui è compreso il punto dato in ingresso 
+	//valore arbitrariamente grande da restituire in caso non si trovi un range in cui è compreso il punto dato in ingresso 
+	return 10000; 
 }
 
 Area::Area(int n, const int ScreenWidth, const int ScreenHeight, int LP) {
+
+	// il primo punto ha x uguale a 0 e y passata in ingresso (è la y dell'ultimo punto dell'area precedente) così da avere una continuità nelle aree
 	objGame Inizio;
-	Inizio.Y = LP; // il primo punto ha x uguale a 0 e y passata in ingresso (è la y dell'ultimo punto dell'area precedente) così da avere una continuità nelle aree
+	Inizio.Y = LP; 
 	Inizio.X = 0;
 	Terreno.push_back(Inizio);
+
+	// per non avere tutti i punti ammassati assieme ogni punto viene calcolato in una zona che varia in base al numero di punti dell'area
 	for (int i = 1; i < n - 2; i++) {
-		Terreno.push_back(CreaPuntoTerreno(ScreenWidth* i / n, ScreenWidth* (i + 1) / n, ScreenHeight)); // per non avere tutti i punti ammassati assime ogni punto viene calcolato in una zona che varia in base al numero di punti dell'area
+		Terreno.push_back(CreaPuntoTerreno(ScreenWidth* i / n, ScreenWidth* (i + 1) / n, ScreenHeight)); 
 	}
+
+	//l'ultimo punto ha solo la y random e la x corrisponde alla totalità della schermata così da creare continuità con le altre aree
 	objGame fine = CreaPuntoTerreno(ScreenWidth* (n - 1) / n, ScreenWidth, ScreenHeight);
-	fine.X = ScreenWidth; //l'ultimo punto ha solo la y random e la x corrisponde alla totalità della schermata così da creare continuità con le altre aree
+	fine.X = ScreenWidth; 
 	Terreno.push_back(fine);
 
+	//Viene creata una torretta in maniera casuale
 	while ((rand() % 101) <= 51) {
 		Torrette.push_back(CreaTorretta(ScreenWidth));
 	}
