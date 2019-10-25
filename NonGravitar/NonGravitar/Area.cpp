@@ -27,7 +27,7 @@ Torretta Area::CreaTorretta(int ScreenWidth) {
 
 	angle = atan((y2 - y1) / (x2 - x1)) + 3.14;
 
-	if (rand() % 101 < 71)
+	if (rand() % 101 < 61)
 		return Torretta(x,FindY(x), angle);
 	else
 		return TorrettaPro(x, FindY(x), angle);

@@ -209,7 +209,7 @@ void Gravitar::DrawNav() {
 }
 
 void Gravitar::DrawTorr(Torretta torre) {
-	int color = torre.pro ? FG_RED : FG_WHITE;
+	auto color = torre.pro ? FG_RED : FG_WHITE;
 	float mx[3] = { 0.0f, -2.5f, +2.5f };
 	float my[3] = { -4.0f, +2.5f, +2.5f };
 	float sx[3], sy[3];
@@ -227,15 +227,8 @@ void Gravitar::DrawTorr(Torretta torre) {
 		sx[i] = sx[i] + torre.X;
 		sy[i] = sy[i] + torre.Y;
 	}
-
-	// Draw Closed Polygon
-	for (int i = 0; i < 4; i++)
-	{
-		int j = i + 1;
-		DrawLine(sx[i % 3], sy[i % 3], sx[j % 3], sy[j % 3], PIXEL_SOLID, color);
-	}
-
-
+	
+	FillTriangle(sx[0], sy[0], sx[1], sy[1], sx[2], sy[2], PIXEL_SOLID, color);
 }
 
 void Gravitar::DrawCarb(Carburante carb) {
