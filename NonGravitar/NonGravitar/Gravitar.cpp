@@ -265,7 +265,10 @@ void Gravitar::DrawArea() {
 void Gravitar::DrawTitle() {
 	//titolo
 
-
+	//(
+	Draw(68, 21);
+	DrawLine(67, 20, 67, 15);
+	Draw(68, 14);
 
 	//N
 	DrawLine(71, 20, 71, 15);
@@ -324,6 +327,21 @@ void Gravitar::DrawTitle() {
 	DrawLine(143, 82, 143, 86);
 	DrawLine(143, 82, 141, 84);
 	DrawLine(143, 82, 145, 84);
+
+	// spazio
+	DrawLine(60, 95, 100, 95);
+	DrawLine(60, 90, 100, 90);
+	DrawLine(60, 95, 60, 90);
+	DrawLine(100, 95, 100, 90);
+
+	//invio
+	DrawLine(155, 60, 155, 40);
+	DrawLine(155, 40, 145, 40);
+	DrawLine(145, 40, 145, 46);
+	DrawLine(145, 46, 148, 46);
+	DrawLine(148, 46, 148, 60);
+	DrawLine(148, 60, 155, 60);
+
 
 	DrawString(140, 75, L"Move");
 	DrawString(ScreenWidth() / 2 - 8, ScreenHeight() / 2 + 35, L"Press TAB to start");
