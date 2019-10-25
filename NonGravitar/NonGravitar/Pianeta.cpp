@@ -18,7 +18,10 @@ Pianeta::Pianeta(const int ScreenWidth, const int ScreenHeight)
 		Area in = Area(rnd,ScreenWidth,ScreenHeight,Aree[i-1].Terreno[Aree[i-1].Terreno.size()-1].Y); 
 		Aree.push_back(in);
 	}
-	Aree[Size*2 - 1].Terreno[Aree[Size*2 - 1].Terreno.size() - 1].Y = ScreenHeight;
+	int Y = rand() % ScreenHeight / 4;
+	Y = ScreenHeight - Y - 5;
+	Aree[0].Terreno[0].Y = Y;
+	Aree[Size * 2 - 1].Terreno[Aree[Size * 2 - 1].Terreno.size() - 1].Y = Y;
 }
 
 bool Pianeta::isEnded() {
