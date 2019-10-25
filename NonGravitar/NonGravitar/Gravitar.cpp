@@ -137,7 +137,7 @@ void Gravitar::updateNav(float fElapsedTime) {
 		pg.ShipMove(fElapsedTime, m_keys[VK_UP].bHeld);
 
 	if (m_keys[VK_SPACE].bPressed && pianetaAttivo != NULL)
-		Proiettili.push_back({ true, pg.X, pg.Y, pg.angle });
+		Proiettili.push_back({ true,(-(-5.5f * sinf(pg.angle))) + pg.X,  (-5.5f * cosf(pg.angle)) + pg.Y, pg.angle });
 
 	if (m_keys[VK_RETURN].bHeld) {
 		rayOn = true;
@@ -183,8 +183,8 @@ void Gravitar::reborn() {
 	morto = false;
 }
 
-
 #pragma region Draw
+/*Vengono richiamate tutte le funzioni necessarie per disegnare il mondo generato e l'astronave*/
 
 void Gravitar::DrawNav() {
 
@@ -240,33 +240,32 @@ void Gravitar::DrawTorr(Torretta torre) {
 		int j = i + 1;
 		DrawLine(sx[i % 3], sy[i % 3], sx[j % 3], sy[j % 3], PIXEL_SOLID, color);
 	}
-
-
 }
 
 void Gravitar::DrawCarb(Carburante carb) {
-	if (carb.pro)
-		FillCircle(carb.X, carb.Y, carb.Size, PIXEL_SOLID, FG_CYAN);
-	else
-		FillCircle(carb.X, carb.Y, carb.Size, PIXEL_SOLID, FG_DARK_YELLOW);
+	int color = carb.pro ? FG_CYAN : FG_DARK_YELLOW;
+	FillCircle(carb.X, carb.Y, carb.Size, PIXEL_SOLID, color);
 }
 
 void Gravitar::DrawPlanet(Pianeta planet) {
 	FillCircle(planet.X, planet.Y, planet.Size, PIXEL_SOLID, planet.Colore);
 }
+
 void Gravitar::DrawBullet(Proiettile bullet) {
-	Draw(bullet.X, bullet.Y,PIXEL_SOLID,FG_WHITE);
+	Draw(bullet.X, bullet.Y);
 }
+
 void Gravitar::DrawRay() {
 	DrawLine(pg.X, pg.Y, pg.X - 5, pg.Y + 10, PIXEL_THREEQUARTERS, FG_CYAN);
 	DrawLine(pg.X, pg.Y, pg.X + 5, pg.Y + 10, PIXEL_THREEQUARTERS, FG_CYAN);
 }
+
 void Gravitar::DrawArea() {
-	int areaCorrente = pianetaAttivo->areaCorrente; //quando esiste il pianeta attivo viene presa l'area in cui il giocatore si trova e ne vengono disegnati tutti i punti
+	//quando esiste il pianeta attivo viene presa l'area in cui il giocatore si trova e ne vengono disegnati tutti i punti
+	int areaCorrente = pianetaAttivo->areaCorrente;
+
 	for (int i = 0; i < pianetaAttivo->Aree[areaCorrente].Terreno.size() - 1; i++)
-	{
 		DrawLine(pianetaAttivo->Aree[areaCorrente].Terreno[i].X, pianetaAttivo->Aree[areaCorrente].Terreno[i].Y, pianetaAttivo->Aree[areaCorrente].Terreno[i + 1].X, pianetaAttivo->Aree[areaCorrente].Terreno[i + 1].Y, PIXEL_SOLID, pianetaAttivo->Colore);
-	}
 }
 void Gravitar::DrawTitle() {
 	// pulsanti
@@ -414,7 +413,7 @@ bool Gravitar::OnUserUpdate(float fElapsedTime) {
 	}
 
 	/*Se il gioco è finito, crea un nuovo universo*/
-	if (checkEnd()) 
+	if (checkEnd())
 		newUniverse();
 
 	else {
