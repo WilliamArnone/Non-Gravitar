@@ -16,12 +16,13 @@ void Gravitar::resetGame() {
 	newUniverse();
 	vite = 2;
 	score = 0;
-	pg.fuel = 1000000;
+	pg.fuel = 1000;
 	pg.dx = 0;
 	pg.dy = 0;
 	pg.angle = 0;
 	gameover = false;
 }
+
 void Gravitar::newUniverse() {
 	pianetaAttivo = NULL;
 	pianeti.clear();
@@ -62,6 +63,7 @@ void Gravitar::exitPlanet() {
 
 	pianetaAttivo = NULL;
 }
+
 /*Controlla se il raggio traente può succhiare un fuel, se si lo rimuove e lo aggiunge al pg.fuel*/
 void Gravitar::carbnear() {
 	auto i = remove_if(pianetaAttivo->Aree[pianetaAttivo->areaCorrente].Carburanti.begin(), pianetaAttivo->Aree[pianetaAttivo->areaCorrente].Carburanti.end(), [&](Carburante c)
@@ -174,6 +176,7 @@ void Gravitar::reborn() {
 	pg.dy = 0;
 	pg.angle = 0;
 	morto = false;
+	Proiettili.clear();
 }
 
 #pragma region Draw
@@ -255,7 +258,7 @@ void Gravitar::DrawArea() {
 	for (int i = 0; i < pianetaAttivo->Aree[areaCorrente].Terreno.size() - 1; i++)
 		DrawLine(pianetaAttivo->Aree[areaCorrente].Terreno[i].X, pianetaAttivo->Aree[areaCorrente].Terreno[i].Y, pianetaAttivo->Aree[areaCorrente].Terreno[i + 1].X, pianetaAttivo->Aree[areaCorrente].Terreno[i + 1].Y, PIXEL_SOLID, pianetaAttivo->Colore);
 }
-void Gravitar::DrawTitle() {
+void Gravitar::DrawTitle(float fElapsedTime) {
 	//titolo
 
 	//(
@@ -279,47 +282,96 @@ void Gravitar::DrawTitle() {
 	DrawLine(85, 15, 89, 20);
 	DrawLine(89, 20, 89, 15);
 
-	//(
+	//)
 	Draw(92, 21);
 	DrawLine(93, 20, 93, 15);
 	Draw(92, 14);
 
+
+
+
+
+
+	//G
+	DrawLine(48, 45, 38, 45);
+	DrawLine(48, 45, 48, 38);
+	DrawLine(38, 45, 38, 25);
+	DrawLine(48, 25, 38, 25);
+	DrawLine(48, 38, 43, 38);
+
+	//R
+	DrawLine(51, 45, 51, 25);
+	DrawLine(51, 25, 59, 25);
+	DrawLine(59, 25, 59, 35);
+	DrawLine(51, 35, 59, 35);
+	DrawLine(51, 35, 59, 45);
+
+	//A
+	DrawLine(70, 45, 66, 25);
+	DrawLine(66, 25, 62, 45);
+	DrawLine(68, 38, 64, 38);
+
+
+	//V
+	DrawLine(80, 25, 76, 45);
+	DrawLine(76, 45, 72, 25);
+
+	//I
+	DrawLine(84, 25, 84, 45);
+
+	//T
+	DrawLine(87, 25, 98, 25);
+	DrawLine(93, 45, 93, 25);
+
+	//A
+	DrawLine(106, 45, 102, 25);
+	DrawLine(102, 25, 98, 45);
+	DrawLine(104, 38, 100, 38);
+
+	//R
+	DrawLine(109, 45, 109, 25);
+	DrawLine(109, 25, 117, 25);
+	DrawLine(117, 25, 117, 35);
+	DrawLine(109, 35, 117, 35);
+	DrawLine(109, 35, 117, 45);
+
+
 	// pulsanti
 	//->
+	DrawLine(30, 90, 30, 96);
+	DrawLine(30, 90, 36, 90);
+	DrawLine(36, 96, 30, 96);
+	DrawLine(36, 96, 36, 90);
+	DrawLine(31, 93, 34, 93);
+	DrawLine(34, 93, 32, 91);
+	DrawLine(34, 93, 32, 95);
+
+	//<-
+	DrawLine(10, 90, 10, 96);
+	DrawLine(10, 90, 16, 90);
+	DrawLine(16, 96, 10, 96);
+	DrawLine(16, 96, 16, 90);
+	DrawLine(12, 93, 15, 93);
+	DrawLine(12, 93, 14, 91);
+	DrawLine(12, 93, 14, 95);
+
+	//giù
 	DrawLine(20, 90, 20, 96);
 	DrawLine(20, 90, 26, 90);
 	DrawLine(26, 96, 20, 96);
 	DrawLine(26, 96, 26, 90);
-	DrawLine(21, 93, 24, 93);
-	DrawLine(24, 93, 22, 91);
-	DrawLine(24, 93, 22, 95);
-
-	//<-
-	DrawLine(130, 90, 130, 96);
-	DrawLine(130, 90, 136, 90);
-	DrawLine(136, 96, 130, 96);
-	DrawLine(136, 96, 136, 90);
-	DrawLine(132, 93, 135, 93);
-	DrawLine(132, 93, 134, 91);
-	DrawLine(132, 93, 134, 95);
-
-	//giù
-	DrawLine(140, 90, 140, 96);
-	DrawLine(140, 90, 146, 90);
-	DrawLine(146, 96, 140, 96);
-	DrawLine(146, 96, 146, 90);
-	DrawLine(143, 90, 143, 94);
-	DrawLine(143, 94, 141, 92);
-	DrawLine(143, 94, 145, 92);
+	DrawLine(23, 90, 23, 94);
+	DrawLine(23, 94, 21, 92);
+	DrawLine(23, 94, 25, 92);
 
 	//^
-	DrawLine(140, 80, 140, 86);
-	DrawLine(140, 80, 146, 80);
-	DrawLine(146, 86, 140, 86);
-	DrawLine(146, 86, 146, 80);
-	DrawLine(143, 82, 143, 86);
-	DrawLine(143, 82, 141, 84);
-	DrawLine(143, 82, 145, 84);
+	DrawLine(20, 80, 20, 86);
+	DrawLine(20, 80, 26, 80);
+	DrawLine(26, 86, 20, 86);
+	DrawLine(26, 86, 26, 80);
+	DrawLine(23, 82, 23, 86);
+	DrawLine(23, 82, 21, 84);
+	DrawLine(23, 82, 25, 84);
 
 	// spazio
 	DrawLine(60, 95, 100, 95);
@@ -328,19 +380,27 @@ void Gravitar::DrawTitle() {
 	DrawLine(100, 95, 100, 90);
 
 	//invio
-	DrawLine(155, 60, 155, 40);
-	DrawLine(155, 40, 145, 40);
-	DrawLine(145, 40, 145, 46);
-	DrawLine(145, 46, 148, 46);
-	DrawLine(148, 46, 148, 60);
-	DrawLine(148, 60, 155, 60);
+	DrawLine(150, 95, 150, 75);
+	DrawLine(150, 75, 140, 75);
+	DrawLine(140, 75, 140, 81);
+	DrawLine(140, 81, 143, 81);
+	DrawLine(143, 81, 143, 95);
+	DrawLine(143, 95, 150, 95);
 
+	blink -= fElapsedTime;
+	if (blink < 0.5f) {
+		DrawString(ScreenWidth() / 2 - 8, ScreenHeight() / 2 + 10, L"Press TAB to start ");
+	}
+	if (blink<=0){
+		blink = 1.0f;
+	}
 
-	DrawString(140, 75, L"Move");
-	DrawString(ScreenWidth() / 2 - 8, ScreenHeight() / 2 + 35, L"Press TAB to start");
+	DrawString(15, 75, L"Move with Arrows");
+	DrawString(ScreenWidth() / 2 - 9, ScreenHeight() / 2 + 35, L"Press Space to shoot");
+	DrawString(132,72, L"Press Enter to use the ray");
 }
 
-void Gravitar::DrawGameOver() {
+void Gravitar::DrawGameOver(float fElapsedTime) {
 	//G
 	DrawLine(66, 45, 56, 45);
 	DrawLine(66, 45, 66, 38);
@@ -388,6 +448,15 @@ void Gravitar::DrawGameOver() {
 	DrawLine(95, 65, 103, 65);
 	DrawLine(95, 65, 103, 75);
 
+
+	blink -= fElapsedTime;
+	if (blink < 0.5f) {
+		DrawString(ScreenWidth() / 2 - 9, ScreenHeight() / 2 + 30, L"Press TAB to start ");
+	}
+	if (blink <= 0) {
+		blink = 1.0f;
+	}
+
 	DrawString(ScreenWidth() / 2 - 5, ScreenHeight() / 2 + 35, L"Score: " + to_wstring(score));
 }
 
@@ -431,10 +500,11 @@ void Gravitar::CheckCollisions() {
 
 /*Creazione dell'astronave denominata pg, 18 STR*/
 bool Gravitar::OnUserCreate() {
+	blink = 1.0f;
 	pg.Size = 2.5;
+	pg.fuel = 1000;
 	morto = false;
 	gameover = true;
-	//resetGame();
 	return true;
 
 }
@@ -455,11 +525,16 @@ bool Gravitar::OnUserUpdate(float fElapsedTime) {
 	}
 
 	else {
+
 		if (morto) {
 			if (vite == 0)
 				gameover = true;
 			else
 				reborn();
+		}
+		if (pg.fuel <= 0) {
+			gameover = true;
+			morto = true;
 		}
 
 		updateNav(fElapsedTime);
@@ -477,17 +552,20 @@ bool Gravitar::OnUserUpdate(float fElapsedTime) {
 			score += 1000;
 			Proiettili.clear();
 		}
+
 		/*l'astronave esce dall' atmosfera*/
 		if (pianetaAttivo != NULL && pg.Y < 0) {
 			Proiettili.clear();
 			exitPlanet();
 		}
+
 		/*l'astronave entra nell'atmosfera*/
 		else if (pianetaAttivo == NULL) {
 			Pianeta *p = PlanetLanding();
 			if (p != NULL)
 				enterPlanet(p);
 		}
+
 		/*Se si è in un pianeta, si fa l'update dei vari objGame*/
 		if (pianetaAttivo != NULL) {
 			//update
@@ -508,9 +586,9 @@ bool Gravitar::OnUserUpdate(float fElapsedTime) {
 	/*Se il giocatore è morto o è appena spawnato, gli mostra una schermata di gameover o benvenuto*/
 	if (gameover) {
 		if (morto)
-			DrawGameOver();
+			DrawGameOver(fElapsedTime);
 		else
-			DrawTitle();
+			DrawTitle(fElapsedTime);
 	}
 	else {
 		DrawNav();
