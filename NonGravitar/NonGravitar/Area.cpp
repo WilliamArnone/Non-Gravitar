@@ -10,7 +10,7 @@ objGame Area::CreaPuntoTerreno(int ScreenWidthmin, int ScreenWidthmax, int Scree
 
 Torretta Area::CreaTorretta(int ScreenWidth) {
 	float x1, x2, y1, y2, angle;
-	float x = 10 + rand() % (int)(ScreenWidth-10);
+	float x = 10 + rand() % (int)(ScreenWidth-20);
 	float y = FindY(x);
 
 	for (auto &p : Terreno) {

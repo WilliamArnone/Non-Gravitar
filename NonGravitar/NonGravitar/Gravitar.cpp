@@ -111,6 +111,8 @@ void Gravitar::EraseBullets(vector<Proiettile> &Proiettili) {
 	}
 }
 
+#pragma region Updates
+
 void Gravitar::updateTorr(float fElapsedTime) {
 	for (auto &t : pianetaAttivo->Aree[pianetaAttivo->areaCorrente].Torrette) {
 		if (t.pro)
@@ -149,6 +151,8 @@ void Gravitar::updateNav(float fElapsedTime) {
 
 }
 
+#pragma endregion
+
 void Gravitar::WrapCoordinate() {
 	if (pg.X < 0.0f)	pg.X += (float)ScreenWidth();
 	if (pg.X >= (float)ScreenWidth())	pg.X -= (float)ScreenWidth();
@@ -161,7 +165,7 @@ void Gravitar::changeArea() {
 	if ((pg.X < 0) || next) {
 		pg.X = next ? pg.X = 5 : pg.X = ScreenWidth() - 5;
 		pianetaAttivo->areaCorrente += next ? 1 : -1;
-		pianetaAttivo->areaCorrente = pianetaAttivo->areaCorrente % pianetaAttivo->Aree.size();
+		pianetaAttivo->areaCorrente = (pianetaAttivo->areaCorrente == -1) ? pianetaAttivo->areaCorrente = pianetaAttivo->Aree.size() - 1 : pianetaAttivo->areaCorrente % pianetaAttivo->Aree.size();
 		Proiettili.clear();
 	}
 }
