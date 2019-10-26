@@ -1,9 +1,10 @@
 #include "CarburantePro.h"
 
-CarburantePro::CarburantePro()
-{
-}
+CarburantePro::CarburantePro(){}
 
+CarburantePro::~CarburantePro(){}
+
+//A differenza di Carburante, di cui CarburantePro è il figlio i valori per il colore e i litri cambiano
 CarburantePro::CarburantePro(float x, float y) :Carburante(x, y)
 {
 	pro = true;
@@ -11,6 +12,3 @@ CarburantePro::CarburantePro(float x, float y) :Carburante(x, y)
 	Color = 1;
 }
 
-CarburantePro::~CarburantePro()
-{
-}

@@ -8,7 +8,7 @@ Navicella::~Navicella()
 {
 }
 
-
+//La navicella consuma carburante muovendosi, per muoversi gli viene passato un valore che permette di capire che valore devono assumere dx e dy
 void Navicella::ShipMove(float fElapsedTime, bool Up) {
 	fuel -= 4 * fElapsedTime;
 	if (Up) {

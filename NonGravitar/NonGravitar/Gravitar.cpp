@@ -1,26 +1,23 @@
 #include "Gravitar.h"
 
 
-Gravitar::Gravitar()
-{
+Gravitar::Gravitar() {
 	m_sAppName = L"Non-Gravitar";
 }
 
-
-Gravitar::~Gravitar()
-{
-}
+Gravitar::~Gravitar() {}
 
 
 void Gravitar::resetGame() {
 	newUniverse();
 	vite = 2;
 	score = 0;
+	gameover = false;
+
 	pg.fuel = 10000;
 	pg.dx = 0;
 	pg.dy = 0;
 	pg.angle = 0;
-	gameover = false;
 }
 
 void Gravitar::newUniverse() {
@@ -41,14 +38,15 @@ void Gravitar::newUniverse() {
 		pianeti.push_back(p);
 	}
 }
+
 bool Gravitar::checkDistance(vector<Pianeta> pianeti, Pianeta p) {
 	for (auto &planet : pianeti) {
-		if (abs(p.X - planet.X) < (p.Size + planet.Size) || abs(p.Y - planet.Y) < (p.Size + planet.Size)) { //si controlla per ogni pianeta che non collida con gli altri. In caso succeda si ritorna true
+		if (abs(p.X - planet.X) < (p.Size + planet.Size) || abs(p.Y - planet.Y) < (p.Size + planet.Size)) //si controlla per ogni pianeta che non collida con gli altri. In caso succeda si ritorna true
 			return  true;
-		}
 	}
 	return false;
 }
+
 void Gravitar::enterPlanet(Pianeta *newplanet) {
 	pianetaAttivo = newplanet;
 	pg.X = ScreenWidth() / 2;
@@ -57,6 +55,7 @@ void Gravitar::enterPlanet(Pianeta *newplanet) {
 	pg.dy = sqrt(pg.dy*pg.dy + pg.dx*pg.dx) / 2;
 	pg.dx = 0;
 }
+
 void Gravitar::exitPlanet() {
 	pg.X = pianetaAttivo->X;
 	pg.Y = pianetaAttivo->Y - pianetaAttivo->Size - 2.6;
@@ -64,9 +63,10 @@ void Gravitar::exitPlanet() {
 	pianetaAttivo = NULL;
 }
 
-/*Controlla se il raggio traente può succhiare un fuel, se si lo rimuove e lo aggiunge al pg.fuel*/
+// Controlla se il raggio traente può succhiare un fuel, se si lo rimuove e lo aggiunge al pg.fuel
 void Gravitar::carbnear() {
-	auto i = remove_if(pianetaAttivo->Aree[pianetaAttivo->areaCorrente].Carburanti.begin(), pianetaAttivo->Aree[pianetaAttivo->areaCorrente].Carburanti.end(), [&](Carburante c)
+	//If_remove cicla tutti Carburanti presenti nell'areaCorrente e se ne trova uno sotto il raggio traente lo rimuove dall'elenco, ed in questo caso CarbRemove assume il suo valore
+	auto CarbRemove = remove_if(pianetaAttivo->Aree[pianetaAttivo->areaCorrente].Carburanti.begin(), pianetaAttivo->Aree[pianetaAttivo->areaCorrente].Carburanti.end(), [&](Carburante c)
 	{
 		float dx = (c.Y - pg.Y);
 		if ((c.Y > pg.Y) && (c.Y < pg.Y + 10) && (c.X < pg.X + dx) && (c.X > pg.X - dx)) {
@@ -78,8 +78,10 @@ void Gravitar::carbnear() {
 			return false;
 	});
 
-	if (i != pianetaAttivo->Aree[pianetaAttivo->areaCorrente].Carburanti.end())
-		pianetaAttivo->Aree[pianetaAttivo->areaCorrente].Carburanti.erase(i);
+	//Adesso cicliamo tutto l'array e se andiamo ad eliminare l'elemento identificato da CarbRemove, 
+	//però impostiamo prima un if per evitare di ciclare quando Carburanti è vuoto per evitare che il programma crashi
+	if (CarbRemove != pianetaAttivo->Aree[pianetaAttivo->areaCorrente].Carburanti.end())
+		pianetaAttivo->Aree[pianetaAttivo->areaCorrente].Carburanti.erase(CarbRemove);
 }
 
 bool Gravitar::Collision(objGame obj1, objGame obj2) {
@@ -87,7 +89,7 @@ bool Gravitar::Collision(objGame obj1, objGame obj2) {
 	return sqrtf((x2 - x1)*(x2 - x1) + (y2 - y1)*(y2 - y1)) < (obj1.Size + obj2.Size);
 }
 
-
+//Cicla tutti i pianeti, se ne trova uno in cui l'astronave sta collidendo, cambia la schermata nella sua area di gioco
 Pianeta * Gravitar::PlanetLanding() {
 	for (auto &pian : pianeti) {
 		if (Collision(pg, pian))
@@ -96,13 +98,15 @@ Pianeta * Gravitar::PlanetLanding() {
 	return NULL;
 }
 
-
+//If_remove cicla tutti Proiettili e se ne trova uno fuori dallo schermo lo rimuove dall'elenco, ed in questo caso ProiettiliRemove assume il suo valore
 void Gravitar::EraseBullets(vector<Proiettile> &Proiettili) {
 	if (Proiettili.size() > 0)
 	{
-		auto i = remove_if(Proiettili.begin(), Proiettili.end(), [&](Proiettile o) {return (o.X < 1 || o.Y < 1 || o.X >= ScreenWidth() - 1 || o.Y >= ScreenHeight() - 1); });
-		if (i != Proiettili.end())
-			Proiettili.erase(i);
+		auto ProiettiliRemove = remove_if(Proiettili.begin(), Proiettili.end(), [&](Proiettile o) {return (o.X < 1 || o.Y < 1 || o.X >= ScreenWidth() - 1 || o.Y >= ScreenHeight() - 1); });
+		//Adesso si cicla tutto l'array e si va ad eliminare l'elemento identificato da ProiettiliRemove, 
+		//però impostiamo prima un if per evitare di ciclare quando Proiettili è vuoto per evitare che il programma crashi
+		if (ProiettiliRemove != Proiettili.end())
+			Proiettili.erase(ProiettiliRemove);
 	}
 }
 
@@ -115,8 +119,8 @@ void Gravitar::updateTorr(float fElapsedTime) {
 		else
 			t.Update(fElapsedTime, pg.X, pg.Y);
 
-		if (t.list.size() > 0)
-			Proiettili.insert(Proiettili.begin(), t.list.begin(), t.list.end());
+		if (t.TorreProiettili.size() > 0)
+			Proiettili.insert(Proiettili.begin(), t.TorreProiettili.begin(), t.TorreProiettili.end());
 	}
 }
 
@@ -180,7 +184,7 @@ void Gravitar::reborn() {
 }
 
 #pragma region Draw
-/*Vengono richiamate tutte le funzioni necessarie per disegnare il mondo generato e l'astronave*/
+//Vengono richiamate tutte le funzioni necessarie per disegnare il mondo generato e l'astronave
 
 void Gravitar::DrawNav() {
 
@@ -242,7 +246,7 @@ void Gravitar::DrawPlanet(Pianeta planet) {
 }
 
 void Gravitar::DrawBullet(Proiettile bullet) {
-	Draw(bullet.X, bullet.Y,PIXEL_SOLID,bullet.Color);
+	Draw(bullet.X, bullet.Y, PIXEL_SOLID, bullet.Color);
 }
 
 void Gravitar::DrawRay() {
@@ -390,13 +394,13 @@ void Gravitar::DrawTitle(float fElapsedTime) {
 	if (blink < 0.5f) {
 		DrawString(ScreenWidth() / 2 - 8, ScreenHeight() / 2 + 10, L"Press TAB to start ");
 	}
-	if (blink<=0){
+	if (blink <= 0) {
 		blink = 1.0f;
 	}
 
 	DrawString(15, 75, L"Move with Arrows");
 	DrawString(ScreenWidth() / 2 - 9, ScreenHeight() / 2 + 35, L"Press Space to shoot");
-	DrawString(132,72, L"Press Enter to use the ray");
+	DrawString(132, 72, L"Press Enter to use the ray");
 }
 
 void Gravitar::DrawGameOver(float fElapsedTime) {
@@ -480,11 +484,11 @@ void Gravitar::CheckCollisions() {
 		}
 		//Collisione Proiettile-Torretta
 		for (auto &p : Proiettili) {
-		int IndiceT=0;
+			int IndiceT = 0;
 			for (auto &t : pianetaAttivo->Aree[pianetaAttivo->areaCorrente].Torrette) {
-				if (Collision(p,t)) {
-					score += (t.pro)? 500 : 100;
-					pianetaAttivo->Aree[pianetaAttivo->areaCorrente].Torrette.erase(pianetaAttivo->Aree[pianetaAttivo->areaCorrente].Torrette.begin()+IndiceT);
+				if (Collision(p, t)) {
+					score += (t.pro) ? 500 : 100;
+					pianetaAttivo->Aree[pianetaAttivo->areaCorrente].Torrette.erase(pianetaAttivo->Aree[pianetaAttivo->areaCorrente].Torrette.begin() + IndiceT);
 				}
 				IndiceT++;
 			}
@@ -499,7 +503,7 @@ void Gravitar::CheckCollisions() {
 	}
 }
 
-/*Creazione dell'astronave denominata pg, 18 STR*/
+//Creazione dell'astronave denominata pg
 bool Gravitar::OnUserCreate() {
 	blink = 1.0f;
 	pg.Size = 2.5;
@@ -518,7 +522,7 @@ bool Gravitar::OnUserUpdate(float fElapsedTime) {
 		resetGame();
 	}
 
-	/*Se il gioco è finito, crea un nuovo universo*/
+	//Se il gioco è finito, crea un nuovo universo
 	if (pianeti.size() <= 0)
 	{
 		newUniverse();
@@ -540,7 +544,7 @@ bool Gravitar::OnUserUpdate(float fElapsedTime) {
 
 		updateNav(fElapsedTime);
 
-		/*Controlla i pianeti, quelli morti li rimuove dall'elenco e posiziona il giocatore nel mezzo dell'universo*/
+		// Controlla i pianeti, quelli morti li rimuove dall'elenco e posiziona il giocatore nel mezzo dell'universo
 		auto i = remove_if(pianeti.begin(), pianeti.end(), [&](Pianeta P) {return P.isEnded(); });
 		if (i != pianeti.end())
 		{
@@ -554,20 +558,20 @@ bool Gravitar::OnUserUpdate(float fElapsedTime) {
 			Proiettili.clear();
 		}
 
-		/*l'astronave esce dall' atmosfera*/
+		// l'astronave esce dall' atmosfera
 		if (pianetaAttivo != NULL && pg.Y < 0) {
 			Proiettili.clear();
 			exitPlanet();
 		}
 
-		/*l'astronave entra nell'atmosfera*/
+		// l'astronave entra nell'atmosfera
 		else if (pianetaAttivo == NULL) {
 			Pianeta *p = PlanetLanding();
 			if (p != NULL)
 				enterPlanet(p);
 		}
 
-		/*Se si è in un pianeta, si fa l'update dei vari objGame*/
+		// Se si è in un pianeta, si fa l'update dei vari objGame
 		if (pianetaAttivo != NULL) {
 			//update
 			updateBull(fElapsedTime);
@@ -584,7 +588,7 @@ bool Gravitar::OnUserUpdate(float fElapsedTime) {
 		}
 	}
 
-	/*Se il giocatore è morto o è appena spawnato, gli mostra una schermata di gameover o benvenuto*/
+	// Se il giocatore è morto o è appena spawnato, gli mostra una schermata di gameover o benvenuto
 	if (gameover) {
 		if (morto)
 			DrawGameOver(fElapsedTime);
