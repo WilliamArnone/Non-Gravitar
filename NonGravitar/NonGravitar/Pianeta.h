@@ -23,8 +23,5 @@ public:
 	Pianeta(int ScreenWidth, int ScreenHeight); //costruttore che inizializza il pianeta 
 	Pianeta();
 	bool isEnded();
-	objGame CreaPuntoTerreno(int ScreenWidthmin, int ScreenWidthmax, int ScreenHeight);
-	Torretta CreaTorretta(int ScreenWidthmin, int ScreenWidthmax, int ScreenHeight);
-	Torretta CreaCarburanti(int ScreenWidthmin, int ScreenWidthmax, int ScreenHeight);
 	~Pianeta();
 };

@@ -26,9 +26,9 @@ public:
 
 protected:
 
-	float fuel;
+	float fuel, blink;
 
-	bool morto, gameover;
+	bool morto, gameover, rayOn;
 	int score, vite;
 
 	std::vector<Pianeta> pianeti;
@@ -46,11 +46,9 @@ protected:
 	void enterPlanet(Pianeta *newplanet);
 	void exitPlanet();
 
-	bool carbnear();
+	void carbnear();
 	bool Collision(objGame obj1, objGame obj2);
-	bool objCrashing();
 	Pianeta * PlanetLanding();
-	bool isLeaving();
 	void WrapCoordinate();
 	void EraseBullets(vector<Proiettile> &Proiettili);
 
@@ -58,11 +56,8 @@ protected:
 	void updateBull(float fElapsedTime);
 	void updateNav(float fElapsedTime);
 
-	void clear();
-	bool checkEnd();
 	void changeArea();
 	
-
 	void reborn();
 
 	void DrawNav();
@@ -72,7 +67,8 @@ protected:
 	void DrawBullet(Proiettile bullet);
 	void DrawRay();
 	void DrawArea();
-	void DrawGameOver();
+	void DrawTitle(float fElapsedTime);
+	void DrawGameOver(float fElapsedTime);
 
 	void CheckCollisions();
 

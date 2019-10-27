@@ -11,11 +11,8 @@ public:
 	std::vector<Proiettile> list;
 	int TimeToShoot;
 	bool pro;
-	float XUp, YUp;
-	float Xl, Xr;
-	float Yl, Yr;
 	Torretta();
-	Torretta(float xu, float yu, float xl, float yl, float xr, float yr);
+	Torretta(float x, float y, float Angle);
 	void Update(float fElapsedTime, float Px, float Py);
 	~Torretta();
 };
