@@ -5,7 +5,7 @@
 #include <ctime>
 #include <string>
 #include <math.h>
-#include "objGame.h"
+#include "objGame.hpp"
 
 class Navicella : public objGame
 {

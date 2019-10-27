@@ -1,10 +1,10 @@
 #pragma once
-#include "Torretta.h"
+#include "Torretta.hpp"
 class TorrettaPro : public Torretta
 {
 public:
 	TorrettaPro();
-	TorrettaPro(float xu, float yu, float xl, float yl, float xr, float yr);
+	TorrettaPro(float x, float y, float Angle);
 	void UpdatePro(float fElapsedTime, float Px, float Py);
 	~TorrettaPro();
 };

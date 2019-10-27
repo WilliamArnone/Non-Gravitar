@@ -1,4 +1,4 @@
-#include "Navicella.h"
+#include "Navicella.hpp"
 
 Navicella::Navicella()
 {
@@ -10,15 +10,14 @@ Navicella::~Navicella()
 
 
 void Navicella::ShipMove(float fElapsedTime, bool Up) {
+	fuel -= 4 * fElapsedTime;
 	if (Up) {
-		fuel--;
-		dx += sin(angle) * 15.0f * fElapsedTime;
-		dy += -cos(angle) * 15.0f * fElapsedTime;
+		dx += sin(angle) * 20.0f * fElapsedTime;
+		dy += -cos(angle) * 20.0f * fElapsedTime;
 	}
 	else {
-		fuel--;
-		dx -= sin(angle) * 10.0f * fElapsedTime;
-		dy -= -cos(angle) * 10.0f * fElapsedTime;
+		dx -= sin(angle) * 15.0f * fElapsedTime;
+		dy -= -cos(angle) * 15.0f * fElapsedTime;
 	}
 
 }
