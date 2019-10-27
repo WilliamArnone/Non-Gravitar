@@ -3,11 +3,11 @@
 #include <vector>
 #include <ctime>
 
-#include "objGame.h"
-#include "Torretta.h"
-#include "TorrettaPro.h"
-#include "Carburante.h"
-#include "CarburantePro.h"
+#include "objGame.hpp"
+#include "Torretta.hpp"
+#include "TorrettaPro.hpp"
+#include "Carburante.hpp"
+#include "CarburantePro.hpp"
 
 class Area {
 public:

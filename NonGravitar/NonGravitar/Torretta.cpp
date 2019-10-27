@@ -1,4 +1,4 @@
-#include "Torretta.h"
+#include "Torretta.hpp"
 
 Torretta::Torretta()
 {
@@ -9,7 +9,7 @@ Torretta::Torretta(float x, float y, float Angle):objGame(x, y, 2)
 	angle = Angle;
 
 	//list.clear();
-	TimeToShoot = 200;
+	TimeToShoot = 300;
 	pro = false;
 	Color = 3;
 }

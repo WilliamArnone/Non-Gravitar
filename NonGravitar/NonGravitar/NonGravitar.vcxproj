@@ -132,17 +132,17 @@
     <ClCompile Include="TorrettaPro.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Area.h" />
-    <ClInclude Include="Carburante.h" />
-    <ClInclude Include="CarburantePro.h" />
-    <ClInclude Include="Gravitar.h" />
-    <ClInclude Include="Navicella.h" />
-    <ClInclude Include="objGame.h" />
+    <ClInclude Include="Area.hpp" />
+    <ClInclude Include="Carburante.hpp" />
+    <ClInclude Include="CarburantePro.hpp" />
+    <ClInclude Include="Gravitar.hpp" />
+    <ClInclude Include="Navicella.hpp" />
+    <ClInclude Include="objGame.hpp" />
     <ClInclude Include="olcConsoleGameEngine.h" />
-    <ClInclude Include="Pianeta.h" />
-    <ClInclude Include="Proiettile.h" />
-    <ClInclude Include="Torretta.h" />
-    <ClInclude Include="TorrettaPro.h" />
+    <ClInclude Include="Pianeta.hpp" />
+    <ClInclude Include="Proiettile.hpp" />
+    <ClInclude Include="Torretta.hpp" />
+    <ClInclude Include="TorrettaPro.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

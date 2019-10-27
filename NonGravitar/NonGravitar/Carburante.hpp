@@ -1,6 +1,6 @@
 #pragma once
 
-#include "objGame.h"
+#include "objGame.hpp"
 //Classe figlio di objgame, che identifica tutti i valori standard delle torrette
 //Classe padre di CarburantePro
 class Carburante : public objGame

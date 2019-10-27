@@ -1,10 +1,10 @@
 #pragma once
 
 #include <vector>
-#include "objGame.h"
-#include "Torretta.h"
-#include "Carburante.h"
-#include "Area.h"
+#include "objGame.hpp"
+#include "Torretta.hpp"
+#include "Carburante.hpp"
+#include "Area.hpp"
 #include <iostream>
 #include <ctime>
 

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "objGame.h"
+#include "objGame.hpp"
 
 class Proiettile : public objGame
 {

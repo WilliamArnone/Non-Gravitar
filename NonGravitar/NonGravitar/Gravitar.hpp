@@ -9,12 +9,12 @@
 #include <string>
 #include <math.h>
 
-#include "Pianeta.h"
-#include "Proiettile.h"
-#include "Navicella.h"
-#include "Carburante.h"
-#include "objGame.h"
-#include "Torretta.h"
+#include "Pianeta.hpp"
+#include "Proiettile.hpp"
+#include "Navicella.hpp"
+#include "Carburante.hpp"
+#include "objGame.hpp"
+#include "Torretta.hpp"
 
 using namespace std;
 

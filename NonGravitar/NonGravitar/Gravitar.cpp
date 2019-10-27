@@ -1,4 +1,4 @@
-#include "Gravitar.h"
+#include "Gravitar.hpp"
 
 
 Gravitar::Gravitar()
@@ -464,7 +464,7 @@ void Gravitar::DrawGameOver(float fElapsedTime) {
 /*Controlla le varie collisioni che possono avvenire su schermo, testata e debuggata, ora sicura al 30% !*/
 void Gravitar::CheckCollisions() {
 	//Controlla le collisioni solo se si è in un pianeta
-	if (pianetaAttivo != NULL) {
+	if (pianetaAttivo != NULL && !morto) {
 		//Collisione Terreno-Astronave
 		objGame terr = objGame(pg.X, pianetaAttivo->Aree[pianetaAttivo->areaCorrente].FindY(pg.X), 0);
 		if (Collision(pg, terr)) {
@@ -586,10 +586,12 @@ bool Gravitar::OnUserUpdate(float fElapsedTime) {
 
 	/*Se il giocatore è morto o è appena spawnato, gli mostra una schermata di gameover o benvenuto*/
 	if (gameover) {
-		if (morto)
+		if (morto) {
 			DrawGameOver(fElapsedTime);
-		else
+		}
+		else {
 			DrawTitle(fElapsedTime);
+		}
 	}
 	else {
 		DrawNav();

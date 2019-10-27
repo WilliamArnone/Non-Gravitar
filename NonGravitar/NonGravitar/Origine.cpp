@@ -4,7 +4,7 @@
 #include <ctime>
 using namespace std;
 
-#include "Gravitar.h"
+#include "Gravitar.hpp"
 
 int main() {
 	Gravitar game;

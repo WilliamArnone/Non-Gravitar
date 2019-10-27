@@ -1,7 +1,7 @@
 #pragma once
 
-#include "objGame.h"
-#include "Proiettile.h"
+#include "objGame.hpp"
+#include "Proiettile.hpp"
 #include <vector>
 #include <math.h>
 

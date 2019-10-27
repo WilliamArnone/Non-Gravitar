@@ -1,4 +1,4 @@
-#include "Area.h"
+#include "Area.hpp"
 
 objGame Area::CreaPuntoTerreno(int ScreenWidthmin, int ScreenWidthmax, int ScreenHeight) {
 	objGame punto;

@@ -1,4 +1,4 @@
-#include "TorrettaPro.h"
+#include "TorrettaPro.hpp"
 
 
 
@@ -8,7 +8,7 @@ TorrettaPro::TorrettaPro()
 
 TorrettaPro::TorrettaPro(float x, float y, float Angle) : Torretta(x, y, Angle) {
 	
-	TimeToShoot = 200;
+	TimeToShoot = 300;
 	pro = true;
 	Color = 4;
 }
