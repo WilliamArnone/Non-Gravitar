@@ -1,4 +1,4 @@
-#include "Proiettile.h"
+#include "Proiettile.hpp"
 #include <math.h>
 
 Proiettile::Proiettile()
