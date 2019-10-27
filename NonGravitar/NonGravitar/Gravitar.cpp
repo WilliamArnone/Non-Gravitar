@@ -115,8 +115,8 @@ void Gravitar::updateTorr(float fElapsedTime) {
 		else
 			t.Update(fElapsedTime, pg.X, pg.Y);
 
-		if (t.list.size() > 0)
-			Proiettili.insert(Proiettili.begin(), t.list.begin(), t.list.end());
+		if (t.TorreProiettili.size() > 0)
+			Proiettili.insert(Proiettili.begin(), t.TorreProiettili.begin(), t.TorreProiettili.end());
 	}
 }
 

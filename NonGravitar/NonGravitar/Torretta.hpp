@@ -8,7 +8,7 @@
 class Torretta : public objGame
 {
 public:
-	std::vector<Proiettile> list;
+	std::vector<Proiettile> TorreProiettili;
 	int TimeToShoot;
 	bool pro;
 	Torretta();
