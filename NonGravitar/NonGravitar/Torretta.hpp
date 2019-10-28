@@ -1,21 +1,18 @@
 #pragma once
 
-#include "objGame.h"
-#include "Proiettile.h"
+#include "objGame.hpp"
+#include "Proiettile.hpp"
 #include <vector>
 #include <math.h>
 
 class Torretta : public objGame
 {
 public:
-	std::vector<Proiettile> list;
+	std::vector<Proiettile> TorreProiettili;
 	int TimeToShoot;
 	bool pro;
-	float XUp, YUp;
-	float Xl, Xr;
-	float Yl, Yr;
 	Torretta();
-	Torretta(float xu, float yu, float xl, float yl, float xr, float yr);
+	Torretta(float x, float y, float Angle);
 	void Update(float fElapsedTime, float Px, float Py);
 	~Torretta();
 };

@@ -1,4 +1,4 @@
-#include "Proiettile.h"
+#include "Proiettile.hpp"
 #include <math.h>
 
 Proiettile::Proiettile()
@@ -8,19 +8,14 @@ Proiettile::Proiettile()
 Proiettile::~Proiettile()
 {
 }
-Proiettile::Proiettile(bool p, float x, float y, float a) {
+Proiettile::Proiettile(bool p, float x, float y, float a): objGame(x,y,1) {
 	player = p;
-	X = x;
-	Y = y;
-	angle = 100.0f;
-	dx = 50.0f * sinf(a);
-	dy = -50.0f * cosf(a);
-	Size = 1;
+	angle = a;
+	Color = p ? 15 : 4;
 }
 
 
 void Proiettile::Update(float fElapsedTime) {
-	X += dx * fElapsedTime;
-	Y += dy * fElapsedTime;
-	angle -= 1.0f * fElapsedTime;
+	X += 80.0f * sinf(angle) * fElapsedTime;
+	Y += -80.0f * cosf(angle) * fElapsedTime;
 }

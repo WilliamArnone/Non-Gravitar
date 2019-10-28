@@ -1,10 +1,10 @@
 #pragma once
 
 #include <vector>
-#include "objGame.h"
-#include "Torretta.h"
-#include "Carburante.h"
-#include "Area.h"
+#include "objGame.hpp"
+#include "Torretta.hpp"
+#include "Carburante.hpp"
+#include "Area.hpp"
 #include <iostream>
 #include <ctime>
 
@@ -23,8 +23,5 @@ public:
 	Pianeta(int ScreenWidth, int ScreenHeight); //costruttore che inizializza il pianeta 
 	Pianeta();
 	bool isEnded();
-	objGame CreaPuntoTerreno(int ScreenWidthmin, int ScreenWidthmax, int ScreenHeight);
-	Torretta CreaTorretta(int ScreenWidthmin, int ScreenWidthmax, int ScreenHeight);
-	Torretta CreaCarburanti(int ScreenWidthmin, int ScreenWidthmax, int ScreenHeight);
 	~Pianeta();
 };

@@ -53,34 +53,34 @@
     <ClInclude Include="olcConsoleGameEngine.h">
       <Filter>File di intestazione</Filter>
     </ClInclude>
-    <ClInclude Include="Gravitar.h">
+    <ClInclude Include="Area.hpp">
       <Filter>File di intestazione</Filter>
     </ClInclude>
-    <ClInclude Include="objGame.h">
+    <ClInclude Include="Carburante.hpp">
       <Filter>File di intestazione</Filter>
     </ClInclude>
-    <ClInclude Include="Navicella.h">
+    <ClInclude Include="CarburantePro.hpp">
       <Filter>File di intestazione</Filter>
     </ClInclude>
-    <ClInclude Include="Torretta.h">
+    <ClInclude Include="Gravitar.hpp">
       <Filter>File di intestazione</Filter>
     </ClInclude>
-    <ClInclude Include="Pianeta.h">
+    <ClInclude Include="Navicella.hpp">
       <Filter>File di intestazione</Filter>
     </ClInclude>
-    <ClInclude Include="Proiettile.h">
+    <ClInclude Include="objGame.hpp">
       <Filter>File di intestazione</Filter>
     </ClInclude>
-    <ClInclude Include="Carburante.h">
+    <ClInclude Include="Pianeta.hpp">
       <Filter>File di intestazione</Filter>
     </ClInclude>
-    <ClInclude Include="Area.h">
+    <ClInclude Include="Proiettile.hpp">
       <Filter>File di intestazione</Filter>
     </ClInclude>
-    <ClInclude Include="TorrettaPro.h">
+    <ClInclude Include="Torretta.hpp">
       <Filter>File di intestazione</Filter>
     </ClInclude>
-    <ClInclude Include="CarburantePro.h">
+    <ClInclude Include="TorrettaPro.hpp">
       <Filter>File di intestazione</Filter>
     </ClInclude>
   </ItemGroup>
