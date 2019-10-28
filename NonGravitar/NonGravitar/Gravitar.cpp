@@ -229,13 +229,7 @@ void Gravitar::DrawTorr(Torretta torre) {
 		sy[i] = sy[i] + torre.Y;
 	}
 
-	// Draw Closed Polygon
-	for (int i = 0; i < 4; i++)
-	{
-		int j = i + 1;
-		DrawLine(sx[i % 3], sy[i % 3], sx[j % 3], sy[j % 3]);
-	}
-	//FillTriangle(sx[0], sy[0], sx[1], sy[1], sx[2], sy[2], PIXEL_SOLID, torre.Color);
+	FillTriangle(sx[0], sy[0], sx[1], sy[1], sx[2], sy[2], PIXEL_SOLID, torre.Color);
 }
 
 void Gravitar::DrawCarb(Carburante carb) {
