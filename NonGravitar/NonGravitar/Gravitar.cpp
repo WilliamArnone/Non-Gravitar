@@ -18,6 +18,7 @@ void Gravitar::resetGame() {
 	score = 0;
 	pg.fuel = 10000;
 	gameover = false;
+	morto = false;
 }
 
 void Gravitar::resetPG() {
