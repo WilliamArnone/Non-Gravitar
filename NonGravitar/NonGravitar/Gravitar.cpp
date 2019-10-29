@@ -17,18 +17,22 @@ void Gravitar::resetGame() {
 	vite = 2;
 	score = 0;
 	pg.fuel = 10000;
+	gameover = false;
+}
+
+void Gravitar::resetPG() {
+	pg.X = ScreenWidth() / 2;
+	pg.Y = ScreenHeight() / 2;
 	pg.dx = 0;
 	pg.dy = 0;
 	pg.angle = 0;
-	gameover = false;
 }
 
 void Gravitar::newUniverse() {
 	// il nuovo universo viene creato resettando la posizione ed eliminando i pianeti precedenti e resettando la posizione
 	pianetaAttivo = NULL;
 	pianeti.clear();
-	pg.X = ScreenWidth() / 2;
-	pg.Y = ScreenHeight() / 2;
+	resetPG();
 	srand((unsigned)time(NULL));
 	//si creano i pianeti
 	Pianeta p;
@@ -51,11 +55,7 @@ void Gravitar::reborn() {
 	//si diminuiscono le vite, si toglie la condizione di morte, si svuota il puntatore al pianeta corrente e si resettano le coordinate della navicella poi si libera il vector di proiettili
 	vite--;
 	pianetaAttivo = NULL;
-	pg.X = ScreenWidth() / 2;
-	pg.Y = ScreenHeight() / 2;
-	pg.dx = 0;
-	pg.dy = 0;
-	pg.angle = 0;
+	resetPG();
 	morto = false;
 	Proiettili.clear();
 }

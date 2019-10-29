@@ -49,6 +49,7 @@ protected:
 	void resetGame();
 	void newUniverse();
 	void reborn();
+	void resetPG();
 	void enterPlanet(Pianeta *newplanet);
 	void exitPlanet();
 	void EraseBullets(vector<Proiettile> &Proiettili);
