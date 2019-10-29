@@ -24,6 +24,7 @@ Pianeta::Pianeta(const int ScreenWidth, const int ScreenHeight)
 		Aree.push_back(in);
 	}
 	//per l'ultima e la prima area viene cambiato il punto finale/ iniziale  per creare continuità
+	Area in = Area(rnd, ScreenWidth, ScreenHeight, Aree[Size*2 - 2].Terreno[Aree[Size * 2 - 2].Terreno.size() - 1].Y);
 	Aree[0].Terreno[0].Y = Aree[2 * Size - 1].Terreno[Aree[2 * Size - 1].Terreno.size()-1].Y;
 	Aree[0].CreaOggetti(ScreenWidth);
 	Aree[2* Size - 1].CreaOggetti(ScreenWidth);
