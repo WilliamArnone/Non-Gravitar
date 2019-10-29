@@ -1,8 +1,5 @@
 #include "CarburantePro.hpp"
 
-CarburantePro::CarburantePro()
-{
-}
 
 CarburantePro::CarburantePro(float x, float y) :Carburante(x, y)
 {

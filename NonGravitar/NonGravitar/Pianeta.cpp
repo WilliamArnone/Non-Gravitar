@@ -5,36 +5,41 @@ Pianeta::Pianeta(){}
 
 Pianeta::Pianeta(const int ScreenWidth, const int ScreenHeight)
 {
+	//si setta l'area corrente, il colore (scelto a caso), la dimensione (scelto a caso) e  la posizione (scelto a caso)
 	areaCorrente = 0; 
-	Colore = 6 + (rand() % 10); //si sceglie un colore random tra quelli disponibili nella console windows 
+	Colore = 6 + (rand() % 10);
 	Size = 3 + rand() % 5;     
-	X = Size + rand() % (ScreenWidth - 2 * Size); // viene scelto casualmente un punto in cui inserire il pianeta all'interno della galassia (senza sforare i limiti della schermata )
+	X = Size + rand() % (ScreenWidth - 2 * Size); 
 	Y = Size + rand() % (ScreenHeight - 2 * Size);
 	int rnd = 5 + rand() % 15;
-	Area inizio = Area(rnd, ScreenWidth, ScreenHeight,ScreenHeight); //la prima area viene generata, fuori dal ciclo perchè così le successive possono essere calcolate sulla base delle sue impostazioni
+	//la prima area viene generata, fuori dal ciclo perchè così le successive possono essere calcolate sulla base delle sue impostazioni
+	Area inizio = Area(rnd, ScreenWidth, ScreenHeight,ScreenHeight); 
 	Aree.push_back(inizio);
+	//le aree sono il doppio della dimensione del pianeta
 	for (int i = 1; i < Size*2; i++) {
+		//tutte le aree vengono genreate con un numero di punti random
 		rnd = 5 + rand() % 15;
 		Area in = Area(rnd,ScreenWidth,ScreenHeight,Aree[i-1].Terreno[Aree[i-1].Terreno.size()-1].Y); 
-		in.CreaTorrette(ScreenWidth);
+		in.CreaOggetti(ScreenWidth);
 		Aree.push_back(in);
 	}
+	//per l'ultima e la prima area viene cambiato il punto finale/ iniziale  per creare continuità
 	int Y = rand() % ScreenHeight / 4;
 	Y = ScreenHeight - Y - 5;
 	Aree[0].Terreno[0].Y = Y;
-	Aree[0].CreaTorrette(ScreenWidth);
+	Aree[0].CreaOggetti(ScreenWidth);
 	Aree[Size * 2 - 1].Terreno[Aree[Size * 2 - 1].Terreno.size() - 1].Y = Y;
-	Aree[Size * 2 - 1].CreaTorrette(ScreenWidth);
+	Aree[Size * 2 - 1].CreaOggetti(ScreenWidth);
 }
 
 bool Pianeta::isEnded() {
-	bool dead = true;
+	// il pianeta è finito se tutte le torrette sono eliminate 
 	for (auto &t : Aree)
 	{
 		if (t.Torrette.size() > 0)
-			dead = false;
+			return false;
 	}
-	return dead;
+	return true;
 }
 
 Pianeta::~Pianeta()

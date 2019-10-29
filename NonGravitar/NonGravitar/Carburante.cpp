@@ -1,9 +1,5 @@
 #include "Carburante.hpp"
 
-Carburante::Carburante()
-{
-}
-
 Carburante::Carburante(float x, float y) {
 	X = x;
 	Y = y;

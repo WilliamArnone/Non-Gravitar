@@ -4,8 +4,7 @@
 class CarburantePro : public Carburante
 {
 public:
-	CarburantePro();
-	CarburantePro(float x, float y);
+	CarburantePro(float x, float y); //inizializza il CarburantePro
 	~CarburantePro();
 };
 
