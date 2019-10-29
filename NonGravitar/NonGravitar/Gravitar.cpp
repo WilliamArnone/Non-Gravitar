@@ -93,7 +93,7 @@ void Gravitar::EraseBullets(vector<Proiettile> &Proiettili) {
 void Gravitar::resetTor() {
 	//viene resettato il time to shoot delle vecchie torrette 
 	for (auto &t : pianetaAttivo->Aree[pianetaAttivo->areaCorrente].Torrette) {
-		 t.TimeToShoot = (t.pro) ? 300 :  200;
+		t.TimeToShoot = (t.pro) ? 300 : 200;
 	}
 }
 
@@ -156,16 +156,16 @@ void Gravitar::CheckCollisions() {
 			}
 		}
 		//Collisione Proiettile-Torretta
+
 		for (auto &p : Proiettili) {
-			int IndiceT = 0;
-			for (auto &t : pianetaAttivo->Aree[pianetaAttivo->areaCorrente].Torrette) {
-				if (Collision(p, t) && p.player) {
-					score += (t.pro) ? 500 : 100;
-					pianetaAttivo->Aree[pianetaAttivo->areaCorrente].Torrette.erase(pianetaAttivo->Aree[pianetaAttivo->areaCorrente].Torrette.begin() + IndiceT);
-				}
-				IndiceT++;
+			auto i = remove_if(pianetaAttivo->Aree[pianetaAttivo->areaCorrente].Torrette.begin(), pianetaAttivo->Aree[pianetaAttivo->areaCorrente].Torrette.end(), [&](Torretta t) {return (Collision(p, t) && p.player); });
+			if (i != pianetaAttivo->Aree[pianetaAttivo->areaCorrente].Torrette.end())
+			{
+				score += (i->pro) ? 500 : 100;
+				pianetaAttivo->Aree[pianetaAttivo->areaCorrente].Torrette.erase(i);
 			}
 		}
+
 		//Collisione Proiettile-Terreno
 		for (auto &b : Proiettili) {
 			terr.X = b.X;
