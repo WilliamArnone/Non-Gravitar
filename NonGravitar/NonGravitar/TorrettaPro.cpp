@@ -8,7 +8,7 @@ TorrettaPro::TorrettaPro()
 
 TorrettaPro::TorrettaPro(float x, float y, float Angle) : Torretta(x, y, Angle) {
 	
-	TimeToShoot = 300;
+	TimeToShoot = 400;
 	pro = true;
 	Color = 4;
 }
@@ -20,7 +20,7 @@ void TorrettaPro::UpdatePro(float fElapsedTime, float Px, float Py) {
 		TorreProiettili.push_back({ false, X+sinf(angle)*4.0f, Y-cosf(angle)*4.0f, anglep - 0.1f });
 		TorreProiettili.push_back({ false, X+sinf(angle)*4.0f, Y-cosf(angle)*4.0f, anglep });
 		TorreProiettili.push_back({ false, X+sinf(angle)*4.0f, Y-cosf(angle)*4.0f, anglep + 0.1f });
-		TimeToShoot = 300;
+		TimeToShoot = 400;
 	}
 	else
 		TimeToShoot=  TimeToShoot-1*fElapsedTime;

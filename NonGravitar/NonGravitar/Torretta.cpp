@@ -8,7 +8,7 @@ Torretta::Torretta(float x, float y, float Angle) :objGame(x, y, 2)
 {
 	angle = Angle;
 
-	TimeToShoot = 200;
+	TimeToShoot = 300;
 	pro = false;
 	Color = 3;
 }
@@ -24,7 +24,7 @@ void Torretta::Update(float fElapsedTime, float Px, float Py) {
 	if (TimeToShoot <= 0) {
 		TorreProiettili.push_back({ false, X + sinf(angle)*4.0f, Y - cosf(angle)*4.0f, anglep - 0.08f });
 		TorreProiettili.push_back({ false, X + sinf(angle)*4.0f, Y - cosf(angle)*4.0f, anglep + 0.08f });
-		TimeToShoot = 200;
+		TimeToShoot = 300;
 	}
 	else
 		TimeToShoot = TimeToShoot - 1 * fElapsedTime;
