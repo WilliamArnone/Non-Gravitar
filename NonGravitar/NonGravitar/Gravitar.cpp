@@ -618,6 +618,7 @@ bool Gravitar::OnUserUpdate(float fElapsedTime) {
 		DrawString(2, 2, L"Life: " + to_wstring(vite + 1));
 		DrawString(2, 4, L"Fuel: " + to_wstring(pg.fuel));
 		DrawString(2, 6, L"Score: " + to_wstring(score));
+
 	}
 
 	return true;
