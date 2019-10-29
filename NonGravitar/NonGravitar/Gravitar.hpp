@@ -53,6 +53,7 @@ protected:
 	void enterPlanet(Pianeta *newplanet);
 	void exitPlanet();
 	void EraseBullets(vector<Proiettile> &Proiettili);
+	void resetTor();
 
 	bool Collision(objGame obj1, objGame obj2);
 	void WrapCoordinate();

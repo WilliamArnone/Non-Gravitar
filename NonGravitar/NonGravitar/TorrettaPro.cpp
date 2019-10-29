@@ -8,7 +8,7 @@ TorrettaPro::TorrettaPro()
 
 TorrettaPro::TorrettaPro(float x, float y, float Angle) : Torretta(x, y, Angle) {
 	
-	TimeToShoot = 300;
+	TimeToShoot = 200;
 	pro = true;
 	Color = 4;
 }

@@ -24,12 +24,8 @@ Pianeta::Pianeta(const int ScreenWidth, const int ScreenHeight)
 		Aree.push_back(in);
 	}
 	//per l'ultima e la prima area viene cambiato il punto finale/ iniziale  per creare continuità
-	int Y = rand() % ScreenHeight / 4;
-	Y = ScreenHeight - Y - 5;
-	Aree[0].Terreno[0].Y = Y;
+	Aree[0].Terreno[0].Y = Aree[2 * Size - 1].Terreno[Aree[2 * Size - 1].Terreno.size()-1].Y;
 	Aree[0].CreaOggetti(ScreenWidth);
-	Aree[Size * 2 - 1].Terreno[Aree[Size * 2 - 1].Terreno.size() - 1].Y = Y;
-	Aree[Size * 2 - 1].CreaOggetti(ScreenWidth);
 }
 
 bool Pianeta::isEnded() {

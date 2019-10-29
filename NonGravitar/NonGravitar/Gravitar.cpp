@@ -72,10 +72,8 @@ void Gravitar::enterPlanet(Pianeta *newplanet) {
 }
 
 void Gravitar::exitPlanet() {
-	//si setta la posizione della navicella fuori dal pianeta, si ripristina il timetoshoot delle torrette e viene settato a null il paneta attivo
-	for (auto &t : pianetaAttivo->Aree[pianetaAttivo->areaCorrente].Torrette) {
-		t.TimeToShoot = 200;
-	}
+	
+	resetTor();
 	pg.X = pianetaAttivo->X;
 	pg.Y = pianetaAttivo->Y - pianetaAttivo->Size - 2.6;
 
@@ -89,6 +87,13 @@ void Gravitar::EraseBullets(vector<Proiettile> &Proiettili) {
 		auto i = remove_if(Proiettili.begin(), Proiettili.end(), [&](Proiettile o) {return (o.X < 1 || o.Y < 1 || o.X >= ScreenWidth() - 1 || o.Y >= ScreenHeight() - 1); });
 		if (i != Proiettili.end())
 			Proiettili.erase(i);
+	}
+}
+
+void Gravitar::resetTor() {
+	//viene resettato il time to shoot delle vecchie torrette 
+	for (auto t : pianetaAttivo->Aree[pianetaAttivo->areaCorrente].Torrette) {
+		t.TimeToShoot = 200;
 	}
 }
 
@@ -176,10 +181,9 @@ void Gravitar::changeArea() {
 	bool next = pg.X > ScreenWidth();
 	//si cambia l'area nel caso il giocatore sia andato oltre la schermata di gioco nelle ascisse (in positivo e negativo)
 	if ((pg.X < 0) || next) {
-		//viene resettato il time to shoot delle vecchie torrette 
-		for (auto t : pianetaAttivo->Aree[pianetaAttivo->areaCorrente].Torrette) {
-			t.TimeToShoot = 200;
-		}
+
+		resetTor();
+
 		//il giocatore viene fatto tornare nella schermata di gioco ma dal lato opposto
 		pg.X = next ? pg.X = 5 : pg.X = ScreenWidth() - 5;
 		//si aggiona l'area corrente, in positivo se superato il limite massimo, in negativo se superato il limite minimo
@@ -618,6 +622,7 @@ bool Gravitar::OnUserUpdate(float fElapsedTime) {
 			}
 
 			if (morto) {
+				resetTor();
 				Proiettili.clear();
 				if (vite == 0)
 					gameover = true;
