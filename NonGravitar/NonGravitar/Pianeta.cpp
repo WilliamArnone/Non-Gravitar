@@ -16,7 +16,7 @@ Pianeta::Pianeta(const int ScreenWidth, const int ScreenHeight)
 	Area inizio = Area(rnd, ScreenWidth, ScreenHeight,ScreenHeight); 
 	Aree.push_back(inizio);
 	//le aree sono il doppio della dimensione del pianeta
-	for (int i = 1; i < Size*2; i++) {
+	for (int i = 1; i < (Size*2 -1); i++) {
 		//tutte le aree vengono genreate con un numero di punti random
 		rnd = 5 + rand() % 15;
 		Area in = Area(rnd,ScreenWidth,ScreenHeight,Aree[i-1].Terreno[Aree[i-1].Terreno.size()-1].Y); 
@@ -26,6 +26,7 @@ Pianeta::Pianeta(const int ScreenWidth, const int ScreenHeight)
 	//per l'ultima e la prima area viene cambiato il punto finale/ iniziale  per creare continuità
 	Aree[0].Terreno[0].Y = Aree[2 * Size - 1].Terreno[Aree[2 * Size - 1].Terreno.size()-1].Y;
 	Aree[0].CreaOggetti(ScreenWidth);
+	Aree[2* Size - 1].CreaOggetti(ScreenWidth);
 }
 
 bool Pianeta::isEnded() {
