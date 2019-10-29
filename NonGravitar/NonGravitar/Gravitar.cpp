@@ -1,4 +1,4 @@
-	#include "Gravitar.hpp"
+#include "Gravitar.hpp"
 
 Gravitar::Gravitar()
 {
@@ -39,15 +39,15 @@ void Gravitar::newUniverse() {
 	Pianeta p;
 	do {
 		// il primo pianeta viene generato fuori così che si possa fare il controllo che gli altri non vengano creati attaccati a lui
-		p = Pianeta(ScreenWidth(), ScreenHeight()); 
+		p = Pianeta(ScreenWidth(), ScreenHeight());
 	} //si controlla che il pianeta non collida con il giocatore all'inizio. Si cicla fino a che questa condizione non è rispettata 
-	while (Collision(pg, p));  
-	pianeti.push_back(p); 
+	while (Collision(pg, p));
+	pianeti.push_back(p);
 	for (int i = 0; i < 4; i++) {
 		do {
 			p = Pianeta(ScreenWidth(), ScreenHeight());
 		} //si controlla che il pianeta non collida con il giocatore all'inizio e neanche con gli altri pianeti. Si cicla fino a che questa condizione non è rispettata 
-		while (checkDistance(p) || Collision(pg, p)); 
+		while (checkDistance(p) || Collision(pg, p));
 		pianeti.push_back(p);
 	}
 }
@@ -72,7 +72,7 @@ void Gravitar::enterPlanet(Pianeta *newplanet) {
 }
 
 void Gravitar::exitPlanet() {
-	
+
 	resetTor();
 	pg.X = pianetaAttivo->X;
 	pg.Y = pianetaAttivo->Y - pianetaAttivo->Size - 2.6;
@@ -92,8 +92,8 @@ void Gravitar::EraseBullets(vector<Proiettile> &Proiettili) {
 
 void Gravitar::resetTor() {
 	//viene resettato il time to shoot delle vecchie torrette 
-	for (auto t : pianetaAttivo->Aree[pianetaAttivo->areaCorrente].Torrette) {
-		t.TimeToShoot = 200;
+	for (auto &t : pianetaAttivo->Aree[pianetaAttivo->areaCorrente].Torrette) {
+		 t.TimeToShoot = (t.pro) ? 300 :  200;
 	}
 }
 
@@ -104,10 +104,10 @@ void Gravitar::resetTor() {
 bool Gravitar::Collision(objGame obj1, objGame obj2) {
 	float x1 = obj1.X, y1 = obj1.Y, x2 = obj2.X, y2 = obj2.Y;
 	/*viene usata la formula di intersezione di due circonferenze per determinare la collisione di due oggetti
-	per la torretta viene passato il centro con un raggio di 2 pixel 
+	per la torretta viene passato il centro con un raggio di 2 pixel
 	per la navicella viene passato il centro con un raggio di 2,5 pixel
 	per i proiettili viene passato il centro con un raggio di 0 pixel
-	per il terreno viene passata la proiezione del centro dell'altro oggetto sul terreno con raggio un pixel 
+	per il terreno viene passata la proiezione del centro dell'altro oggetto sul terreno con raggio un pixel
 	per il pianeta viene passato il centro con un raggio variabile tra 3 e 5 pixel a seconda delle dimensioni del pianeta*/
 	return sqrtf((x2 - x1)*(x2 - x1) + (y2 - y1)*(y2 - y1)) < (obj1.Size + obj2.Size);
 }
@@ -123,7 +123,7 @@ void Gravitar::WrapCoordinate() {
 bool Gravitar::checkDistance(Pianeta p) {
 	//si controlla per ogni pianeta che non collida con gli altri. In caso succeda si ritorna true
 	for (auto &planet : pianeti) {
-		if (abs(p.X - planet.X) < (p.Size + planet.Size) || abs(p.Y - planet.Y) < (p.Size + planet.Size)) { 
+		if (abs(p.X - planet.X) < (p.Size + planet.Size) || abs(p.Y - planet.Y) < (p.Size + planet.Size)) {
 			return  true;
 		}
 	}
@@ -157,11 +157,11 @@ void Gravitar::CheckCollisions() {
 		}
 		//Collisione Proiettile-Torretta
 		for (auto &p : Proiettili) {
-		int IndiceT=0;
+			int IndiceT = 0;
 			for (auto &t : pianetaAttivo->Aree[pianetaAttivo->areaCorrente].Torrette) {
-				if (Collision(p,t)) {
-					score += (t.pro)? 500 : 100;
-					pianetaAttivo->Aree[pianetaAttivo->areaCorrente].Torrette.erase(pianetaAttivo->Aree[pianetaAttivo->areaCorrente].Torrette.begin()+IndiceT);
+				if (Collision(p, t) && p.player) {
+					score += (t.pro) ? 500 : 100;
+					pianetaAttivo->Aree[pianetaAttivo->areaCorrente].Torrette.erase(pianetaAttivo->Aree[pianetaAttivo->areaCorrente].Torrette.begin() + IndiceT);
 				}
 				IndiceT++;
 			}
@@ -333,7 +333,7 @@ void Gravitar::DrawCarb(Carburante carb) {
 }
 
 void Gravitar::DrawBullet(Proiettile bullet) {
-	Draw(bullet.X, bullet.Y,PIXEL_SOLID,bullet.Color);
+	Draw(bullet.X, bullet.Y, PIXEL_SOLID, bullet.Color);
 }
 
 void Gravitar::DrawRay() {
@@ -474,13 +474,13 @@ void Gravitar::DrawTitle(float fElapsedTime) {
 	if (blink < 0.5f) {
 		DrawString(ScreenWidth() / 2 - 8, ScreenHeight() / 2 + 10, L"Press TAB to start ");
 	}
-	if (blink<=0){
+	if (blink <= 0) {
 		blink = 1.0f;
 	}
 
 	DrawString(15, 75, L"Move with Arrows");
 	DrawString(ScreenWidth() / 2 - 9, ScreenHeight() / 2 + 35, L"Press Space to shoot");
-	DrawString(132,72, L"Press Enter to use the ray");
+	DrawString(132, 72, L"Press Enter to use the ray");
 }
 
 void Gravitar::DrawGameOver(float fElapsedTime) {
@@ -559,7 +559,7 @@ bool Gravitar::OnUserCreate() {
 bool Gravitar::OnUserUpdate(float fElapsedTime) {
 	//Ciclo infinito del gioco
 	//si pulise la schermata
-	Fill(0, 0, ScreenWidth(), ScreenHeight(), PIXEL_SOLID, 0);	
+	Fill(0, 0, ScreenWidth(), ScreenHeight(), PIXEL_SOLID, 0);
 	//Reset Game
 	if (m_keys[VK_TAB].bHeld) {
 		resetGame();
