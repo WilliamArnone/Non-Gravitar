@@ -11,16 +11,16 @@
 class Pianeta : public objGame
 {
 public:
-	std::vector<objGame> Terreno;
-	std::vector<Torretta> Torrette;
-	std::vector<Carburante> Carburanti;
-	std::vector<Area> Aree; //Vector che contiene tutte le aree del pianeta, ogni pianeta ha un numero di aree dipendente la sua grandezza  
+	//Vector che contiene tutte le aree del pianeta, ogni pianeta ha un numero di aree dipendente la sua grandezza
+	std::vector<Area> Aree;   
 
-	int areaCorrente; //valore che ci permette di navigare tra le aree 
-	short Colore; // colore del pianeta 
+	//valore che ci permette di navigare tra le aree 
+	int areaCorrente; 
+	// colore del pianeta 
+	short Colore; 
 
 
-	Pianeta(int ScreenWidth, int ScreenHeight); //costruttore che inizializza il pianeta 
+	Pianeta(int ScreenWidth, int ScreenHeight); 
 	Pianeta();
 	bool isEnded();
 	~Pianeta();

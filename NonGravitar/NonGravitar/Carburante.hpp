@@ -6,11 +6,10 @@
 class Carburante : public objGame
 {
 public:
-	float liter;
-	bool pro;
+	float liter; //quantità di carburante che restituisce alla navicella 
+	bool pro; //controlla se è o meno pro
 
-	Carburante();
-	Carburante(float x, float y);
+	Carburante(float x, float y); //inizializza il carburante 
 	~Carburante();
 };
 

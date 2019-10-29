@@ -8,8 +8,11 @@
 class Torretta : public objGame
 {
 public:
+	//vettore di proiettili sparati dalla torretta 
 	std::vector<Proiettile> TorreProiettili;
+	//valore che scandisce lo sparo della torretta 
 	int TimeToShoot;
+	//identifica il tipo di torretta
 	bool pro;
 	Torretta();
 	Torretta(float x, float y, float Angle);

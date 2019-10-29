@@ -18,9 +18,9 @@ void Torretta::Update(float fElapsedTime, float Px, float Py) {
 	float anglep = atan2f(Px - X, Y - Py);
 	TorreProiettili.clear();
 
-	//Viene fatto un conto alla rovescia, se il valore è pari o minore di 0 vengono inseriti all'interno del 
-	//vettore proiettili, i proiettili appena sparati dalla torretta, e resetta il timer al suo valore originale
-	//altrimenta decrementa il timer ed esce dalla funzione
+	/*Viene fatto un conto alla rovescia, se il valore è pari o minore di 0 vengono inseriti all'interno del 
+	vettore proiettili, i proiettili appena sparati dalla torretta, e resetta il timer al suo valore originale
+	altrimenta decrementa il timer ed esce dalla funzione*/
 	if (TimeToShoot <= 0) {
 		TorreProiettili.push_back({ false, X + sinf(angle)*4.0f, Y - cosf(angle)*4.0f, anglep - 0.08f });
 		TorreProiettili.push_back({ false, X + sinf(angle)*4.0f, Y - cosf(angle)*4.0f, anglep + 0.08f });
